@@ -1,0 +1,311 @@
+/**
+ * Media Queries CSS
+ * Shell Theme
+ */
+@media screen and (max-width: 760px) {
+
+	/* content
+	*******************************************/
+	.layout-default #content,
+	.layout-2c-l #content,
+	.layout-2c-r #content,
+	.layout-3c-l #content,
+	.layout-3c-r #content,
+	.layout-3c-c #content{
+		width:100%;
+		margin:0;
+		margin-bottom:25px;
+		clear:both;
+	}
+
+	/* sidebar primary
+	*******************************************/
+	.layout-default #sidebar-primary,
+	.layout-2c-l #sidebar-primary,
+	.layout-2c-r #sidebar-primary,
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:48.75%;
+		float:left;
+		clear:left;
+		margin:0;
+	}
+
+	/* sidebar secondary
+	*******************************************/
+	.layout-default #sidebar-secondary,
+	.layout-2c-l #sidebar-secondary,
+	.layout-2c-r #sidebar-secondary,
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:48.75%;
+		float:right;
+		clear:right;
+		margin:0;
+	}
+
+	/* sidebar subsidiary
+	*******************************************/
+	#sidebar-subsidiary .widget{
+		width:47.5%;
+	}
+	#sidebar-subsidiary div.widget:nth-child(odd) {
+		clear:left;
+	}
+	#sidebar-subsidiary div.widget:nth-child(even) {
+		clear:right;
+	}
+
+}
+
+@media screen and (max-width: 600px) {
+
+	/* header
+	*******************************************/
+	#branding{
+		width:100%;
+	}
+	#sidebar-header{
+		width:100%;
+		height:auto;
+	}
+	/* menu subsidiary
+	*******************************************/
+	#menu-subsidiary div.menu li{
+		float:none
+	}
+	#menu-subsidiary ul {
+		text-align: center;
+	}
+	#menu-subsidiary li {
+		display: inline-block;
+		*display: inline; /* hack for IE */
+		*zoom: 1; /* hack for IE */
+	}
+	#menu-subsidiary li a{
+		border: 1px solid #DFDFDF;
+		margin:10px 0;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	
+	/* Mobile Nav Button
+	*******************************************/
+	.mobile-button {
+		position: relative;
+		width: 32px;
+		height: 38px;
+		margin-bottom: 3px;
+		margin-right: 3px;
+		display: block;
+		float: left;
+		cursor: pointer;
+	}
+	#menu-icon {
+		background: url(images/menu-icon.png) no-repeat center center;
+	}
+
+	/* Secondary Menu
+	*******************************************/
+	#menu-secondary{
+		display: block;
+		padding:2.5%;
+		height:55px;
+		border:1px solid #DFDFDF;
+		border-top:none;
+	}
+	#menu-secondary div.wrap{
+		clear: both;
+		position: absolute;
+		top: 120px;
+		right: auto;
+		left: 17.5%;
+		bottom: auto;
+		width: 200px;
+		z-index: 1000;
+		padding: 10px 5px;
+		background: #fff;
+		border: solid 1px #999;
+		display: none; /* visibility will be toggled with jquery */
+	}
+	#menu-secondary div.wrap li {
+		clear: both;
+		float: none;
+		margin: 5px 0 5px 10px;
+		padding: 0;
+		border: none;
+		width: auto !important;
+	}
+	#menu-secondary div.wrap a, 
+	#menu-secondary div.wrap ul a {
+		font: inherit;
+		text-transform: inherit;
+		background: none !important;
+		width: auto !important;
+		display: inline !important;
+		visibility: visible !important;
+		padding: 0;
+		color: #666 !important;
+		border: none !important;
+	}
+	#menu-secondary div.wrap .submenu{
+		visibility: visible !important;
+	}
+	#menu-secondary div.wrap ul {
+		position: static;
+		display: block !important;
+		visibility: visible !important;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+	#menu-secondary div.menu li,
+	#menu-secondary div.menu ul li,
+	#menu-secondary div.menu ul ul li{
+		width:auto !important;
+		background: none !important;
+	}
+	#menu-secondary .wrap a {
+		margin: 0 10px 5px 0;
+		padding: 4px 7px;
+	}
+	.menu-container div.search{
+		width:75%;
+	}
+
+	/* Primary Menu
+	*******************************************/
+	#menu-primary{
+		display: block;
+		padding:2.5%;
+		height:55px;
+		border:1px solid #DFDFDF;
+		border-bottom:none;
+	}
+	#menu-primary div.wrap{
+		clear: both;
+		position: absolute;
+		top: 20px;
+		right: auto;
+		left: 17.5%;
+		bottom: auto;
+		width: 200px;
+		z-index: 1000;
+		padding: 10px 5px;
+		background: #fff;
+		border: solid 1px #999;
+		display: none; /* visibility will be toggled with jquery */
+	}
+	#menu-primary div.wrap .menu{
+		border:none;
+	}
+	#menu-primary div.wrap li {
+		clear: both;
+		float: none;
+		margin: 5px 0 5px 10px;
+		padding: 0;
+		border: none;
+		width: auto !important;
+	}
+	#menu-primary div.wrap a, 
+	#menu-primary div.wrap ul a {
+		font: inherit;
+		text-transform: inherit;
+		background: none !important;
+		width: auto !important;
+		display: inline !important;
+		visibility: visible !important;
+		padding: 0;
+		color: #666 !important;
+		border: none !important;
+	}
+	#menu-primary div.wrap .submenu{
+		visibility: visible !important;
+	}
+	#menu-primary div.wrap ul {
+		position: static;
+		display: block !important;
+		visibility: visible !important;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+	#menu-primary div.menu li,
+	#menu-primary div.menu ul li,
+	#menu-primary div.menu ul ul li{
+		width:auto !important;
+		background: none !important;
+	}
+	#menu-primary .wrap a {
+		margin: 0 10px 5px 0;
+		padding: 4px 7px;
+	}
+	.layout-default #sidebar-primary,
+	.layout-2c-l #sidebar-primary,
+	.layout-2c-r #sidebar-primary,
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:100%;
+		float:left;
+		clear:both;
+		margin:0;
+	}
+	.layout-default #sidebar-secondary,
+	.layout-2c-l #sidebar-secondary,
+	.layout-2c-r #sidebar-secondary,
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:100%;
+		float:right;
+		clear:both;
+		margin:0;
+	}
+
+	/* Subsidiary sidebar
+	*******************************************/
+	#sidebar-subsidiary .widget{
+		width:100%;
+		clear:both;
+	}
+
+	/* Footer
+	*******************************************/
+	#footer .copyright{
+		float:none;
+		width:100%;
+		text-align: center;
+	}
+	#footer .credit{
+		float:none;
+		width:100%;
+		text-align: center;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
