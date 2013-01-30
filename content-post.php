@@ -1,8 +1,8 @@
 <?php
 /**
- * Content Template
+ * Content Post Template
  *
- * Template used to show post content when a more specific template cannot be found.
+ * Template used to show post content on blog pages, archive pages, and search pages.
  *
  * @package Shell
  * @subpackage Template

@@ -29,7 +29,7 @@ get_header(); // Loads the header.php template. ?>
 
 						<?php do_atomic( 'open_entry' ); // shell_open_entry ?>
 
-						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); ?>
+						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
 
 						<div class="entry-content">
 							<?php if ( wp_attachment_is_image( get_the_ID() ) ) : ?>
@@ -59,8 +59,6 @@ get_header(); // Loads the header.php template. ?>
 					</div><!-- .hentry -->
 
 					<?php do_atomic( 'after_entry' ); // shell_after_entry ?>
-
-					<?php get_sidebar( 'after-singular' ); // Loads the sidebar-after-singular.php template. ?>
 
 					<?php do_atomic( 'after_singular' ); // shell_after_singular ?>
 

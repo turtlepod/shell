@@ -1,0 +1,161 @@
+====================
+:::::: Hooks :::::::
+====================
+--------------------
+header.php
+--------------------
+shell_open_body
+shell_before_header
+	primary menu: shell_get_menu_primary
+shell_open_header
+shell_before_branding
+shell_open_branding
+shell_site_title
+shell_site_description
+shell_close_branding
+shell_after_branding
+shell_header
+	sidebar header: shell_get_sidebar_header
+shell_close_header
+shell_after_header
+	secondary menu: shell_get_menu_secondary
+shell_before_main
+shell_open_main
+	breadcrumb trail: shell_breadcrumb
+--------------------
+index.php
+--------------------
+shell_before_content
+shell_open_content
+shell_open_hfeed
+	loop meta: shell_get_loop_meta
+shell_close_hfeed
+shell_close_content
+shell_after_content
+--------------------
+content.php, content-post.php, content-page.php
+--------------------
+shell_before_entry
+shell_open_entry
+	get the image thumbnail: shell_thumbnail
+shell_entry_title [f]
+shell_byline [f]
+shell_entry_meta [f]
+	not in content-page.php
+shell_close_entry
+shell_after_entry
+--------------------
+singular.php, post.php, page.php, attchment.php
+--------------------
+shell_before_content
+shell_open_content
+::: this also in content.php, content-post.php, content-page.php
+	shell_before_entry
+	shell_open_entry
+	shell_entry_title [f]
+	shell_byline [f]
+	shell_entry_meta [f]
+	shell_close_entry
+	shell_after_entry
+:::
+shell_after_singular
+	sidebar after singular: shell_get_sidebar_after_singular
+shell_close_content
+shell_after_content
+--------------------
+footer.php
+--------------------
+shell_sidebar
+	sidebar primary + secondary: shell_get_sidebar
+shell_close_main
+shell_after_main
+	sidebar subsidiary: shell_get_sidebar_subsidiary
+shell_before_footer
+	menu subsidiary: shell_get_menu_subsidiary
+shell_open_footer
+shell_footer_content [f]
+shell_footer
+shell_close_footer
+shell_after_footer
+shell_close_body
+--------------------
+loop-meta.php
+--------------------
+shell_before_loop_meta
+shell_open_loop_meta
+shell_loop_meta_title [f]
+shell_loop_meta_description [f]
+shell_close_loop_meta
+shell_after_loop_meta
+--------------------
+--------------------
+comments.php
+--------------------
+shell_before_comment_list
+shell_after_comment_list
+--------------------
+comment.php
+--------------------
+shell_before_comment
+shell_open_comment
+shell_comment_meta [f]
+shell_comment_moderation [f]
+shell_close_comment
+shell_after_comment
+--------------------
+--------------------
+menu-primary.php
+--------------------
+shell_before_menu_primary
+shell_open_menu_primary
+	mobile menu: shell_mobile_menu
+shell_menu_primary [f]
+shell_close_menu_primary
+shell_after_menu_primary
+--------------------
+menu-secondary.php
+--------------------
+shell_before_menu_secondary
+shell_open_menu_secondary
+	mobile menu: shell_mobile_menu
+shell_menu_secondary [f]
+shell_close_menu_secondary
+shell_after_menu_secondary
+--------------------
+menu-subsidiary.php
+--------------------
+shell_before_menu_subsidiary
+shell_open_menu_subsidiary
+shell_menu_subsidiary [f]
+shell_close_menu_subsidiary
+shell_after_menu_subsidiary
+--------------------
+--------------------
+sidebar-header.php
+--------------------
+:::none
+--------------------
+sidebar-primary.php
+--------------------
+shell_before_sidebar_primary
+shell_open_sidebar_primary
+shell_close_sidebar_primary
+shell_after_sidebar_primary
+--------------------
+sidebar-secondary.php
+--------------------
+shell_before_sidebar_secondary
+shell_open_sidebar_secondary
+shell_close_sidebar_secondary
+shell_after_sidebar_secondary
+--------------------
+sidebar-subsidiary.php
+--------------------
+shell_before_sidebar_subsidiary
+shell_open_sidebar_subsidiary
+shell_close_sidebar_subsidiary
+shell_after_sidebar_subsidiary
+--------------------
+sidebar-after-singular.php
+--------------------
+:::none

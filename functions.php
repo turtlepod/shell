@@ -98,11 +98,35 @@ function shell_theme_setup() {
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
 
+	/* Add Viewport Meta */
+	add_action( 'wp_head', 'shell_viewport_meta', 9 );
+
 	/* Additional css classes for widgets */
 	add_filter( 'dynamic_sidebar_params', 'shell_widget_classes' );
 
-	/* Load Loop Meta */
-	add_action( "{$prefix}_loop_meta", 'shell_loop_meta' );
+	/* Load Sidebar Template Files */
+	add_action( "{$prefix}_header", 'shell_get_sidebar_header' ); // sidebar-header.php
+	add_action( "{$prefix}_sidebar", 'shell_get_sidebar' ); // sidebar-primary.php and sidebar-secondary.php
+	add_action( "{$prefix}_after_main", 'shell_get_sidebar_subsidiary' ); // sidebar-subsidiary.php
+	add_action( "{$prefix}_after_singular", 'shell_get_sidebar_after_singular' ); // sidebar-after-singular.php
+
+	/* Load Menu Template Files */
+	add_action( "{$prefix}_before_header", 'shell_get_menu_primary' ); // menu-primary.php
+	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu-secondary.php
+	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu-subsidiary.php
+
+	/* Mobile Menu HTML */
+	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu' );
+	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu' );
+
+	/* Load Other Template Files */
+	add_action( "{$prefix}_open_hfeed", 'shell_get_loop_meta' ); // loop-meta.php
+
+	/* Breadcrumb Trail */
+	add_action( "{$prefix}_open_main", 'shell_breadcrumb' );
+
+	/* Thumbnail */
+	add_action( "{$prefix}_open_entry", 'shell_thumbnail' );
 
 	/* post format singular template */
 	add_filter( 'single_template', 'shell_post_format_singular_template', 11 );
@@ -131,10 +155,16 @@ function shell_theme_setup() {
  */
 function shell_skins(){
 
-	/* default is empty */
-	$skins = array( 'default' => array( 'name' => 'Default', 'image' => get_template_directory_uri() . '/screenshot.png' ) );
+	/* default skin */
+	$skins = array( 'default' => array(
+		'name' => 'Default',
+		'image' => get_template_directory_uri() . '/screenshot.png',
+		'author' => 'David Chandra Purnama',
+		'author_uri' => 'http://shellcreeper.com/',
+		'description' => __( 'This is default skin for Shell Theme.', 'shell' ),
+	));
 
-	/* filter it */
+	/* enable developer to add skins */
 	return apply_filters( 'shell_skin', $skins );
 }
 
@@ -209,6 +239,15 @@ if( !function_exists( 'shell_custom_background' ) ){
 }
 
 /**
+ * Mobile Menu HTML
+ * 
+ * @since 0.1.0
+ */
+function shell_mobile_menu(){?>
+<div id="menu-icon" class="mobile-button"></div><?php
+}
+
+/**
  * Add Custom styles
  *
  * Skin plugin need to register style with the name "skin"
@@ -248,6 +287,7 @@ function shell_styles( $styles ) {
 	return $styles;
 }
 
+
 /**
  * Add Script
  * 
@@ -257,13 +297,14 @@ function shell_script(){
 
 	if ( !is_admin() ) {
 
-		/*  mobile menu */
+		/*  Mobile Menu Script */
 		wp_enqueue_script( 'shell-menu', get_template_directory_uri() . '/js/shell-menu.js', array('jquery'), false, true );
 
 		/* Enqueue FitVids */
 		wp_enqueue_script( 'shell-fitvids', trailingslashit( get_template_directory_uri() ) . 'js/fitvids.js', array( 'jquery' ), '20120625', true );
 	}
 }
+
 
 /**
  * Function for help to unsupported browsers understand mediaqueries and html5.
@@ -279,6 +320,18 @@ function shell_respond_html5shiv() {
 	<![endif]--><?php
 }
 
+
+/**
+ * Viewport Meta
+ * 
+ * @since 0.1.0
+ */
+function shell_viewport_meta(){
+?><!-- Mobile viewport optimized -->
+<meta name="viewport" content="width=device-width,initial-scale=1" /><?php
+}
+
+
 /**
  * Function for deciding which pages should have a one-column layout.
  *
@@ -293,6 +346,7 @@ function shell_one_column() {
 		add_filter( 'get_theme_layout', 'shell_theme_layout_one_column' );
 }
 
+
 /**
  * Filters 'get_theme_layout' by returning 'layout-1c'.
  *
@@ -301,6 +355,7 @@ function shell_one_column() {
 function shell_theme_layout_one_column( $layout ) {
 	return 'layout-1c';
 }
+
 
 /**
  * Disables sidebars if viewing a one-column page.
@@ -320,6 +375,7 @@ function shell_disable_sidebars( $sidebars_widgets ) {
 
 	return $sidebars_widgets;
 }
+
 
 /**
  * Overwrites the default widths for embeds.  This is especially useful for making sure videos properly
@@ -355,6 +411,7 @@ function shell_embed_defaults( $args ) {
  * Adding .widget-first and .widget-last classes to widgets.
  * Class .widget-last used to reset margin-right to zero in subsidiary sidebar for the last widget.
  *
+ * @link http://themehybrid.com/themes/sukelius-magazine
  * @since 0.1.0
  */
 function shell_widget_classes( $params ) {
@@ -389,7 +446,6 @@ function shell_widget_classes( $params ) {
 
 	return $params;
 }
-
 
 
 /**
@@ -428,12 +484,112 @@ function shell_post_format_singular_template( $template ){
 	return $template;
 }
 
+
+/**
+ * Load Sidebar Header
+ * 
+ * @since 0.1.0
+ */
+function shell_get_sidebar_header(){
+	get_sidebar( 'header' ); // sidebar-header.php
+}
+
+
+/**
+ * Load Sidebar Primary and Secondary
+ * 
+ * @since 0.1.0
+ */
+function shell_get_sidebar(){
+	get_sidebar( 'primary' ); // sidebar-primary.php
+	get_sidebar( 'secondary' ); // sidebar-secondary.php
+}
+
+
+/**
+ * Load Sidebar Subsidiary
+ * 
+ * @since 0.1.0
+ */
+function shell_get_sidebar_subsidiary(){
+	get_sidebar( 'subsidiary' ); // sidebar-subsidiary.php
+}
+
+
+/**
+ * Load Sidebar After Singular
+ * 
+ * @since 0.1.0
+ */
+function shell_get_sidebar_after_singular(){
+	get_sidebar( 'after-singular' ); // sidebar-after-singular.php
+}
+
+
+/**
+ * Load Menu Primary
+ * 
+ * @since 0.1.0
+ */
+function shell_get_menu_primary(){
+	get_template_part( 'menu', 'primary' ); // menu-primary.php
+}
+
+
+/**
+ * Load Menu Secondary
+ * 
+ * @since 0.1.0
+ */
+function shell_get_menu_secondary(){
+	get_template_part( 'menu', 'secondary' ); // menu-secondary.php
+}
+
+
+/**
+ * Load Menu Subsidiary
+ * 
+ * @since 0.1.0
+ */
+function shell_get_menu_subsidiary(){
+	get_template_part( 'menu', 'subsidiary' ); // menu-subsidiary.php
+}
+
+
+/**
+ * Breadcrumb Trail
+ * 
+ * @since 0.1.0
+ */
+function shell_breadcrumb(){
+	if ( current_theme_supports( 'breadcrumb-trail' ) ) 
+		breadcrumb_trail( array( 'before' => __( 'You are here:', 'shell' ) ) );
+}
+
+
+/**
+ * Thumbnail
+ * 
+ * @since 0.1.0
+ */
+function shell_thumbnail(){
+
+	/* add it in archive/blog/search */
+	if ( ( is_home() && !is_singular() ) || is_archive() || is_search() ){
+
+		/* check get the image support */
+		if ( current_theme_supports( 'get-the-image' ) )
+			get_the_image( array( 'meta_key' => 'thumbnail', 'size' => 'thumbnail' ) );
+	}
+}
+
+
 /**
  * Load Loop Meta
  * 
  * @since 0.1.0
  */
-function shell_loop_meta(){
+function shell_get_loop_meta(){
 
 	/* load on blog page, archive, and search result pages */
 	if ( ( is_home() && !is_front_page() ) || is_archive() || is_search() )
@@ -469,7 +625,10 @@ function shell_loop_meta_title( $attr ){
 	global $wp_query;
 
 	/* Set shortcode attr */
-	$attr = shortcode_atts( array( 'before' => '', 'after' => '' ), $attr );
+	$attr = shortcode_atts( array(
+		'before' => '<h1 class="loop-title">',
+		'after' => '</h1>' )
+	, $attr );
 
 	/* Set up some default variables. */
 	$doctitle = '';
@@ -479,12 +638,7 @@ function shell_loop_meta_title( $attr ){
 	$current = '';
 
 	if ( is_home() || is_singular() ) {
-
 		$current = get_post_field( 'post_title', get_queried_object_id() );
-
-		if ( empty( $current ) && is_front_page() )
-			$current = get_bloginfo( 'name' );
-
 	}
 
 	/* If viewing any type of archive page. */
@@ -559,8 +713,7 @@ function shell_loop_meta_title( $attr ){
 	}
 
 	/* Print the title to the screen. */
-	return esc_attr( $current );
-
+	return $current;
 }
 
 
@@ -576,7 +729,10 @@ function shell_loop_meta_description( $attr ){
 	global $wp_query;
 
 	/* Set shortcode attr */
-	$attr = shortcode_atts( array( 'before' => '', 'after' => '' ), $attr );
+	$attr = shortcode_atts( array(
+		'before' => '<div class="loop-description">',
+		'after' => '</div>' )
+	, $attr );
 
 	/* Set an empty $description variable. */
 	$description = '';
@@ -685,6 +841,24 @@ function shell_body_class( $classes ){
 		/* if current theme layout is 3 column */
 		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
 			$classes[] = 'layout-3c';
+	}
+
+	/* Skins */
+	$skin_count = count( shell_skins() );
+
+	/* check if custom skin exist */
+	if ( $skin_count > 1 ){
+
+		/* get skin settings */
+		$skin_option = hybrid_get_setting( 'skin' );
+
+		/* if custom skin selected */
+		if ( $skin_option && $skin_option != 'default' ){
+
+			/* validate */
+			if ( in_array( $skin_option, shell_skins() ) )
+				$classes[] = $skin_option . '-skin-active';
+		}
 	}
 
 	/* make it unique */

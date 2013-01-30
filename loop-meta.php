@@ -16,9 +16,9 @@
 
 	<?php do_atomic( 'open_loop_meta' ); // shell_open_loop_meta ?>
 
-	<?php echo apply_atomic_shortcode( 'loop_meta_title', '<h1 class="loop-title">[loop-meta-title]</h1>' ); ?>
+	<?php echo apply_atomic_shortcode( 'loop_meta_title', '[loop-meta-title]' ); // shell_loop_meta_title ?>
 
-	<?php echo apply_atomic_shortcode( 'loop_meta_desc', '<div class="loop-description">[loop-meta-desc]</div>' ); ?>
+	<?php echo apply_atomic_shortcode( 'loop_meta_description', '[loop-meta-desc ]' ); // shell_loop_meta_description ?>
 
 	<?php do_atomic( 'close_loop_meta' ); // shell_close_loop_meta ?>
 

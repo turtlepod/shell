@@ -14,15 +14,13 @@ if ( has_nav_menu( 'primary' ) ) : ?>
 
 	<div id="menu-primary" class="menu-container">
 
-		<div id="menu-icon" class="mobile-button"></div>
-
 		<?php do_atomic( 'open_menu_primary' ); // shell_open_menu_primary ?>
 
-			<div class="wrap">
+		<div class="wrap">
 
-				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-primary-items', 'fallback_cb' => '' ) ); ?>
+			<?php echo apply_atomic('menu_primary',wp_nav_menu( array( 'theme_location' => 'primary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-primary-items', 'fallback_cb' => '', 'echo' => 0 ) )); // shell_menu_primary ?>
 
-			</div>
+		</div>
 
 		<?php do_atomic( 'close_menu_primary' ); // shell_close_menu_primary ?>
 

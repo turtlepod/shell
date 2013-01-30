@@ -10,24 +10,19 @@
 
 if ( has_nav_menu( 'secondary' ) ) : ?>
 
-
 	<?php do_atomic( 'before_menu_secondary' ); // shell_before_menu_secondary ?>
 
 	<div id="menu-secondary" class="menu-container">
 
-		<div id="menu-icon" class="mobile-button"></div>
+		<?php do_atomic( 'open_menu_secondary' ); // shell_open_menu_secondary ?>
 
-			<?php do_atomic( 'open_menu_secondary' ); // shell_open_menu_secondary ?>
+		<div class="wrap">
 
-			<div class="wrap">
+			<?php echo apply_atomic( 'menu_secondary', wp_nav_menu( array( 'theme_location' => 'secondary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-secondary-items', 'fallback_cb' => '', 'echo' => 0 ) )); // shell_menu_secondary ?>
 
+		</div>
 
-				<?php wp_nav_menu( array( 'theme_location' => 'secondary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-secondary-items', 'fallback_cb' => '' ) ); ?>
-
-
-			</div>
-			
-			<?php do_atomic( 'close_menu_secondary' ); // shell_close_menu_secondary ?>
+		<?php do_atomic( 'close_menu_secondary' ); // shell_close_menu_secondary ?>
 
 	</div><!-- #menu-secondary .menu-container -->
 

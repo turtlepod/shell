@@ -1,8 +1,8 @@
 <?php
 /**
- * Content Template
+ * Content Page Template
  *
- * Template used to show post content when a more specific template cannot be found.
+ * Template used to show page content on archives and search pages.
  *
  * @package Shell
  * @subpackage Template
@@ -24,8 +24,6 @@
 		<?php the_excerpt(); ?>
 		<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) ); ?>
 	</div><!-- .entry-summary -->
-
-	<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">' . __( '[entry-terms taxonomy="category" before="Posted in "] [entry-terms before="| Tagged "] [entry-comments-link before=" | "]', 'shell' ) . '</div>' ); // shell_entry_meta ?>
 
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 

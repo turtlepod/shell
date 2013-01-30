@@ -19,13 +19,13 @@ get_header(); // Loads the header.php template. ?>
 
 		<div class="hfeed">
 
-			<?php do_atomic( 'loop_meta' ); // Loads the loop-meta.php template. ?>
+			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
 
 			<?php if ( have_posts() ) : ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php get_template_part( 'content', ( post_type_supports( get_post_type(), 'post-formats' ) ? get_post_format() : get_post_type() ) ); ?>
+					<?php get_template_part( 'content', ( post_type_supports( get_post_type(), 'post-formats' ) ? ( false === get_post_format() ? get_post_type() : get_post_type() . '-format-' . get_post_format() ) : get_post_type() ) ); ?>
 
 				<?php endwhile; ?>
 
@@ -34,6 +34,8 @@ get_header(); // Loads the header.php template. ?>
 				<?php get_template_part( 'loop-error' ); // Loads the loop-error.php template. ?>
 
 			<?php endif; ?>
+
+			<?php do_atomic( 'close_hfeed' ); // shell_close_hfeed ?>
 
 		</div><!-- .hfeed -->
 

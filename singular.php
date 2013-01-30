@@ -29,22 +29,22 @@ get_header(); // Loads the header.php template. ?>
 
 						<?php do_atomic( 'open_entry' ); // shell_open_entry ?>
 
-						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); ?>
+						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
 
-						<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', 'shell' ) . '</div>' ); ?>
+						<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', 'shell' ) . '</div>' ); // shell_byline ?>
 
 						<div class="entry-content">
 							<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) ); ?>
 							<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) ); ?>
 						</div><!-- .entry-content -->
 
+						<?php echo apply_atomic_shortcode( 'entry_meta', '' ); // shell_entry_meta ?>
+
 						<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
 					</div><!-- .hentry -->
 
 					<?php do_atomic( 'after_entry' ); // shell_after_entry ?>
-
-					<?php get_sidebar( 'after-singular' ); // Loads the sidebar-after-singular.php template. ?>
 
 					<?php do_atomic( 'after_singular' ); // shell_after_singular ?>
 

@@ -11,9 +11,7 @@
  * @subpackage Template
  */
 ?>
-				<?php get_sidebar( 'primary' ); // Loads the sidebar-primary.php template. ?>
-
-				<?php get_sidebar( 'secondary' ); // Loads the sidebar-secondary.php template. ?>
+				<?php do_atomic( 'sidebar' ); // shell_sidebar ?>
 
 				<?php do_atomic( 'close_main' ); // shell_close_main ?>
 
@@ -23,10 +21,6 @@
 
 		<?php do_atomic( 'after_main' ); // shell_after_main ?>
 
-		<?php get_sidebar( 'subsidiary' ); // Loads the sidebar-subsidiary.php template. ?>
-
-		<?php get_template_part( 'menu', 'subsidiary' ); // Loads the menu-subsidiary.php template. ?>
-
 		<?php do_atomic( 'before_footer' ); // shell_before_footer ?>
 
 		<div id="footer">
@@ -35,7 +29,7 @@
 
 			<div class="wrap">
 
-				<?php echo apply_atomic_shortcode( 'footer_content', shell_footer_content() ); ?>
+				<?php echo apply_atomic_shortcode( 'footer_content', shell_footer_content() ); // shell_footer_content ?>
 
 				<?php do_atomic( 'footer' ); // shell_footer ?>
 
