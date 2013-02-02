@@ -1,0 +1,23 @@
+02 Feb 2013
+============
+::: Change version to 0.0.1 for beta
+- mobile
+	mobile menu not using using fadeToggle: not really usable in mobile phone anyway
+	remove ID in mobile icon
+	keep css.
+	viewport meta added in header.php, using wp_head doesn't seems to work(?)
+- theme layout
+	layout class layout-2c and layout-3c is moved from body class to html class.
+	so we can target .layout-2c{} and override with .layout-2c .layout-2c-l {} 
+- skins
+	only add in customizer if custom skin is available
+	skin thumbnail css: background-position:center;
+	fix author uri
+	change description to details just like in manage theme page
+- HOOKS
+	add several action hook: entry_summary and entry_content (before, after, open, close)
+	wp_link_pages for archive pages is added via hooks
+	gallery in attachment is added via hooks.
+- Editor Style
+	add editor style with custom read more and next page img
+	additional editor style basd on layout is added if id is set.

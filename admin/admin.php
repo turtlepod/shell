@@ -39,7 +39,7 @@ function shell_theme_settings_meta_boxes() {
 	/* skin count */
 	$skin_count = count( shell_skins() );
 
-	/* add metabox only if additional skin added */
+	/* add metabox only if additional skin available */
 	if ( $skin_count > 1 ){
 
 		/* Add Skin Meta box. */
@@ -91,24 +91,29 @@ function shell_skin_meta_box() {
 						$selected = ' skin-img-selected';
 					}
 
+					/* skin version */
+					$version = '';
+					if ( isset( $skin_data['version'] ) || !empty( $skin_data['version'] ) )
+						$version = ' <span class="skin-version">' . $skin_data['version'] . '</span>';
+
 					/* skin image */
-					if ( !isset( $skin_data['image'] ) )
+					$image = $skin_data['image'];
+					if ( !isset( $skin_data['image'] ) || empty( $skin_data['image'] ) )
 						$image = get_template_directory_uri() . '/images/skin-no-image.jpg';
-					else
-						$image = $skin_data['image'];
 
 					/* skin author */
 					$author = '';
-					if ( isset ( $skin_data['author'] ) ){
+					if ( isset( $skin_data['author'] ) || !empty( $skin_data['author'] ) ){
 						$author = $skin_data['author'];
-						if ( isset ( $skin_data['author_uri'] ) )
+						if ( isset( $skin_data['author_uri'] ) || !empty( $skin_data['author_uri'] ) ){
 							$author_uri = esc_url_raw( $skin_data['author_uri'] );
 							$author = '<a href="' . $author_uri . '">' . $author . '</a>';
+						}
 					}
 
 					/* skin description */
 					$desc = '';
-					if ( isset ( $skin_data['description'] ) ){
+					if ( isset ( $skin_data['description'] ) || !empty( $skin_data['description'] ) ){
 						$desc = $skin_data['description'];
 					}
 					?>
@@ -118,7 +123,7 @@ function shell_skin_meta_box() {
 
 						<div style="background-image:url(<?php echo esc_url( $image ); ?>);" title="<?php echo esc_attr( $skin_id ); ?>" class="skin-img<?php echo esc_attr( $selected ); ?>" onclick="document.getElementById('<?php echo esc_attr( $skin_id ); ?>').checked=true;" /></div>
 
-						<div class="skin-name"><?php echo esc_html( $skin_data['name'] ); ?><span class="skin-version">0.1.0</span></div>
+						<div class="skin-name"><?php echo esc_html( $skin_data['name'] ); echo $version; ?></div>
 
 						<?php if ( !empty( $author ) ){?>
 						<div class="skin-author"><?php printf( __( 'By %s', 'shell' ), $author ); ?></div>
@@ -127,7 +132,7 @@ function shell_skin_meta_box() {
 						<?php if ( !empty( $desc ) ){?>
 						<div class="skin-detail-wrap">
 
-							<div class="skin-detail"><?php _e( 'Description', 'shell' ); ?></div>
+							<div class="skin-detail"><?php _e( 'Details', 'shell' ); ?></div>
 
 							<div class="skin-description"><p><?php echo $desc; ?></p></div>
 

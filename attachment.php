@@ -31,7 +31,12 @@ get_header(); // Loads the header.php template. ?>
 
 						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
 
+						<?php do_atomic( 'before_entry_content' ); // shell_before_entry_content ?>
+
 						<div class="entry-content">
+
+							<?php do_atomic( 'open_entry_content' ); // shell_open_entry_content ?>
+
 							<?php if ( wp_attachment_is_image( get_the_ID() ) ) : ?>
 
 								<p class="attachment-image">
@@ -50,9 +55,12 @@ get_header(); // Loads the header.php template. ?>
 
 							<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) ); ?>
 							<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) ); ?>
+
+							<?php do_atomic( 'close_entry_content' ); // shell_close_entry_content ?>
+
 						</div><!-- .entry-content -->
 
-						<?php if ( wp_attachment_is_image( get_the_ID() ) ) echo do_shortcode( sprintf( '[gallery id="%1$s" exclude="%2$s" columns="8"]', $post->post_parent, get_the_ID() ) ); ?>
+						<?php do_atomic( 'after_entry_content' ); // shell_after_entry_content ?>
 
 						<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 

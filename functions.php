@@ -89,7 +89,7 @@ function shell_theme_setup() {
 	/* Set the content width. */
 	hybrid_set_content_width( 600 );
 
-	/* Add additional style */
+	/* Add additional css */
 	add_filter( "{$prefix}_styles", 'shell_styles' );
 
 	/* Enqueue script. */
@@ -97,9 +97,6 @@ function shell_theme_setup() {
 
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
-
-	/* Add Viewport Meta */
-	add_action( 'wp_head', 'shell_viewport_meta', 9 );
 
 	/* Additional css classes for widgets */
 	add_filter( 'dynamic_sidebar_params', 'shell_widget_classes' );
@@ -119,7 +116,7 @@ function shell_theme_setup() {
 	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu' );
 	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu' );
 
-	/* Load Other Template Files */
+	/* Load loop-meta.php Template File */
 	add_action( "{$prefix}_open_hfeed", 'shell_get_loop_meta' ); // loop-meta.php
 
 	/* Breadcrumb Trail */
@@ -127,6 +124,12 @@ function shell_theme_setup() {
 
 	/* Thumbnail */
 	add_action( "{$prefix}_open_entry", 'shell_thumbnail' );
+
+	/* Entry Summary wp_link_pages */
+	add_action( "{$prefix}_close_entry_summary", 'shell_summary_wp_link_pages' );
+
+	/* Attachment Gallery */
+	add_action( "{$prefix}_attachment-image_after_entry_content", 'shell_attachment_gallery' );
 
 	/* post format singular template */
 	add_filter( 'single_template', 'shell_post_format_singular_template', 11 );
@@ -145,6 +148,10 @@ function shell_theme_setup() {
 
 	/* Skin in Customizer */
 	add_action( 'customize_register', 'shell_customizer_register' );
+
+	/* Add editor style */
+	add_editor_style();
+	add_action( 'admin_head', 'shell_editor_style' );
 }
 
 
@@ -155,10 +162,16 @@ function shell_theme_setup() {
  */
 function shell_skins(){
 
+	/* theme version */
+	$theme = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
+
 	/* default skin */
 	$skins = array( 'default' => array(
 		'name' => 'Default',
+		'version' => $version,
 		'image' => get_template_directory_uri() . '/screenshot.png',
+		'author' => 'David Chandra Purnama',
 		'author' => 'David Chandra Purnama',
 		'author_uri' => 'http://shellcreeper.com/',
 		'description' => __( 'This is default skin for Shell Theme.', 'shell' ),
@@ -191,34 +204,40 @@ function shell_default_settings( $settings ){
  */
 function shell_customizer_register( $wp_customize ) {
 
-	/* default settings */
-	$default = hybrid_get_default_theme_settings();
+	/* skin count */
+	$skin_count = count( shell_skins() );
 
-	/* get list of available skin */
-	$skins = shell_skins();
-	$skin_choises = array();
-	foreach ( $skins as $skin_id => $skin_data ){
-		/* use key as key, cause the value is images. */
-		$skin_choises[$skin_id] = $skin_data['name'];
+	/* add skin to customizer only if additional skin available */
+	if ( $skin_count > 1 ){
+
+		/* default settings */
+		$default = hybrid_get_default_theme_settings();
+
+		/* get list of available skin */
+		$skins = shell_skins();
+		$skin_choises = array();
+		foreach ( $skins as $skin_id => $skin_data ){
+			/* use key as key, cause the value is images. */
+			$skin_choises[$skin_id] = $skin_data['name'];
+		}
+
+		/* skins */
+		$wp_customize->add_section( 'shell_customize_skin', array(
+			'title' => _x( 'Skins', 'customizer', 'shell' ),
+			'priority' => 30,
+		) );
+		$wp_customize->add_setting( 'shell_theme_settings[skin]', array(
+			'default' => $default['skin'],
+			'type' => 'option',
+		) );
+		$wp_customize->add_control( 'shell_theme_settings[skin]', array(
+			'label' =>_x( 'Skins', 'customizer', 'shell' ),
+			'section' => 'shell_customize_skin',
+			'settings' => 'shell_theme_settings[skin]',
+			'type' => 'select',
+			'choices' => $skin_choises,
+		) );
 	}
-
-	/* Skins */
-	$wp_customize->add_section( 'shell_customize_skin', array(
-		'title' => _x( 'Skins', 'customizer', 'shell' ),
-		'priority' => 30,
-	) );
-	$wp_customize->add_setting( 'shell_theme_settings[skin]', array(
-		'default' => $default['skin'],
-		'type' => 'option',
-	) );
-	$wp_customize->add_control( 'shell_theme_settings[skin]', array(
-		'label' =>_x( 'Skins', 'customizer', 'shell' ),
-		'section' => 'shell_customize_skin',
-		'settings' => 'shell_theme_settings[skin]',
-		'type' => 'select',
-		'choices' => $skin_choises,
-	) );
-
 }
 
 
@@ -244,7 +263,7 @@ if( !function_exists( 'shell_custom_background' ) ){
  * @since 0.1.0
  */
 function shell_mobile_menu(){?>
-<div id="menu-icon" class="mobile-button"></div><?php
+<div class="mobile-menu-button"></div><?php
 }
 
 /**
@@ -258,7 +277,7 @@ function shell_styles( $styles ) {
 
 	/* css */
 	$css = array();
-	
+
 	/* default media queries css */
 	$css['file'] = trailingslashit( get_template_directory_uri() ) . 'media-queries.css';
 
@@ -320,18 +339,6 @@ function shell_respond_html5shiv() {
 	<![endif]--><?php
 }
 
-
-/**
- * Viewport Meta
- * 
- * @since 0.1.0
- */
-function shell_viewport_meta(){
-?><!-- Mobile viewport optimized -->
-<meta name="viewport" content="width=device-width,initial-scale=1" /><?php
-}
-
-
 /**
  * Function for deciding which pages should have a one-column layout.
  *
@@ -391,7 +398,7 @@ function shell_embed_defaults( $args ) {
 		$layout = theme_layouts_get_layout();
 
 		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$args['width'] = 535;
+			$args['width'] = 558;
 		elseif ( 'layout-1c' == $layout )
 			$args['width'] = 930;
 		else
@@ -568,6 +575,19 @@ function shell_breadcrumb(){
 
 
 /**
+ * Load Loop Meta
+ * 
+ * @since 0.1.0
+ */
+function shell_get_loop_meta(){
+
+	/* load on blog page, archive, and search result pages */
+	if ( ( is_home() && !is_front_page() ) || is_archive() || is_search() )
+		get_template_part( 'loop-meta' );
+}
+
+
+/**
  * Thumbnail
  * 
  * @since 0.1.0
@@ -585,15 +605,25 @@ function shell_thumbnail(){
 
 
 /**
- * Load Loop Meta
+ * Summary WP Link Pages
  * 
  * @since 0.1.0
  */
-function shell_get_loop_meta(){
+function shell_summary_wp_link_pages(){
+	wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) );
+}
 
-	/* load on blog page, archive, and search result pages */
-	if ( ( is_home() && !is_front_page() ) || is_archive() || is_search() )
-		get_template_part( 'loop-meta' );
+
+/**
+ * Attachment Gallery
+ * 
+ * Uses custom context
+ * 
+ * @since 0.1.0
+ */
+function shell_attachment_gallery(){
+	global $post;
+	echo do_shortcode( sprintf( '[gallery id="%1$s" exclude="%2$s" columns="8"]', $post->post_parent, $post->ID ) );
 }
 
 
@@ -828,21 +858,6 @@ function shell_body_class( $classes ){
 		}
 	}
 
-	/* theme layout check */
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-
-		/* get current layout */
-		$layout = theme_layouts_get_layout();
-
-		/* if current theme layout is 2 column */
-		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
-			$classes[] = 'layout-2c';
-
-		/* if current theme layout is 3 column */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$classes[] = 'layout-3c';
-	}
-
 	/* Skins */
 	$skin_count = count( shell_skins() );
 
@@ -888,6 +903,21 @@ function shell_html_class( $class = '' ){
 	/* not singular pages - sometimes i need this */
 	if (! is_singular())
 		$classes[] = 'not-singular';
+
+	/* theme layout check */
+	if ( current_theme_supports( 'theme-layouts' ) ) {
+
+		/* get current layout */
+		$layout = theme_layouts_get_layout();
+
+		/* if current theme layout is 2 column */
+		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
+			$classes[] = 'layout-2c';
+
+		/* if current theme layout is 3 column */
+		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
+			$classes[] = 'layout-3c';
+	}
 
 	/* user input */
 	if ( ! empty( $class ) ) {
@@ -1020,7 +1050,47 @@ function shell_hybrid_context( $context ){
 }
 
 
+/**
+ * Editor Style
+ *
+ * Additional Editor Style Based On Theme Layout Selected
+ *
+ * @since 2.0.0
+ */
+function shell_editor_style() {
 
+	global $pagenow;
+
+	/* only if theme layout is supported */
+	if ( current_theme_supports( 'theme-layouts' ) ) {
+
+		/* only in */
+		if ( in_array( $pagenow, array( 'page.php', 'page-new.php', 'post.php', 'post-new.php' ) ) ) {
+
+			/* get id */
+			if ( isset( $_GET['post'] ) )
+				$post_id = $_GET['post'];
+			elseif ( isset( $_POST['post_ID'] ) )
+				$post_id = $_POST['post_ID'];
+
+			/* after id is set, add editor style */
+			if ( isset( $post_id ) ) {
+
+				/* get current post layout */
+				$layout = get_post_layout( $post_id );
+
+				/* if current layout is 3 column */
+				if ( '3c-l' == $layout || '3c-r' == $layout || '3c-c' == $layout )
+					add_editor_style( 'editor-style-3c.css' );
+
+				/* if current layout is 1 column */
+				elseif ( '1c' == $layout ) {
+					add_editor_style( 'editor-style-1c.css' );
+				}
+			}
+		}
+	}
+}
 
 
 

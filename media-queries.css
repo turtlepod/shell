@@ -2,6 +2,63 @@
  * Media Queries CSS
  * Shell Theme
  */
+
+
+/* for zoom */
+@media screen and (max-width: 980px) {
+	/* Menu Primary
+	*******************************************/
+	#menu-primary div.menu{
+		padding-bottom:5px;
+	}
+	#menu-primary li a{
+		border:1px solid #DFDFDF;
+		margin:5px 0 0 5px;
+	}
+	#menu-primary li li a{
+		border-top:none;
+		border-right:none;
+		margin:0;
+	}
+	#menu-primary .sub-menu{
+		margin-top:5px;
+		margin-left:6px;
+	}
+	#menu-primary .sub-menu .sub-menu{
+		margin-top:0;
+	}
+
+	/* Menu Secondary
+	*******************************************/
+	#menu-secondary div.menu{
+		padding-bottom:5px;
+	}
+	#menu-secondary li a{
+		border:1px solid #DFDFDF;
+		margin:5px 0 0 5px;
+	}
+	#menu-secondary li li a{
+		border-top:none;
+		border-right:none;
+		margin:0;
+	}
+	#menu-secondary .sub-menu{
+		margin-top:5px;
+		margin-left:6px;
+	}
+	#menu-secondary .sub-menu .sub-menu{
+		margin-top:0;
+	}
+	.menu-container div.search .search-form{
+		margin:5px 0 0 5px;
+		padding:5px;
+		border:1px solid #DFDFDF;
+	}
+	.menu-container .search-form input[type="text"]{
+		margin-top:0;
+	}
+}
+/* for tablet */
 @media screen and (max-width: 760px) {
 
 	/* content
@@ -57,9 +114,8 @@
 	#sidebar-subsidiary div.widget:nth-child(even) {
 		clear:right;
 	}
-
 }
-
+/* for another tablet */
 @media screen and (max-width: 600px) {
 
 	/* header
@@ -89,12 +145,12 @@
 		margin:10px 0;
 	}
 }
-
+/* for mobile */
 @media screen and (max-width: 480px) {
-	
+
 	/* Mobile Nav Button
 	*******************************************/
-	.mobile-button {
+	.mobile-menu-button {
 		position: relative;
 		width: 32px;
 		height: 38px;
@@ -103,81 +159,10 @@
 		display: block;
 		float: left;
 		cursor: pointer;
-	}
-	#menu-icon {
 		background: url(images/menu-icon.png) no-repeat center center;
 	}
 
-	/* Secondary Menu
-	*******************************************/
-	#menu-secondary{
-		display: block;
-		padding:2.5%;
-		height:55px;
-		border:1px solid #DFDFDF;
-		border-top:none;
-	}
-	#menu-secondary div.wrap{
-		clear: both;
-		position: absolute;
-		top: 120px;
-		right: auto;
-		left: 17.5%;
-		bottom: auto;
-		width: 200px;
-		z-index: 1000;
-		padding: 10px 5px;
-		background: #fff;
-		border: solid 1px #999;
-		display: none; /* visibility will be toggled with jquery */
-	}
-	#menu-secondary div.wrap li {
-		clear: both;
-		float: none;
-		margin: 5px 0 5px 10px;
-		padding: 0;
-		border: none;
-		width: auto !important;
-	}
-	#menu-secondary div.wrap a, 
-	#menu-secondary div.wrap ul a {
-		font: inherit;
-		text-transform: inherit;
-		background: none !important;
-		width: auto !important;
-		display: inline !important;
-		visibility: visible !important;
-		padding: 0;
-		color: #666 !important;
-		border: none !important;
-	}
-	#menu-secondary div.wrap .submenu{
-		visibility: visible !important;
-	}
-	#menu-secondary div.wrap ul {
-		position: static;
-		display: block !important;
-		visibility: visible !important;
-		margin: 0;
-		padding: 0;
-		background: none;
-		border: none;
-	}
-	#menu-secondary div.menu li,
-	#menu-secondary div.menu ul li,
-	#menu-secondary div.menu ul ul li{
-		width:auto !important;
-		background: none !important;
-	}
-	#menu-secondary .wrap a {
-		margin: 0 10px 5px 0;
-		padding: 4px 7px;
-	}
-	.menu-container div.search{
-		width:75%;
-	}
-
-	/* Primary Menu
+	/* Menu Primary
 	*******************************************/
 	#menu-primary{
 		display: block;
@@ -189,17 +174,23 @@
 	#menu-primary div.wrap{
 		clear: both;
 		position: absolute;
-		top: 20px;
+		top: auto;
 		right: auto;
-		left: 17.5%;
+		left: 15%;
 		bottom: auto;
 		width: 200px;
 		z-index: 1000;
 		padding: 10px 5px;
 		background: #fff;
 		border: solid 1px #999;
-		display: none; /* visibility will be toggled with jquery */
+		display: none;
 	}
+
+	/* Active */
+	body #menu-primary div.mobile-menu-active{
+		display: block ;
+	}
+
 	#menu-primary div.wrap .menu{
 		border:none;
 	}
@@ -245,6 +236,89 @@
 		margin: 0 10px 5px 0;
 		padding: 4px 7px;
 	}
+
+	/* Secondary Menu
+	*******************************************/
+	#menu-secondary{
+		display: block;
+		padding:2.5%;
+		height:55px;
+		border:1px solid #DFDFDF;
+		border-top:none;
+	}
+	#menu-secondary div.wrap{
+		clear: both;
+		position: absolute;
+		top: auto;
+		right: auto;
+		left: 15%;
+		bottom: auto;
+		width: 200px;
+		z-index: 1000;
+		padding: 10px 5px;
+		background: #fff;
+		border: solid 1px #999;
+		display: none;
+	}
+
+	/* Active */
+	body #menu-secondary div.mobile-menu-active{
+		display: block;
+	}
+
+	#menu-secondary div.wrap li {
+		clear: both;
+		float: none;
+		margin: 5px 0 5px 10px;
+		padding: 0;
+		border: none;
+		width: auto !important;
+	}
+	#menu-secondary div.wrap a, 
+	#menu-secondary div.wrap ul a {
+		font: inherit;
+		text-transform: inherit;
+		background: none !important;
+		width: auto !important;
+		display: inline !important;
+		visibility: visible !important;
+		padding: 0;
+		color: #666 !important;
+		border: none !important;
+	}
+	#menu-secondary div.wrap .submenu{
+		visibility: visible !important;
+	}
+	#menu-secondary div.wrap ul {
+		position: static;
+		display: block !important;
+		visibility: visible !important;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+	#menu-secondary div.menu li,
+	#menu-secondary div.menu ul li,
+	#menu-secondary div.menu ul ul li{
+		width:auto !important;
+		background: none !important;
+	}
+	#menu-secondary .wrap a {
+		margin: 0 10px 5px 0;
+		padding: 4px 7px;
+	}
+	.menu-container div.search{
+		width:75%;
+	}
+	.menu-container div.search .search-form{
+		margin:0;
+		padding:4px;
+		border:none;
+	}
+
+	/* Primary Sidebar
+	*******************************************/
 	.layout-default #sidebar-primary,
 	.layout-2c-l #sidebar-primary,
 	.layout-2c-r #sidebar-primary,
@@ -256,6 +330,9 @@
 		clear:both;
 		margin:0;
 	}
+
+	/* Secondary Sidebar
+	*******************************************/
 	.layout-default #sidebar-secondary,
 	.layout-2c-l #sidebar-secondary,
 	.layout-2c-r #sidebar-secondary,
@@ -268,7 +345,7 @@
 		margin:0;
 	}
 
-	/* Subsidiary sidebar
+	/* Subsidiary Sidebar
 	*******************************************/
 	#sidebar-subsidiary .widget{
 		width:100%;

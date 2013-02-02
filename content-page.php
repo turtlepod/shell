@@ -20,10 +20,19 @@
 
 	<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', 'shell' ) . '</div>' ); //shell_byline ?>
 
+	<?php do_atomic( 'before_entry_summary' ); // shell_before_entry_summary ?>
+
 	<div class="entry-summary">
+
+		<?php do_atomic( 'open_entry_summary' ); // shell_open_entry_summary ?>
+
 		<?php the_excerpt(); ?>
-		<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) ); ?>
+
+		<?php do_atomic( 'close_entry_summary' ); // shell_close_entry_summary ?>
+
 	</div><!-- .entry-summary -->
+
+	<?php do_atomic( 'after_entry_summary' ); // shell_after_entry_summary ?>
 
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
