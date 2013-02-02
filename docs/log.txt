@@ -1,5 +1,5 @@
-02 Feb 2013
-============
+02 Feb 2013 #1
+===============
 ::: Change version to 0.0.1 for beta
 - mobile
 	mobile menu not using using fadeToggle: not really usable in mobile phone anyway
@@ -21,3 +21,8 @@
 - Editor Style
 	add editor style with custom read more and next page img
 	additional editor style basd on layout is added if id is set.
+
+02 Feb 2013 #2
+===============
+- visual editor tinymce 
+	add grid column, buttons, boxes, and several other buttons.
