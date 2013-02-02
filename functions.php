@@ -18,9 +18,10 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @package shell
+ * @package Shell
  * @subpackage Functions
  * @version 0.1.0
+ * @since 0.1.0
  * @author David Chandra Purnama <david.warna@gmail.com>
  * @copyright Copyright (c) 2013, David Chandra Purnama
  * @copyright Copyright (c) 2010 - 2013, Justin Tadlock
@@ -38,7 +39,9 @@ add_action( 'after_setup_theme', 'shell_theme_setup' );
  * Theme setup function.  This function adds support for theme features and defines the default theme
  * actions and filters.
  *
- * @since 0.1.0
+ * @since  0.1.0
+ * @access public
+ * @return void
  */
 function shell_theme_setup() {
 
@@ -48,9 +51,6 @@ function shell_theme_setup() {
 	/* Add theme settings. */
 	if ( is_admin() )
 		require_once( trailingslashit ( get_template_directory() ) . 'admin/admin.php' );
-
-	/* default settings */
-	add_filter( "{$prefix}_default_theme_settings", 'shell_default_settings' );
 
 	/* Add theme support for core framework features. */
 	add_theme_support( 'hybrid-core-menus', array( 'primary', 'secondary', 'subsidiary' ) );
@@ -76,20 +76,7 @@ function shell_theme_setup() {
 	/* Add theme support for WordPress features. */
 	add_theme_support( 'automatic-feed-links' );
 
-	/* Add the search form to the secondary menu. */
-	add_action( "{$prefix}_close_menu_secondary", 'get_search_form' );
-
-	/* Embed width/height defaults. */
-	add_filter( 'embed_defaults', 'shell_embed_defaults' );
-
-	/* Filter the sidebar widgets. */
-	add_filter( 'sidebars_widgets', 'shell_disable_sidebars' );
-	add_action( 'template_redirect', 'shell_one_column' );
-
-	/* Set the content width. */
-	hybrid_set_content_width( 600 );
-
-	/* Add additional css */
+	/* Add media queries css */
 	add_filter( "{$prefix}_styles", 'shell_styles' );
 
 	/* Enqueue script. */
@@ -98,8 +85,23 @@ function shell_theme_setup() {
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
 
-	/* Additional css classes for widgets */
-	add_filter( 'dynamic_sidebar_params', 'shell_widget_classes' );
+	/* Default settings */
+	add_filter( "{$prefix}_default_theme_settings", 'shell_default_settings' );
+
+	/* Skin in Customizer */
+	add_action( 'customize_register', 'shell_customizer_register' );
+
+	/* Set the content width. */
+	hybrid_set_content_width( 600 );
+
+	/* Embed width/height defaults. */
+	add_filter( 'embed_defaults', 'shell_embed_defaults' );
+
+	/* Filter the sidebar widgets by current page theme layout */
+	add_filter( 'sidebars_widgets', 'shell_disable_sidebars' );
+
+	/* Switch to one column layout if no sidebar active or in attachment pages  */
+	add_action( 'template_redirect', 'shell_one_column' );
 
 	/* Load Sidebar Template Files */
 	add_action( "{$prefix}_header", 'shell_get_sidebar_header' ); // sidebar-header.php
@@ -112,46 +114,49 @@ function shell_theme_setup() {
 	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu-secondary.php
 	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu-subsidiary.php
 
-	/* Mobile Menu HTML */
-	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu' );
-	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu' );
-
 	/* Load loop-meta.php Template File */
 	add_action( "{$prefix}_open_hfeed", 'shell_get_loop_meta' ); // loop-meta.php
 
-	/* Breadcrumb Trail */
+	/* Load searchform.php Template File */
+	add_action( "{$prefix}_close_menu_secondary", 'get_search_form' );
+
+	/* Add mobile menu */
+	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu' );
+	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu' );
+
+	/* Add breadcrumb Trail */
 	add_action( "{$prefix}_open_main", 'shell_breadcrumb' );
 
-	/* Thumbnail */
+	/* Add thumbnail */
 	add_action( "{$prefix}_open_entry", 'shell_thumbnail' );
 
-	/* Entry Summary wp_link_pages */
+	/* Add wp_link_pages in entry summary (after excerpt) */
 	add_action( "{$prefix}_close_entry_summary", 'shell_summary_wp_link_pages' );
 
-	/* Attachment Gallery */
+	/* Add gallery in attachment image page */
 	add_action( "{$prefix}_attachment-image_after_entry_content", 'shell_attachment_gallery' );
 
-	/* post format singular template */
+	/* Additional Body class */
+	add_filter( 'body_class','shell_body_class');
+
+	/* Additional css classes for widgets */
+	add_filter( 'dynamic_sidebar_params', 'shell_widget_classes' );
+
+	/* Hybrid Core Context */
+	add_filter( 'hybrid_context', 'shell_hybrid_context' );
+
+	/* Atomic Widget Plugin Context */
+	add_filter( 'atomic_widget_context', 'shell_atomic_widgets_context' );
+
+	/* Post format singular template */
 	add_filter( 'single_template', 'shell_post_format_singular_template', 11 );
 
 	/* add shortcode */
 	add_action( 'init', 'shell_shortcode' );
 
-	/* body class */
-	add_filter('body_class','shell_body_class');
-
-	/* Atomic Widget Plugin Context */
-	add_filter( 'atomic_widget_context', 'shell_atomic_widgets_context' );
-
-	/* Hybrid Core Context */
-	add_filter( 'hybrid_context', 'shell_hybrid_context' );
-
-	/* Skin in Customizer */
-	add_action( 'customize_register', 'shell_customizer_register' );
-
 	/* Add editor style */
 	add_editor_style();
-	add_action( 'admin_head', 'shell_editor_style' );
+	add_action( 'admin_head', 'shell_theme_layout_editor_style' );
 
 	/* Modify tinymce */
 	add_filter( 'mce_buttons', 'shell_tinymce_1', 1 ); // ist row
@@ -161,165 +166,90 @@ function shell_theme_setup() {
 }
 
 
-/**
- * Shell Skins: for skin plugins
- * 
- * @since 0.1.0
- */
-function shell_skins(){
-
-	/* theme version */
-	$theme = wp_get_theme( get_template() );
-	$version = $theme->get( 'Version' );
-
-	/* default skin */
-	$skins = array( 'default' => array(
-		'name' => 'Default',
-		'version' => $version,
-		'image' => get_template_directory_uri() . '/screenshot.png',
-		'author' => 'David Chandra Purnama',
-		'author' => 'David Chandra Purnama',
-		'author_uri' => 'http://shellcreeper.com/',
-		'description' => __( 'This is default skin for Shell Theme.', 'shell' ),
-	));
-
-	/* enable developer to add skins */
-	return apply_filters( 'shell_skin', $skins );
-}
-
-
-/**
- * Default Settings
- * 
- * @since 0.1.0
- */
-function shell_default_settings( $settings ){
-
-	/* skin option */
-	$settings['skin'] = 'default';
-	
-	return $settings;
-}
-
-
-/**
- * Skin Customizer
- *
- * @link http://codex.wordpress.org/Theme_Customization_API
- * @since 0.1.0
- */
-function shell_customizer_register( $wp_customize ) {
-
-	/* skin count */
-	$skin_count = count( shell_skins() );
-
-	/* add skin to customizer only if additional skin available */
-	if ( $skin_count > 1 ){
-
-		/* default settings */
-		$default = hybrid_get_default_theme_settings();
-
-		/* get list of available skin */
-		$skins = shell_skins();
-		$skin_choises = array();
-		foreach ( $skins as $skin_id => $skin_data ){
-			/* use key as key, cause the value is images. */
-			$skin_choises[$skin_id] = $skin_data['name'];
-		}
-
-		/* skins */
-		$wp_customize->add_section( 'shell_customize_skin', array(
-			'title' => _x( 'Skins', 'customizer', 'shell' ),
-			'priority' => 30,
-		) );
-		$wp_customize->add_setting( 'shell_theme_settings[skin]', array(
-			'default' => $default['skin'],
-			'type' => 'option',
-		) );
-		$wp_customize->add_control( 'shell_theme_settings[skin]', array(
-			'label' =>_x( 'Skins', 'customizer', 'shell' ),
-			'section' => 'shell_customize_skin',
-			'settings' => 'shell_theme_settings[skin]',
-			'type' => 'select',
-			'choices' => $skin_choises,
-		) );
-	}
-}
-
-
-/* function check to enable override/disable custom background from child theme  */
+/* function check to enable override/disable custom background feature from child theme  */
 if( !function_exists( 'shell_custom_background' ) ){
 
 	/* setup custom background on the 'after_setup_theme' hook. */
 	add_action( 'after_setup_theme', 'shell_custom_background' );
 
 	/**
-	 * Custom Background
+	 * Add custom background theme support.
+	 * Child theme can override default by creating 'shell_custom_background' function.
+	 * Child theme can disable it by creating blank 'shell_custom_background' function.
 	 * 
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
 	 */
 	function shell_custom_background(){
 		add_theme_support( 'custom-background', array( 'default-color' => 'f9f9f9' ) );
 	}
 }
 
-/**
- * Mobile Menu HTML
- * 
- * @since 0.1.0
- */
-function shell_mobile_menu(){?>
-<div class="mobile-menu-button"></div><?php
-}
 
 /**
- * Add Custom styles
+ * Add Media Queries Stylesheet to 'hybrid-core-styles' feature. 
+ * Child theme can override media queries css by creating media-queries.css file in root folder.
+ * Skin plugin can override media queries css with 'shell_media_queries_css' filter.
+ * If skin plugin filter it, it need to enable child theme to override this using similar file_exist check.
  *
- * Skin plugin need to register style with the name "skin"
- *
- * @since 0.1.0
+ * @since  0.1.0
+ * @param  array $styles Hybrid Core Styles
+ * @return array
  */
 function shell_styles( $styles ) {
 
-	/* css */
-	$css = array();
-
-	/* default media queries css */
-	$css['file'] = trailingslashit( get_template_directory_uri() ) . 'media-queries.css';
-
-	/* get theme version */
+	/* Get parent theme data */
 	$theme = wp_get_theme( get_template() );
-	$css['version'] = $theme->get( 'Version' );
 
-	/* allow child theme to override media queries css */
+	/* Media queries CSS */
+	$media_queries_css = array();
+
+	/* Media queries CSS File */
+	$media_queries_css['src'] = trailingslashit( get_template_directory_uri() ) . 'media-queries.css';
+
+	/* Media queries CSS version using theme version */
+	$media_queries_css['version'] = $theme->get( 'Version' );
+
+	/* Allow child theme to override media queries css using file_exist check */
 	if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'media-queries.css' )){
-		$css['file'] = trailingslashit( get_stylesheet_directory_uri() ) . 'media-queries.css';
+
+		/* Get child theme data  */
 		$theme = wp_get_theme();
-		$css['version'] = $theme->get( 'Version' );
+
+		/* Child Theme media queries CSS File */
+		$media_queries_css['src'] = trailingslashit( get_stylesheet_directory_uri() ) . 'media-queries.css';
+
+		/* Child Theme media queries CSS verion using child theme version */
+		$media_queries_css['version'] = $theme->get( 'Version' );
 	}
 
-	/* filter: allow skin to filter if needed */
-	$css = apply_filters( 'shell_media_queries_css', $css );
+	/* Media queries CSS media */
+	$media_queries_css['media'] = 'all';
+
+	/* Media queries CSS dependency */
+	$media_queries_css['deps'] = 'style';
+
+	/* Allow override to filter if needed */
+	$media_queries_css = apply_filters( 'shell_media_queries_css', $media_queries_css );
 
 	/* add media queries css */
-	$styles['media-queries'] = array(
-		'src' => $css['file'],
-		'media' => 'all',
-		'deps' => 'style',
-		'version' => $css['version']
-	);
+	$styles['media-queries'] = $media_queries_css;
 
 	return $styles;
 }
 
 
 /**
- * Add Script
+ * Register and Enqueue Mobile Menu Script and Fitvids.
  * 
- * @since 0.1.0
+ * @since  0.1.0
+ * @access public
+ * @return void
  */
 function shell_script(){
 
+	/* do not load on admin */
 	if ( !is_admin() ) {
 
 		/*  Mobile Menu Script */
@@ -333,6 +263,8 @@ function shell_script(){
 
 /**
  * Function for help to unsupported browsers understand mediaqueries and html5.
+ * This is added in 'head' using 'wp_head' hook.
+ *
  * @link: https://github.com/scottjehl/Respond
  * @link: http://code.google.com/p/html5shiv/
  * @since 0.1.0
@@ -344,6 +276,165 @@ function shell_respond_html5shiv() {
 	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/html5shiv/html5shiv.js"></script>
 	<![endif]--><?php
 }
+
+
+/**
+ * Shell Skins 
+ * Created to give developers an easy way to create multiple skins for Shell theme from plugins or Child Theme.
+ * Developers can register skin using 'shell_skins' filter.
+ * Available data for skins:
+ * - 'name'			Name of skins registered (required)
+ * - 'version'		Version of skins (optional)
+ * - 'screenshot'	URI of screenshot or thumbnail image file, 300px x 225px (optional)
+ * - 'author'		Author name (optional)
+ * - 'author_uri'	URI for author website (optional)
+ * - 'description'	Short description of skins (optional)
+ * 
+ * @since  0.1.0
+ * @param  none
+ * @return array of skins
+ */
+function shell_skins(){
+
+	/* Theme version */
+	$theme = wp_get_theme( get_template() );
+	$version = $theme->get( 'Version' );
+
+	/* Default skin / no skin selected */
+	$skins = array( 'default' => array(
+		'name' => 'Default',
+		'version' => $version,
+		'screenshot' => get_template_directory_uri() . '/screenshot.png',
+		'author' => 'David Chandra Purnama',
+		'author_uri' => 'http://shellcreeper.com/',
+		'description' => __( 'This is default skin for Shell Theme.', 'shell' ),
+	));
+
+	/* enable developer to add skins */
+	return apply_filters( 'shell_skins', $skins );
+}
+
+
+/**
+ * Get Active Skin ID. Get current active skin. Allow developer to filter active skin.
+ * 
+ * @since 0.1.0
+ */
+function shell_active_skin(){
+
+	/* available skins */
+	$skins = shell_skins();
+
+	/* get skin ids */
+	$skin_ids = array();
+	foreach ( $skins as $skin_id => $skin_data ){
+		$skin_ids[] = $skin_id;
+	}
+
+	/* default skins */
+	$active_skin = 'default';
+
+	/* Check support for hybrid core settings */
+	if ( current_theme_supports( 'hybrid-core-theme-settings' ) ) {
+
+		$skin_setting = hybrid_get_setting( 'skin' );
+
+		/* check if selected skins is available */
+		if ( in_array( $skin_setting, $skin_ids ) )
+			$active_skin = $skin_setting;
+	}
+	return apply_filters( 'shell_active_skin', $active_skin );
+}
+
+
+/**
+ * Default Skin Settings for Hybrid Core Settings.
+ * 
+ * @since  0.1.0
+ * @param  array $settings Hybrid Core Settings
+ * @return array
+ */
+function shell_default_settings( $settings ){
+	$settings['skin'] = 'default';
+	return $settings;
+}
+
+
+/**
+ * Add Skin Settings in Customize.
+ *
+ * @link http://codex.wordpress.org/Theme_Customization_API
+ * @since 0.1.0
+ */
+function shell_customizer_register( $wp_customize ) {
+
+	/* Skin Count */
+	$skin_count = count( shell_skins() );
+
+	/* Add skin to customizer only if additional skin available */
+	if ( $skin_count > 1 ){
+
+		/* Default settings, no need to call hybrid core default setting. */
+		$default = 'default';
+
+		/* Get list of available skin */
+		$skins = shell_skins();
+		$skin_choises = array();
+		foreach ( $skins as $skin_id => $skin_data ){
+			$skin_choises[$skin_id] = $skin_data['name'];
+		}
+
+		/* Section */
+		$wp_customize->add_section( 'shell_customize_skin', array(
+			'title' => _x( 'Skins', 'customizer', 'shell' ),
+			'priority' => 30,
+		));
+		/* Settings */
+		$wp_customize->add_setting( 'shell_theme_settings[skin]', array(
+			'default' => $default['skin'],
+			'type' => 'option',
+		));
+		/* Control */
+		$wp_customize->add_control( 'shell_theme_settings[skin]', array(
+			'label' =>_x( 'Skins', 'customizer', 'shell' ),
+			'section' => 'shell_customize_skin',
+			'settings' => 'shell_theme_settings[skin]',
+			'type' => 'select',
+			'choices' => $skin_choises,
+		));
+	}
+}
+
+
+/**
+ * Overwrites the default widths for embeds.  This is especially useful for making sure videos properly
+ * expand the full width on video pages.  This function overwrites what the $content_width variable handles
+ * with context-based widths.
+ *
+ * @since 0.1.0
+ */
+function shell_embed_defaults( $args ) {
+
+	/* only if theme layouts is supported */
+	if ( current_theme_supports( 'theme-layouts' ) ) {
+
+		/* get current page theme layout */
+		$layout = theme_layouts_get_layout();
+
+		/* width in pixel based on current page theme layout */
+		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
+			$args['width'] = 558;
+		elseif ( 'layout-1c' == $layout )
+			$args['width'] = 930;
+		else
+			$args['width'] = 600;
+	}
+	else
+		$args['width'] = 600;
+
+	return $args;
+}
+
 
 /**
  * Function for deciding which pages should have a one-column layout.
@@ -363,7 +454,7 @@ function shell_one_column() {
 /**
  * Filters 'get_theme_layout' by returning 'layout-1c'.
  *
- * @since 0.2.0
+ * @since 0.1.0
  */
 function shell_theme_layout_one_column( $layout ) {
 	return 'layout-1c';
@@ -385,116 +476,7 @@ function shell_disable_sidebars( $sidebars_widgets ) {
 			$sidebars_widgets['secondary'] = false;
 		}
 	}
-
 	return $sidebars_widgets;
-}
-
-
-/**
- * Overwrites the default widths for embeds.  This is especially useful for making sure videos properly
- * expand the full width on video pages.  This function overwrites what the $content_width variable handles
- * with context-based widths.
- *
- * @since 0.1.0
- */
-function shell_embed_defaults( $args ) {
-
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-
-		$layout = theme_layouts_get_layout();
-
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$args['width'] = 558;
-		elseif ( 'layout-1c' == $layout )
-			$args['width'] = 930;
-		else
-			$args['width'] = 600;
-	}
-	else
-		$args['width'] = 600;
-
-	return $args;
-}
-
-
-/**
- * Widget Class Number
- *
- * code from Sukelius Magazine Theme
- * Adding .widget-first and .widget-last classes to widgets.
- * Class .widget-last used to reset margin-right to zero in subsidiary sidebar for the last widget.
- *
- * @link http://themehybrid.com/themes/sukelius-magazine
- * @since 0.1.0
- */
-function shell_widget_classes( $params ) {
-
-	global $genbu_widget_num; // Global a counter array
-	$this_id = $params[0]['id']; // Get the id for the current sidebar we're processing
-	$arr_registered_widgets = wp_get_sidebars_widgets(); // Get an array of ALL registered widgets
-
-	if ( !$genbu_widget_num ) {// If the counter array doesn't exist, create it
-		$genbu_widget_num = array();
-	}
-
-	if ( !isset( $arr_registered_widgets[$this_id] ) || !is_array( $arr_registered_widgets[$this_id] ) ) { // Check if the current sidebar has no widgets
-		return $params; // No widgets in this sidebar... bail early.
-	}
-
-	if ( isset($genbu_widget_num[$this_id] ) ) { // See if the counter array has an entry for this sidebar
-		$genbu_widget_num[$this_id] ++;
-	} else { // If not, create it starting with 1
-		$genbu_widget_num[$this_id] = 1;
-	}
-
-	$class = 'class="widget widget-' . $genbu_widget_num[$this_id] . ' '; // Add a widget number class for additional styling options
-
-	if ( $genbu_widget_num[$this_id] == 1 ) { // If this is the first widget
-		$class .= 'widget widget-first ';
-	} elseif( $genbu_widget_num[$this_id] == count( $arr_registered_widgets[$this_id] ) ) { // If this is the last widget
-		$class .= 'widget widget-last ';
-	}
-
-	$params[0]['before_widget'] = str_replace( 'class="widget ', $class, $params[0]['before_widget'] ); // Insert our new classes into "before widget"
-
-	return $params;
-}
-
-
-/**
- * Add Singular Post Format Template
- * 
- * This might be added to Hybrid Core 1.6
- * 
- * @link http://themehybrid.com/support/topic/add-post-format-singular-template-in-template-hierarchy#post-75579
- * @since 0.1.0
- */
-function shell_post_format_singular_template( $template ){
-
-	/* get queried object */
-	$post = get_queried_object();
-
-	/* check supported post type */
-	if ( post_type_supports( $post->post_type, 'post-formats' ) ) {
-
-		/* get post format of current object */
-		$format = get_post_format( get_queried_object_id() );
-
-		/* template */
-		$templates = array(
-			"{$post->post_type}-{$post->post_name}.php",
-			"{$post->post_type}-{$post->ID}.php",
-			"{$post->post_type}-format-{$format}.php"
-		);
-
-		/* locate template */
-		$has_template = locate_template( $templates );
-
-		if ( $has_template )
-			$template = $has_template;
-	}
-
-	return $template;
 }
 
 
@@ -570,17 +552,6 @@ function shell_get_menu_subsidiary(){
 
 
 /**
- * Breadcrumb Trail
- * 
- * @since 0.1.0
- */
-function shell_breadcrumb(){
-	if ( current_theme_supports( 'breadcrumb-trail' ) ) 
-		breadcrumb_trail( array( 'before' => __( 'You are here:', 'shell' ) ) );
-}
-
-
-/**
  * Load Loop Meta
  * 
  * @since 0.1.0
@@ -594,7 +565,29 @@ function shell_get_loop_meta(){
 
 
 /**
- * Thumbnail
+ * Mobile Menu HTML.
+ * This is added in 'shell_open_menu_primary' and 'shell_open_menu_secondary' hook
+ * 
+ * @since 0.1.0
+ */
+function shell_mobile_menu(){?>
+<div class="mobile-menu-button"></div><?php
+}
+
+
+/**
+ * Add Breadcrumb Trail
+ * 
+ * @since 0.1.0
+ */
+function shell_breadcrumb(){
+	if ( current_theme_supports( 'breadcrumb-trail' ) ) 
+		breadcrumb_trail( array( 'before' => __( 'You are here:', 'shell' ) ) );
+}
+
+
+/**
+ * Add Thumbnail
  * 
  * @since 0.1.0
  */
@@ -611,7 +604,7 @@ function shell_thumbnail(){
 
 
 /**
- * Summary WP Link Pages
+ * Add WP Link Pages
  * 
  * @since 0.1.0
  */
@@ -623,8 +616,6 @@ function shell_summary_wp_link_pages(){
 /**
  * Attachment Gallery
  * 
- * Uses custom context
- * 
  * @since 0.1.0
  */
 function shell_attachment_gallery(){
@@ -634,203 +625,104 @@ function shell_attachment_gallery(){
 
 
 /**
- * Add Shortcode
+ * Shell Footer Content
+ * So we can remove support for hybrid core settings if needed.
  * 
  * @since 0.1.0
  */
-function shell_shortcode(){
+function shell_footer_content(){
 
-	/* loop meta title */
-	add_shortcode( 'loop-meta-title', 'shell_loop_meta_title' );
+	/* default var */
+	$content = '';
 
-	/* loop meta description */
-	add_shortcode( 'loop-meta-desc', 'shell_loop_meta_description' );
+	/* If there is a child theme active, add the [child-link] shortcode to the $footer_insert. */
+	if ( is_child_theme() )
+		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link], [theme-link], and [child-link].', 'hybrid-core' ) . '</p>';
 
+	/* If no child theme is active, leave out the [child-link] shortcode. */
+	else
+		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link] and [theme-link].', 'hybrid-core' ) . '</p>';
+
+	/* Check support for hybrid core settings */
+	if ( current_theme_supports( 'hybrid-core-theme-settings' ) ) {
+
+		/* Get theme-supported meta boxes for the settings page. */
+		$supports = get_theme_support( 'hybrid-core-theme-settings' );
+
+		/* If the current theme supports the footer meta box and shortcodes, add footer settings input. */
+		if ( is_array( $supports[0] ) && in_array( 'footer', $supports[0] ) ) {
+			$content = hybrid_get_setting( 'footer_insert' );
+		}
+	}
+
+	/* Return the $settings array and provide a hook for overwriting the default settings. */
+	return $content;
 }
 
 
 /**
- * Loop Meta Title Shortcode
- * 
- * simplyfy loop meta
- * 
+ * Dynamic HTML Class to target context in body class.
+ *
  * @since 0.1.0
  */
-function shell_loop_meta_title( $attr ){
+function shell_html_class( $class = '' ){
 
 	global $wp_query;
 
-	/* Set shortcode attr */
-	$attr = shortcode_atts( array(
-		'before' => '<h1 class="loop-title">',
-		'after' => '</h1>' )
-	, $attr );
+	/* default var */
+	$classes = array();
 
-	/* Set up some default variables. */
-	$doctitle = '';
-	$separator = ' -';
+	/* Active Theme */
+	$classes[] = get_stylesheet();
 
-	/* default */
-	$current = '';
+	/* not singular pages - sometimes i need this */
+	if (! is_singular())
+		$classes[] = 'not-singular';
 
-	if ( is_home() || is_singular() ) {
-		$current = get_post_field( 'post_title', get_queried_object_id() );
+	/* theme layout check */
+	if ( current_theme_supports( 'theme-layouts' ) ) {
+
+		/* get current layout */
+		$layout = theme_layouts_get_layout();
+
+		/* if current theme layout is 2 column */
+		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
+			$classes[] = 'layout-2c';
+
+		/* if current theme layout is 3 column */
+		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
+			$classes[] = 'layout-3c';
 	}
 
-	/* If viewing any type of archive page. */
-	elseif ( is_archive() ) {
-
-		/* If viewing a taxonomy term archive. */
-		if ( is_category() || is_tag() || is_tax() ) {
-			if ( is_search() )
-				$current = esc_attr( get_search_query() ).' &ndash; '.single_term_title( '', false );
-			else
-				$current = single_term_title( '', false );
-		}
-
-		/* If viewing a post type archive. */
-		elseif ( is_post_type_archive() ) {
-			$post_type = get_post_type_object( get_query_var( 'post_type' ) );
-			$current = $post_type->labels->name;
-		}
-
-		/* If viewing an author/user archive. */
-		elseif ( is_author() ) {
-			$current = get_user_meta( get_query_var( 'author' ), 'Title', true );
-
-			if ( empty( $current ) )
-				$current = get_the_author_meta( 'display_name', get_query_var( 'author' ) );
-		}
-
-		/* If viewing a date-/time-based archive. */
-		elseif ( is_date () ) {
-			if ( get_query_var( 'minute' ) && get_query_var( 'hour' ) )
-				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'g:i a', 'shell' ) ) );
-
-			elseif ( get_query_var( 'minute' ) )
-				$current = sprintf( __( 'minute %1$s', 'shell' ), get_the_time( __( 'i', 'shell' ) ) );
-
-			elseif ( get_query_var( 'hour' ) )
-				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'g a', 'shell' ) ) );
-
-			elseif ( is_day() )
-				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'F jS, Y', 'shell' ) ) );
-
-			elseif ( get_query_var( 'w' ) )
-				$current = sprintf( __( 'week %1$s of %2$s', 'shell' ), get_the_time( __( 'W', 'shell' ) ), get_the_time( __( 'Y', 'shell' ) ) );
-
-			elseif ( is_month() )
-				$current = sprintf( __( '%1$s', 'shell' ), single_month_title( ' ', false) );
-
-			elseif ( is_year() )
-				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'Y', 'shell' ) ) );
-		}
-
-		/* For any other archives. */
-		else {
-			$current = __( 'Archives', 'shell' );
-		}
+	/* user input */
+	if ( ! empty( $class ) ) {
+		if ( !is_array( $class ) )
+			$class = preg_split( '#\s+#', $class );
+		$classes = array_merge( $classes, $class );
+	}
+	else {
+		$class = array();
 	}
 
-	/* If viewing a search results page. */
-	elseif ( is_search() )
-		$current = esc_attr( str_replace( '+', ' ', get_search_query( false ) ) );
+	/* enable filter */
+	$classes = apply_atomic( 'html_class', $classes, $class );
 
-	/* If viewing a 404 not found page: not really needed */
-	elseif ( is_404() )
-		$current = __( '404 Not Found', 'shell' );
+	/* sanitize it */
+	$classes = array_map( 'esc_attr', $classes );
 
-	/* Trim separator + space from beginning and end in case a plugin adds it. */
-	$current = trim( $current, "{$separator} " );
+	/* make it unique */
+	$classes = array_unique( $classes );
 
-	/* Format title */
-	if ( !empty( $current ) ){
-		$current = $attr['before'] . $current . $attr['after'] . "\n";
-	}
+	/* Join all the classes into one string. */
+	$class = join( ' ', $classes );
 
-	/* Print the title to the screen. */
-	return $current;
+	/* Print the body class. */
+	echo $class;
 }
 
 
 /**
- * Loop Meta Description Shortcode
- * 
- * simplyfy loop meta
- * 
- * @since 0.1.0
- */
-function shell_loop_meta_description( $attr ){
-
-	global $wp_query;
-
-	/* Set shortcode attr */
-	$attr = shortcode_atts( array(
-		'before' => '<div class="loop-description">',
-		'after' => '</div>' )
-	, $attr );
-
-	/* Set an empty $description variable. */
-	$description = '';
-
-	/* If viewing the home/posts page, get the site's description. */
-	if ( is_front_page() && is_home() )
-		$description = get_bloginfo( 'description' );
-
-	/* If viewing the posts page or a singular post. */
-	elseif ( is_home() || is_singular() ) {
-
-		$description = get_post_meta( get_queried_object_id(), '_yoast_wpseo_metadesc', true );
-
-		if ( empty( $description ) && is_front_page() )
-			$description = get_bloginfo( 'description' );
-
-		elseif ( empty( $current ) )
-			$description = get_post_field( 'post_excerpt', get_queried_object_id() );
-	}
-
-	/* If viewing an archive page. */
-	elseif ( is_archive() ) {
-
-		/* If viewing a user/author archive. */
-		if ( is_author() ) {
-
-			/* Get the meta value for the 'Description' user meta key. */
-			$description = get_user_meta( get_query_var( 'author' ), 'Description', true );
-
-			/* If no description was found, get the user's description (biographical info). */
-			if ( empty( $description ) )
-				$description = get_the_author_meta( 'description', get_query_var( 'author' ) );
-		}
-
-		/* If viewing a taxonomy term archive, get the term's description. */
-		elseif ( is_category() || is_tag() || is_tax() )
-			$description = term_description( '', get_query_var( 'taxonomy' ) );
-
-		/* If viewing a custom post type archive. */
-		elseif ( is_post_type_archive() ) {
-
-			/* Get the post type object. */
-			$post_type = get_post_type_object( get_query_var( 'post_type' ) );
-
-			/* If a description was set for the post type, use it. */
-			if ( isset( $post_type->description ) )
-				$description = $post_type->description;
-		}
-	}
-
-	/* loop description. */
-	if ( !empty( $description ) ){
-		$description = $attr['before'] . $description . $attr['after'] . "\n";
-	}
-
-	return $description;
-}
-
-/**
- * Body Class
- * 
- * Add body class: sidebars, menus, theme layout
+ * Additional body class for current page active sidebars, menus, and theme layout.
  * 
  * @since 0.1.0
  */
@@ -890,136 +782,63 @@ function shell_body_class( $classes ){
 
 
 /**
- * Shell HTML Class
+ * Additional widget classes with number of each widget position and first/last widget class.
+ * This is a modified code from Sukelius Magazine Theme.
  *
- * Dynamic HTML Class for active theme
- *
+ * @link http://themehybrid.com/themes/sukelius-magazine
  * @since 0.1.0
  */
-function shell_html_class( $class = '' ){
+function shell_widget_classes( $params ) {
 
-	global $wp_query;
+	/* Global a counter array */
+	global $shell_widget_num;
 
-	/* default var */
-	$classes = array();
+	/* Get the id for the current sidebar we're processing */
+	$this_id = $params[0]['id'];
 
-	/* Active Theme */
-	$classes[] = get_stylesheet();
+	/* Get registered widgets */
+	$arr_registered_widgets = wp_get_sidebars_widgets();
 
-	/* not singular pages - sometimes i need this */
-	if (! is_singular())
-		$classes[] = 'not-singular';
-
-	/* theme layout check */
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-
-		/* get current layout */
-		$layout = theme_layouts_get_layout();
-
-		/* if current theme layout is 2 column */
-		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
-			$classes[] = 'layout-2c';
-
-		/* if current theme layout is 3 column */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$classes[] = 'layout-3c';
+	/* If the counter array doesn't exist, create it */
+	if ( !$shell_widget_num ) {
+		$shell_widget_num = array();
 	}
 
-	/* user input */
-	if ( ! empty( $class ) ) {
-
-		if ( !is_array( $class ) )
-			$class = preg_split( '#\s+#', $class );
-
-		$classes = array_merge( $classes, $class );
+	/* if current sidebar has no widget, return. */
+	if ( !isset( $arr_registered_widgets[$this_id] ) || !is_array( $arr_registered_widgets[$this_id] ) ) {
+		return $params;
 	}
+
+	/* See if the counter array has an entry for this sidebar */
+	if ( isset( $shell_widget_num[$this_id] ) ) {
+		$shell_widget_num[$this_id] ++;
+	}
+	/* If not, create it starting with 1 */
 	else {
-
-		$class = array();
+		$shell_widget_num[$this_id] = 1;
 	}
 
-	/* enable filter */
-	$classes = apply_atomic( 'html_class', $classes, $class );
+	/* Add a widget number class for additional styling options */
+	$class = 'class="widget widget-' . $shell_widget_num[$this_id] . ' '; 
 
-	/* sanitize it */
-	$classes = array_map( 'esc_attr', $classes );
+	/* in first widget, add 'widget-first' class */
+	if ( $shell_widget_num[$this_id] == 1 ) {
+		$class .= 'widget-first ';
+	}
+	/* in last widget, add 'widget-last' class */
+	elseif( $shell_widget_num[$this_id] == count( $arr_registered_widgets[$this_id] ) ) { 
+		$class .= 'widget-last ';
+	}
 
-	/* make it unique */
-	$classes = array_unique( $classes );
+	/* str replace before_widget param with new class class */
+	$params[0]['before_widget'] = str_replace( 'class="widget ', $class, $params[0]['before_widget'] );
 
-	/* Join all the classes into one string. */
-	$class = join( ' ', $classes );
-
-	/* Print the body class. */
-	echo $class;
+	return $params;
 }
 
 
 /**
- * Shell Footer Content
- * 
- * So we can remove support for hybrid core settings.
- * 
- * @since 0.1.0
- */
-function shell_footer_content(){
-
-	/* default var */
-	$content = '';
-
-	/* If there is a child theme active, add the [child-link] shortcode to the $footer_insert. */
-	if ( is_child_theme() )
-		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link], [theme-link], and [child-link].', 'hybrid-core' ) . '</p>';
-
-	/* If no child theme is active, leave out the [child-link] shortcode. */
-	else
-		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link] and [theme-link].', 'hybrid-core' ) . '</p>';
-
-	/* Get theme-supported meta boxes for the settings page. */
-	$supports = get_theme_support( 'hybrid-core-theme-settings' );
-
-	/* If the current theme supports the footer meta box and shortcodes, add footer settings input. */
-	if ( is_array( $supports[0] ) && in_array( 'footer', $supports[0] ) ) {
-		$content = hybrid_get_setting( 'footer_insert' );
-	}
-
-	/* Return the $settings array and provide a hook for overwriting the default settings. */
-	return $content;
-}
-
-
-/**
- * Add Atomic Context for Atomic Widget Plugin
- * 
- * @link http://shellcreeper.com/portfolio/item/atomic-widget/
- * @since 0.1.0
- */
-function shell_atomic_widgets_context( $context ){
-
-	/* theme layout check */
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-
-		/* get theme layout */
-		$layout = theme_layouts_get_layout();
-
-		/* add theme layout to context */
-		$context[] = $layout;
-
-		/* if current theme layout is 2 column */
-		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
-			$context[] = 'layout-2c';
-
-		/* if current theme layout is 3 column */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$context[] = 'layout-3c';
-	}
-
-	return $context;
-}
-
-
-/**
- * Add Context to Hybrid Core Context
+ * Add Current Post template, Post Format, and Attachment Mime Type to Hybrid Core Context
  * 
  * @since 0.1.0
  */
@@ -1057,13 +876,244 @@ function shell_hybrid_context( $context ){
 
 
 /**
- * Editor Style
- *
+ * Add Atomic Context for Atomic Widget Plugin
+ * 
+ * @link http://shellcreeper.com/portfolio/item/atomic-widget/
+ * @since 0.1.0
+ */
+function shell_atomic_widgets_context( $context ){
+
+	/* theme layout check */
+	if ( current_theme_supports( 'theme-layouts' ) ) {
+
+		/* get theme layout */
+		$layout = theme_layouts_get_layout();
+
+		/* add theme layout to context */
+		$context[] = $layout;
+
+		/* if current theme layout is 2 column */
+		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
+			$context[] = 'layout-2c';
+
+		/* if current theme layout is 3 column */
+		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
+			$context[] = 'layout-3c';
+	}
+
+	return $context;
+}
+
+
+/**
+ * Add Singular Post Format Template
+ * 
+ * @link http://themehybrid.com/support/topic/add-post-format-singular-template-in-template-hierarchy#post-75579
+ * @since 0.1.0
+ */
+function shell_post_format_singular_template( $template ){
+
+	/* get queried object */
+	$post = get_queried_object();
+
+	/* check supported post type */
+	if ( post_type_supports( $post->post_type, 'post-formats' ) ) {
+
+		/* get post format of current object */
+		$format = get_post_format( get_queried_object_id() );
+
+		/* template */
+		$templates = array(
+			"{$post->post_type}-{$post->post_name}.php",
+			"{$post->post_type}-{$post->ID}.php",
+			"{$post->post_type}-format-{$format}.php"
+		);
+
+		/* locate template */
+		$has_template = locate_template( $templates );
+
+		if ( $has_template )
+			$template = $has_template;
+	}
+
+	return $template;
+}
+
+
+/**
+ * Add Shortcode
+ * 
+ * @since 0.1.0
+ */
+function shell_shortcode(){
+
+	/* loop meta title */
+	add_shortcode( 'loop-meta-title', 'shell_loop_meta_title' );
+
+	/* loop meta description */
+	add_shortcode( 'loop-meta-desc', 'shell_loop_meta_description' );
+}
+
+
+/**
+ * Loop Meta Title Shortcode for loop-meta.php template.
+ * 
+ * @since 0.1.0
+ */
+function shell_loop_meta_title( $attr ){
+
+	global $wp_query;
+
+	/* Set shortcode attr */
+	$attr = shortcode_atts( array(
+		'before' => '<h1 class="loop-title">',
+		'after' => '</h1>' )
+	, $attr );
+
+	/* default var */
+	$current = '';
+
+	if ( is_home() || is_singular() ) {
+		$current = get_post_field( 'post_title', get_queried_object_id() );
+	}
+
+	/* If viewing any type of archive page. */
+	elseif ( is_archive() ) {
+
+		/* If viewing a taxonomy term archive. */
+		if ( is_category() || is_tag() || is_tax() ) {
+			if ( is_search() )
+				$current = esc_attr( get_search_query() ).' &ndash; '.single_term_title( '', false );
+			else
+				$current = single_term_title( '', false );
+		}
+
+		/* If viewing a post type archive. */
+		elseif ( is_post_type_archive() ) {
+			$current = post_type_archive_title( false );
+		}
+
+		/* If viewing an author/user archive. */
+		elseif ( is_author() ) {
+			$current = get_the_author_meta( 'display_name', get_query_var( 'author' ) );
+		}
+
+		/* If viewing a date-/time-based archive. */
+		elseif ( is_date () ) {
+			if ( get_query_var( 'minute' ) && get_query_var( 'hour' ) )
+				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'g:i a', 'shell' ) ) );
+
+			elseif ( get_query_var( 'minute' ) )
+				$current = sprintf( __( 'minute %1$s', 'shell' ), get_the_time( __( 'i', 'shell' ) ) );
+
+			elseif ( get_query_var( 'hour' ) )
+				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'g a', 'shell' ) ) );
+
+			elseif ( is_day() )
+				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'F jS, Y', 'shell' ) ) );
+
+			elseif ( get_query_var( 'w' ) )
+				$current = sprintf( __( 'week %1$s of %2$s', 'shell' ), get_the_time( __( 'W', 'shell' ) ), get_the_time( __( 'Y', 'shell' ) ) );
+
+			elseif ( is_month() )
+				$current = sprintf( __( '%1$s', 'shell' ), single_month_title( ' ', false) );
+
+			elseif ( is_year() )
+				$current = sprintf( __( '%1$s', 'shell' ), get_the_time( __( 'Y', 'shell' ) ) );
+		}
+
+		/* For any other archives. */
+		else {
+			$current = __( 'Archives', 'shell' );
+		}
+	}
+
+	/* If viewing a search results page. */
+	elseif ( is_search() )
+		$current = esc_attr( get_search_query() );
+
+	/* Format title */
+	if ( !empty( $current ) ){
+		$current = $attr['before'] . $current . $attr['after'] . "\n";
+	}
+
+	/* Print the title to the screen. */
+	return $current;
+}
+
+
+/**
+ * Loop Meta Description Shortcode for loop-meta.php template.
+ * 
+ * @since 0.1.0
+ */
+function shell_loop_meta_description( $attr ){
+
+	global $wp_query;
+
+	/* Set shortcode attr */
+	$attr = shortcode_atts( array(
+		'before' => '<div class="loop-description">',
+		'after' => '</div>' )
+	, $attr );
+
+	/* Set an empty $description variable. */
+	$description = '';
+
+	/* If viewing the posts page or a singular post. */
+	if ( is_home() || is_singular() ) {
+
+		$description = get_post_field( 'post_excerpt', get_queried_object_id() );
+
+		if ( empty( $description ) )
+			$description = get_bloginfo( 'description' );
+	}
+
+	/* If viewing an archive page. */
+	elseif ( is_archive() ) {
+
+		/* If viewing a user/author archive. */
+		if ( is_author() ) {
+
+			/* Get the meta value for the 'Description' user meta key. */
+			$description = get_user_meta( get_query_var( 'author' ), 'Description', true );
+
+			/* If no description was found, get the user's description (biographical info). */
+			if ( empty( $description ) )
+				$description = get_the_author_meta( 'description', get_query_var( 'author' ) );
+		}
+
+		/* If viewing a taxonomy term archive, get the term's description. */
+		elseif ( is_category() || is_tag() || is_tax() )
+			$description = term_description( '', get_query_var( 'taxonomy' ) );
+
+		/* If viewing a custom post type archive. */
+		elseif ( is_post_type_archive() ) {
+
+			/* Get the post type object. */
+			$post_type = get_post_type_object( get_query_var( 'post_type' ) );
+
+			/* If a description was set for the post type, use it. */
+			if ( isset( $post_type->description ) )
+				$description = $post_type->description;
+		}
+	}
+
+	/* loop description. */
+	if ( !empty( $description ) ){
+		$description = $attr['before'] . $description . $attr['after'] . "\n";
+	}
+
+	return $description;
+}
+
+
+/**
  * Additional Editor Style Based On Theme Layout Selected
  *
- * @since 2.0.0
+ * @since 0.1.0
  */
-function shell_editor_style() {
+function shell_theme_layout_editor_style() {
 
 	global $pagenow;
 
@@ -1159,34 +1209,39 @@ function shell_tinymce_3( $buttons ){
  */
 function shell_tinymce_style_select( $settings ) {
 
+	/* style dropdown */
 	$style_formats = array(
-	array( 'title' => 'Code',			'inline' => 'code', ),
-	array( 'title' => 'Clear',			'block' => 'div',  'classes' => 'clear' ),
 
-	/* Column */
-	array( 'title' => 'Column'),
-	array( 'title' => 'Half',			'block' => 'p',  'classes' => 'grid-column-2' ),
-	array( 'title' => 'One thirds',		'block' => 'p',  'classes' => 'grid-column-1-3' ),
-	array( 'title' => 'Two thirds',		'block' => 'p',  'classes' => 'grid-column-2-3' ),
-	array( 'title' => 'Last column*',	'block' => 'p',  'classes' => 'grid-column-last' ),
+		/* Code and clear both */
+		array( 'title' => _x( 'Code', 'tinymce', 'shell' ),			'inline' => 'code', ),
+		array( 'title' => _x( 'Clear', 'tinymce', 'shell' ),		'block' => 'div',  'classes' => 'clear' ),
 
-	/* Info Boxes */
-	array( 'title' => 'Box'),
-	array( 'title' => 'Note',			'block' => 'div',  'classes' => 'note' ),
-	array( 'title' => 'Alert', 			'block' => 'div',  'classes' => 'alert' ),
-	array( 'title' => 'Error', 			'block' => 'div',  'classes' => 'error' ),
-	array( 'title' => 'Download',		'block' => 'div',  'classes' => 'download' ),
+		/* Column */
+		array( 'title' => _x( 'Columns', 'tinymce', 'shell' ) ),
+		array( 'title' => _x( 'Half', 'tinymce', 'shell' ),			'block' => 'p', 'classes' => 'grid-column-2' ),
+		array( 'title' => _x( 'One-third', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-1-3' ),
+		array( 'title' => _x( 'Two-third', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-2-3' ),
+		array( 'title' => _x( 'One-fourth', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-1-4' ),
+		array( 'title' => _x( 'Three-fourth', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-3-4' ),
+		array( 'title' => _x( 'Last column*', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-last' ),
 
-	/* Buttons */
-	array( 'title' => 'Button'),
-	array( 'title' => 'Button',			'inline' => 'span',  'classes' => 'button' ),
-	array( 'title' => 'Green Button',	'inline' => 'span',  'classes' => 'button button-green' ),
-	array( 'title' => 'Blue Button',	'inline' => 'span',  'classes' => 'button button-blue' ),
-	array( 'title' => 'Black Button',	'inline' => 'span',  'classes' => 'button button-black' ),
-	array( 'title' => 'Red Button',		'inline' => 'span',  'classes' => 'button button-red' ),
-	array( 'title' => 'Small Button*',	'inline' => 'span',  'classes' => 'button button-small' ),
+		/* Info Boxes */
+		array( 'title' => _x( 'Info Boxes', 'tinymce', 'shell' ) ),
+		array( 'title' => _x( 'Note', 'tinymce', 'shell' ),		'block' => 'div', 'classes' => 'note' ),
+		array( 'title' => _x( 'Alert', 'tinymce', 'shell' ), 	'block' => 'div', 'classes' => 'alert' ),
+		array( 'title' => _x( 'Error', 'tinymce', 'shell' ), 	'block' => 'div', 'classes' => 'error' ),
+		array( 'title' => _x( 'Download', 'tinymce', 'shell' ),	'block' => 'div', 'classes' => 'download' ),
+
+		/* Buttons */
+		array( 'title' => _x( 'Buttons', 'tinymce', 'shell' ) ),
+		array( 'title' => _x( 'White', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button' ),
+		array( 'title' => _x( 'Green', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-green' ),
+		array( 'title' => _x( 'Blue', 'tinymce', 'shell' ),		'inline' => 'span', 'classes' => 'button button-blue' ),
+		array( 'title' => _x( 'Black', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-black' ),
+		array( 'title' => _x( 'Red', 'tinymce', 'shell' ),		'inline' => 'span', 'classes' => 'button button-red' ),
+		array( 'title' => _x( 'Small*', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-small' ),
+
 	);
-
 	$settings['style_formats'] = json_encode( $style_formats );
 	return $settings;
 }

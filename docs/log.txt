@@ -26,3 +26,12 @@
 ===============
 - visual editor tinymce 
 	add grid column, buttons, boxes, and several other buttons.
+
+03 Feb 2013
+===============
+- fix grid col. css. new icon etc...
+- all function is rearrange. and re code....
+- change sking filter
+- update langs.
+- All seems to be done. (for now)
+- and new readme

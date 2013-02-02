@@ -10,23 +10,27 @@
 add_action( 'admin_menu', 'shell_theme_admin_setup' );
 
 function shell_theme_admin_setup() {
-    
-	global $theme_settings_page;
 
-	/* Get the theme settings page name. */
-	$theme_settings_page = 'appearance_page_theme-settings';
+	/* only if theme support for hybrid core settings */
+	if ( current_theme_supports( 'hybrid-core-theme-settings' ) ) {
 
-	/* Get the theme prefix. */
-	$prefix = hybrid_get_prefix();
+		global $theme_settings_page;
 
-	/* Create a settings meta box only on the theme settings page. */
-	add_action( 'load-appearance_page_theme-settings', 'shell_theme_settings_meta_boxes' );
+		/* Get the theme settings page name. */
+		$theme_settings_page = 'appearance_page_theme-settings';
 
-	/* Add a filter to validate/sanitize your settings. */
-	add_filter( "sanitize_option_{$prefix}_theme_settings", 'shell_theme_validate_settings' );
+		/* Get the theme prefix. */
+		$prefix = hybrid_get_prefix();
 
-	/* Enqueue scripts */
-	add_action( 'admin_enqueue_scripts', 'shell_admin_scripts' );
+		/* Create a settings meta box only on the theme settings page. */
+		add_action( 'load-appearance_page_theme-settings', 'shell_theme_settings_meta_boxes' );
+
+		/* Add a filter to validate/sanitize your settings. */
+		add_filter( "sanitize_option_{$prefix}_theme_settings", 'shell_theme_validate_settings' );
+
+		/* Enqueue scripts */
+		add_action( 'admin_enqueue_scripts', 'shell_admin_scripts' );
+	}
 }
 
 /**
@@ -45,7 +49,7 @@ function shell_theme_settings_meta_boxes() {
 		/* Add Skin Meta box. */
 		add_meta_box(
 			'shell-skin-meta-box',				// Name/ID
-			__( 'Skins', 'shell' ),				// Label
+			_x( 'Skins', 'settings', 'shell' ),	// Label
 			'shell_skin_meta_box',				// Callback function
 			'appearance_page_theme-settings',	// Page to load on, leave as is
 			'normal',							// Which meta box holder?
@@ -58,12 +62,12 @@ function shell_theme_settings_meta_boxes() {
 
 		/* Add Theme Layout Meta box */
 		add_meta_box(
-			'shell-theme-layout-meta-box',		// Name/ID
-			__( 'Theme Layout', 'shell' ),	// Label
-			'shell_theme_layout_meta_box',		// Callback function
-			'appearance_page_theme-settings',	// Page to load on, leave as is
-			'side',								// Which meta box holder?
-			'low'								// High/low within the meta box holder
+			'shell-theme-layout-meta-box',				// Name/ID
+			_x( 'Theme Layout', 'settings', 'shell' ),	// Label
+			'shell_theme_layout_meta_box',				// Callback function
+			'appearance_page_theme-settings',			// Page to load on, leave as is
+			'side',										// Which meta box holder?
+			'low'										// High/low within the meta box holder
 		);
 	}
 }
@@ -87,7 +91,7 @@ function shell_skin_meta_box() {
 
 					/* selected for image label */
 					$selected = '';
-					if ( hybrid_get_setting( 'skin' ) == $skin_id ) {
+					if ( shell_active_skin() == $skin_id ) {
 						$selected = ' skin-img-selected';
 					}
 
@@ -97,9 +101,10 @@ function shell_skin_meta_box() {
 						$version = ' <span class="skin-version">' . $skin_data['version'] . '</span>';
 
 					/* skin image */
-					$image = $skin_data['image'];
-					if ( !isset( $skin_data['image'] ) || empty( $skin_data['image'] ) )
+					if ( !isset( $skin_data['screenshot'] ) || empty( $skin_data['screenshot'] ) )
 						$image = get_template_directory_uri() . '/images/skin-no-image.jpg';
+					else
+						$image = esc_url_raw( $skin_data['screenshot'] );
 
 					/* skin author */
 					$author = '';
@@ -119,20 +124,20 @@ function shell_skin_meta_box() {
 					?>
 					<div class="skin-input-wrap">
 
-						<input type="radio" name="<?php echo esc_attr( hybrid_settings_field_name( 'skin' ) ); ?>" id="<?php echo esc_attr( $skin_id ); ?>" class="skin-option-input" value="<?php echo esc_attr( $skin_id ); ?>" <?php checked( hybrid_get_setting( 'skin' ), $skin_id ); ?> />
+						<input type="radio" name="<?php echo esc_attr( hybrid_settings_field_name( 'skin' ) ); ?>" id="<?php echo esc_attr( $skin_id ); ?>" class="skin-option-input" value="<?php echo esc_attr( $skin_id ); ?>" <?php checked( shell_active_skin(), $skin_id ); ?> />
 
 						<div style="background-image:url(<?php echo esc_url( $image ); ?>);" title="<?php echo esc_attr( $skin_id ); ?>" class="skin-img<?php echo esc_attr( $selected ); ?>" onclick="document.getElementById('<?php echo esc_attr( $skin_id ); ?>').checked=true;" /></div>
 
 						<div class="skin-name"><?php echo esc_html( $skin_data['name'] ); echo $version; ?></div>
 
 						<?php if ( !empty( $author ) ){?>
-						<div class="skin-author"><?php printf( __( 'By %s', 'shell' ), $author ); ?></div>
+						<div class="skin-author"><?php printf( _x( 'By %s', 'settings', 'shell' ), $author ); ?></div>
 						<?php }?>
 
 						<?php if ( !empty( $desc ) ){?>
 						<div class="skin-detail-wrap">
 
-							<div class="skin-detail"><?php _e( 'Details', 'shell' ); ?></div>
+							<div class="skin-detail"><?php _ex( 'Details', 'settings', 'shell' ); ?></div>
 
 							<div class="skin-description"><p><?php echo $desc; ?></p></div>
 
@@ -158,7 +163,7 @@ function shell_theme_layout_meta_box(){
 		<!-- Theme Layout -->
 		<tr>
 			<td>
-				<p><?php _e( 'Want to set default global layout?', 'shell' ); ?></p>
+				<p><?php _ex( 'Want to set default global layout?', 'settings', 'shell' ); ?></p>
 
 				<a href="<?php echo admin_url( 'customize.php' ); ?>" name="reset" class="reset-button button-secondary"><?php esc_html_e( 'Customize', 'shell' ); ?></a>
 			</td>

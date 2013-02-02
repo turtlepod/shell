@@ -1,0 +1,107 @@
+body{
+	width:700px;
+	margin:0 auto 60px auto;
+	font:13px/20px Arial;
+	padding-right:10px;
+}
+#container{
+	padding:0 40px;
+	background:#fff;
+}
+a:link,a:visited{
+	color:#2f6eb9;
+	text-decoration:none
+}
+a:hover,a:active{
+	text-decoration:none
+}
+h1,h2,h3,h4,h5,h6{
+	margin:25px 0 20px 0;
+	color:#000;
+	font-weight:bold;
+	font-family:Arial,sans-serif
+}
+h1{
+	padding-top:20px;
+	font-size:1.8em
+}
+#title{
+	margin-top:40px;
+	display:inline-block;
+}
+h2{
+	margin:0 0 20px 0;
+	padding-top:25px;
+	font-size:1.3em;
+}
+code{
+	padding:0 3px;
+	background:#eee
+}
+pre code{
+	padding:0
+}
+pre{
+	padding:9px;
+	background:#eee;
+	border:1px solid #ccc
+}
+ul{
+	list-style:square
+}
+ul.space li{
+	margin-bottom:10px
+}
+.section{
+	overflow:hidden
+}
+.columns-2{
+	float:left;
+	width:350px;
+	margin:0 0 21px 25px
+}
+.columns-3{
+	float:left;
+	width:230px;
+	margin:0 0 21px 20px
+}
+a:hover{
+	color:#D54E21;
+}
+.tab{
+	display:block;
+	width:100%;
+	height:37px;
+	background:#eee;
+	font-size:12px;
+}
+.tab-section{
+	display: inline-block;
+	margin:4px 0 0 7px;
+	padding:5px 7px;
+	padding-bottom:7px;
+	border:1px solid transparent;
+}
+.tab-section-current,
+.tab-section:hover{
+	border:1px solid #ccc;
+	border-bottom:none;
+	background:#fff;
+}
+.screenshot{
+	float:right;
+	margin:15px;
+	margin-right:0;
+}
+.to-top{
+	font-size:11px;
+	font-weight:normal;
+}
+.changelog{
+	max-height:100px;
+	padding:10px 20px;
+	background:#d6d6d6;
+	overflow:auto;
+	border:1px solid #ccc;
+	word-wrap:break-word;
+}
