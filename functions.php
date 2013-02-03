@@ -114,9 +114,6 @@ function shell_theme_setup() {
 	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu-secondary.php
 	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu-subsidiary.php
 
-	/* Load loop-meta.php Template File */
-	add_action( "{$prefix}_open_hfeed", 'shell_get_loop_meta' ); // loop-meta.php
-
 	/* Load searchform.php Template File */
 	add_action( "{$prefix}_close_menu_secondary", 'get_search_form' );
 
@@ -126,6 +123,7 @@ function shell_theme_setup() {
 
 	/* Add breadcrumb Trail */
 	add_action( "{$prefix}_open_main", 'shell_breadcrumb' );
+	add_filter( 'breadcrumb_trail_args', 'shell_breadcrumb_trail_args' ); // add edit link
 
 	/* Add thumbnail */
 	add_action( "{$prefix}_open_entry", 'shell_thumbnail' );
@@ -151,9 +149,6 @@ function shell_theme_setup() {
 	/* Post format singular template */
 	add_filter( 'single_template', 'shell_post_format_singular_template', 11 );
 
-	/* add shortcode */
-	add_action( 'init', 'shell_shortcode' );
-
 	/* Add editor style */
 	add_editor_style();
 	add_action( 'admin_head', 'shell_theme_layout_editor_style' );
@@ -163,6 +158,8 @@ function shell_theme_setup() {
 	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1 ); // 2nd row
 	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1 ); // 3rd row
 	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1 ); //style select settings
+	
+	add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'gallery', 'link', 'quote', 'status', 'video' ) );
 }
 
 
@@ -343,7 +340,12 @@ function shell_active_skin(){
 		if ( in_array( $skin_setting, $skin_ids ) )
 			$active_skin = $skin_setting;
 	}
-	return apply_filters( 'shell_active_skin', $active_skin );
+
+	/* enable developer to modify it, maybe different skin for different pages (?) */
+	$active_skin = apply_atomic( 'active_skin', $active_skin ); // shell_active_skin
+
+	/* sanitize it */
+	return wp_filter_nohtml_kses( $active_skin );
 }
 
 
@@ -552,19 +554,6 @@ function shell_get_menu_subsidiary(){
 
 
 /**
- * Load Loop Meta
- * 
- * @since 0.1.0
- */
-function shell_get_loop_meta(){
-
-	/* load on blog page, archive, and search result pages */
-	if ( ( is_home() && !is_front_page() ) || is_archive() || is_search() )
-		get_template_part( 'loop-meta' );
-}
-
-
-/**
  * Mobile Menu HTML.
  * This is added in 'shell_open_menu_primary' and 'shell_open_menu_secondary' hook
  * 
@@ -583,6 +572,46 @@ function shell_mobile_menu(){?>
 function shell_breadcrumb(){
 	if ( current_theme_supports( 'breadcrumb-trail' ) ) 
 		breadcrumb_trail( array( 'before' => __( 'You are here:', 'shell' ) ) );
+}
+
+
+/**
+ * Shell Breadcrumb Trail Args
+ * 
+ * @since 0.1.0
+ */
+function shell_breadcrumb_trail_args( $args ){
+	$args['after'] = shell_edit_link();
+	return $args;
+}
+
+
+/**
+ * Edit Link for singular post and taxonomy
+ * code from wordpress tool bar/admin bar.
+ *
+ * @since 0.1.0
+ */
+function shell_edit_link(){
+	global $post, $tag, $wp_the_query;
+	$current_object = $wp_the_query->get_queried_object();
+	if ( empty( $current_object ) )
+		return;
+	if ( ! empty( $current_object->post_type )
+			&& ( $cpt = get_post_type_object( $current_object->post_type ) )
+			&& current_user_can( $cpt->cap->edit_post, $current_object->ID )
+			&& ( $cpt->show_ui || 'attachment' == $current_object->post_type ) )
+		{
+			$edit_link = get_edit_post_link( $current_object->ID );
+			return ' <a class="edit-link" href="'.$edit_link.'"> - Edit</a>';
+	} elseif ( ! empty( $current_object->taxonomy )
+			&& ( $tax = get_taxonomy( $current_object->taxonomy ) )
+			&& current_user_can( $tax->cap->edit_terms )
+			&& $tax->show_ui )
+		{
+			$edit_link = get_edit_term_link( $current_object->term_id, $current_object->taxonomy );
+			return ' <a class="edit-link" href="'.$edit_link.'"> - Edit</a>';
+	}
 }
 
 
@@ -657,6 +686,70 @@ function shell_footer_content(){
 
 	/* Return the $settings array and provide a hook for overwriting the default settings. */
 	return $content;
+}
+
+
+/**
+ * Advance Get Template by Atomic Context.
+ * An easy to use feature for developer to create context based template file.
+ * 
+ * @param $dir	string	template files directory
+ * @param $loop	bool	if it's used in the loop, to give extra template based on post type and post formats.
+ * @since 0.1.0
+ */
+function shell_get_atomic_template( $dir, $loop = false ) {
+
+	/* array of available templates */
+	$templates = array();
+
+	/* get theme path  */
+	$theme_dir = trailingslashit( THEME_DIR ) . $dir;
+	$child_dir = trailingslashit( CHILD_THEME_DIR ) . $dir;
+
+	if ( is_dir( $child_dir ) || is_dir( $theme_dir ) ) {
+
+		/* index.php in folder are fallback template */
+		$templates[] = "{$dir}/index.php";
+	}
+	else{
+		return ''; // empty string if dir not found
+	}
+
+	/* get current page (atomic) contexts */
+	foreach ( hybrid_get_context() as $context ){
+
+		/* add context based template */
+		$templates[] = "{$dir}/{$context}.php";
+
+		/* if context is in the loop, ( how to check if it's in the loop? ) */
+		if ( true === $loop ){
+
+			/* file based on post data */
+			$files = array();
+
+			/* current post - post type */
+			$files[] = get_post_type();
+
+			/* if post type support post-formats */
+			if ( post_type_supports( get_post_type(), 'post-formats' ) ){
+				$files[] = get_post_type() . '-format-' . get_post_format();
+			}
+
+			/*
+			 * In blog pages, archives and search result pages, add post type and post format template
+			 * post format in singular pages is not needed, cause it's already added in core context.
+			 */
+			if ( !is_singular() ){
+
+				/* add file based on post type and post format */
+				foreach ( $files as $file ){
+
+					$templates[] = "{$dir}/{$context}_{$file}.php";
+				}
+			}
+		}
+	}
+	return locate_template( array_reverse( $templates ), true, false );
 }
 
 
@@ -941,34 +1034,18 @@ function shell_post_format_singular_template( $template ){
 
 
 /**
- * Add Shortcode
+ * Loop Meta Title.
  * 
  * @since 0.1.0
  */
-function shell_shortcode(){
-
-	/* loop meta title */
-	add_shortcode( 'loop-meta-title', 'shell_loop_meta_title' );
-
-	/* loop meta description */
-	add_shortcode( 'loop-meta-desc', 'shell_loop_meta_description' );
-}
-
-
-/**
- * Loop Meta Title Shortcode for loop-meta.php template.
- * 
- * @since 0.1.0
- */
-function shell_loop_meta_title( $attr ){
+function shell_loop_meta_title(){
 
 	global $wp_query;
 
-	/* Set shortcode attr */
-	$attr = shortcode_atts( array(
+	/* attr */
+	$attr = array(
 		'before' => '<h1 class="loop-title">',
-		'after' => '</h1>' )
-	, $attr );
+		'after' => '</h1>' );
 
 	/* default var */
 	$current = '';
@@ -991,11 +1068,6 @@ function shell_loop_meta_title( $attr ){
 		/* If viewing a post type archive. */
 		elseif ( is_post_type_archive() ) {
 			$current = post_type_archive_title( false );
-		}
-
-		/* If viewing an author/user archive. */
-		elseif ( is_author() ) {
-			$current = get_the_author_meta( 'display_name', get_query_var( 'author' ) );
 		}
 
 		/* If viewing a date-/time-based archive. */
@@ -1032,6 +1104,9 @@ function shell_loop_meta_title( $attr ){
 	elseif ( is_search() )
 		$current = esc_attr( get_search_query() );
 
+	/* Filter it */
+	$current = apply_atomic( 'loop_meta_title', $current );
+
 	/* Format title */
 	if ( !empty( $current ) ){
 		$current = $attr['before'] . $current . $attr['after'] . "\n";
@@ -1043,48 +1118,36 @@ function shell_loop_meta_title( $attr ){
 
 
 /**
- * Loop Meta Description Shortcode for loop-meta.php template.
+ * Loop Meta Description.
  * 
  * @since 0.1.0
  */
-function shell_loop_meta_description( $attr ){
+function shell_loop_meta_description(){
 
 	global $wp_query;
 
-	/* Set shortcode attr */
-	$attr = shortcode_atts( array(
+	/* attr */
+	$attr = array(
 		'before' => '<div class="loop-description">',
-		'after' => '</div>' )
-	, $attr );
+		'after' => '</div>' );
 
 	/* Set an empty $description variable. */
 	$description = '';
 
 	/* If viewing the posts page or a singular post. */
-	if ( is_home() || is_singular() ) {
+	if ( is_home() && !is_front_page()  ) {
 
 		$description = get_post_field( 'post_excerpt', get_queried_object_id() );
 
-		if ( empty( $description ) )
-			$description = get_bloginfo( 'description' );
+		if ( !empty( $description ) )
+			$description = '<p>' . $description . '</p>';
 	}
 
 	/* If viewing an archive page. */
 	elseif ( is_archive() ) {
 
-		/* If viewing a user/author archive. */
-		if ( is_author() ) {
-
-			/* Get the meta value for the 'Description' user meta key. */
-			$description = get_user_meta( get_query_var( 'author' ), 'Description', true );
-
-			/* If no description was found, get the user's description (biographical info). */
-			if ( empty( $description ) )
-				$description = get_the_author_meta( 'description', get_query_var( 'author' ) );
-		}
-
 		/* If viewing a taxonomy term archive, get the term's description. */
-		elseif ( is_category() || is_tag() || is_tax() )
+		if ( is_category() || is_tag() || is_tax() )
 			$description = term_description( '', get_query_var( 'taxonomy' ) );
 
 		/* If viewing a custom post type archive. */
@@ -1095,9 +1158,12 @@ function shell_loop_meta_description( $attr ){
 
 			/* If a description was set for the post type, use it. */
 			if ( isset( $post_type->description ) )
-				$description = $post_type->description;
+				$description = '<p>' . $post_type->description . '</p>';
 		}
 	}
+
+	/* Filter it */
+	$description = apply_atomic( 'loop_meta_description', $description );
 
 	/* loop description. */
 	if ( !empty( $description ) ){

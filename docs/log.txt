@@ -35,3 +35,23 @@
 - update langs.
 - All seems to be done. (for now)
 - and new readme
+
+03 Feb 2013 #2
+===============
+- change validation in skins theme settings
+- dynamic widget classes is not filtering hc sidebar default args.
+	it's better this way.
+
+04 Feb 2013
+===============
+- now uses atomic template shell_atomic_template() for content and loop-meta
+- update HC 1.5.2
+- remove loop meta shortcode 
+- add edit link in breadcrumb trail.
+
+
+
+
+
+
+

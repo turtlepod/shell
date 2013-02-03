@@ -21,11 +21,13 @@ get_header(); // Loads the header.php template. ?>
 
 			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
 
+			<?php if (!is_singular() ){ shell_get_atomic_template( 'loop-meta' ); } // atomic context template, in "loop-meta" directory  ?>
+
 			<?php if ( have_posts() ) : ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php get_template_part( 'content', ( post_type_supports( get_post_type(), 'post-formats' ) ? ( false === get_post_format() ? get_post_type() : get_post_type() . '-format-' . get_post_format() ) : get_post_type() ) ); ?>
+					<?php shell_get_atomic_template( 'content', true ); // atomic context loop template, in "content" directory ?>
 
 				<?php endwhile; ?>
 

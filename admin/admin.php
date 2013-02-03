@@ -182,7 +182,24 @@ function shell_theme_layout_meta_box(){
  */
 function shell_theme_validate_settings( $input ) {
 
-	$input['skin'] = wp_filter_nohtml_kses( $input['skin'] );
+	/* available skins */
+	$skins = shell_skins();
+
+	/* get skin ids */
+	$skin_ids = array();
+	foreach ( $skins as $skin_id => $skin_data ){
+		$skin_ids[] = $skin_id;
+	}
+
+	/* check if selected skins is available */
+	if ( in_array( $input['skin'], $skin_ids ) ){
+		$input['skin'] = wp_filter_nohtml_kses( $input['skin'] );
+	}
+	/* if not, save it as default */
+	else{
+		$input['skin'] = 'default';
+	}
+
 	return $input;
 }
 
