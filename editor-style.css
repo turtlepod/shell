@@ -432,7 +432,7 @@ img.wp-smiley {
  * =============================
  */
 body#tinymce.wp-editor { 
-	width:620px;
+	max-width:620px;
 	margin-left: 20px;
 	margin-top:10px;
 	padding-right:20px;

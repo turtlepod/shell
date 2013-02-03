@@ -49,6 +49,9 @@
 - remove loop meta shortcode 
 - add edit link in breadcrumb trail.
 
+04 feb 2013
+===============
+- fix editor style width.
 
 
 
