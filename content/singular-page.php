@@ -31,8 +31,6 @@
 
 	<?php do_atomic( 'after_entry_content' ); // shell_after_entry_content ?>
 
-	<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">[entry-edit-link]</div>' ); ?>
-
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
 </div><!-- .hentry -->

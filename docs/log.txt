@@ -49,12 +49,18 @@
 - remove loop meta shortcode 
 - add edit link in breadcrumb trail.
 
-04 feb 2013
+04 Feb 2013 #2
 ===============
 - fix editor style width. (my fault it's not a bug)
 
-
-
-
-
-
+04 Feb 2013 #3
+===============
+- improvement on mobile menu.
+- fix style loader
+- add skin uri
+- remove edit link on singular, not needed since it's already in breadcrumb.
+- remove post format support
+- editor style for layout is better.
+- no subfolder in js.
+- css in all in root, cause editor cannot edit css in root (?)
+- ALL DONE, now wait for themehybrid.com review.

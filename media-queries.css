@@ -127,6 +127,7 @@
 		width:100%;
 		height:auto;
 	}
+
 	/* menu subsidiary
 	*******************************************/
 	#menu-subsidiary div.menu li{
@@ -152,18 +153,27 @@
 	*******************************************/
 	.mobile-menu-button {
 		position: relative;
-		width: 32px;
+		width:130px;
 		height: 38px;
+		line-height:38px;
 		margin-bottom: 3px;
 		margin-right: 3px;
 		display: block;
 		float: left;
 		cursor: pointer;
-		background: url(images/menu-icon.png) no-repeat center center;
+		background: url(images/menu-icon.png) no-repeat center right;
+	}
+	.mobile-menu-button:hover,
+	.mobile-menu-button:active{
+		text-decoration:underline;
 	}
 
 	/* Menu Primary
 	*******************************************/
+	#menu-primary .mobile-menu-button{
+		float:right;
+		width:115px;
+	}
 	#menu-primary{
 		display: block;
 		padding:2.5%;
@@ -175,19 +185,20 @@
 		clear: both;
 		position: absolute;
 		top: auto;
-		right: auto;
-		left: 15%;
+		right: 4%;
+		left: auto;
 		bottom: auto;
 		width: 200px;
 		z-index: 1000;
 		padding: 10px 5px;
+		margin-top:40px;
 		background: #fff;
 		border: solid 1px #999;
 		display: none;
 	}
 
 	/* Active */
-	body #menu-primary div.mobile-menu-active{
+	body #menu-primary div.wrap-menu-active{
 		display: block ;
 	}
 
@@ -197,7 +208,7 @@
 	#menu-primary div.wrap li {
 		clear: both;
 		float: none;
-		margin: 5px 0 5px 10px;
+		margin: 5px 0 0 10px;
 		padding: 0;
 		border: none;
 		width: auto !important;
@@ -236,9 +247,17 @@
 		margin: 0 10px 5px 0;
 		padding: 4px 7px;
 	}
+	#menu-primary ul li a:hover,
+	#menu-primary li ul li a:hover{
+		text-decoration:underline;
+	}
 
 	/* Secondary Menu
 	*******************************************/
+	#menu-secondary .mobile-menu-button{
+		background: url(images/menu-icon.png) no-repeat center left;
+		padding-left:35px;
+	}
 	#menu-secondary{
 		display: block;
 		padding:2.5%;
@@ -251,25 +270,26 @@
 		position: absolute;
 		top: auto;
 		right: auto;
-		left: 15%;
+		left: 4%;
 		bottom: auto;
 		width: 200px;
 		z-index: 1000;
 		padding: 10px 5px;
+		margin-top:40px;
 		background: #fff;
 		border: solid 1px #999;
 		display: none;
 	}
 
 	/* Active */
-	body #menu-secondary div.mobile-menu-active{
+	body #menu-secondary div.wrap-menu-active{
 		display: block;
 	}
 
 	#menu-secondary div.wrap li {
 		clear: both;
 		float: none;
-		margin: 5px 0 5px 10px;
+		margin: 5px 0 0 10px;
 		padding: 0;
 		border: none;
 		width: auto !important;
@@ -308,8 +328,13 @@
 		margin: 0 10px 5px 0;
 		padding: 4px 7px;
 	}
+	#menu-secondary ul li a:hover,
+	#menu-secondary li ul li a:hover{
+		text-decoration:underline;
+	}
+	/* search */
 	.menu-container div.search{
-		width:75%;
+		width:130px;
 	}
 	.menu-container div.search .search-form{
 		margin:0;

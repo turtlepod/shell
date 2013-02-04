@@ -16,7 +16,7 @@
 
 	<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); ?>
 
-	<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', 'shell' ) . '</div>' ); ?>
+	<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published]', 'shell' ) . '</div>' ); ?>
 
 	<?php do_atomic( 'before_entry_content' ); // shell_before_entry_content ?>
 

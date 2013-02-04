@@ -1,8 +1,6 @@
 body#tinymce.wp-editor { 
-	width:578px;
+	max-width:578px;
 }
 body.wp-fullscreen-editor {
-	width:578px !important;
-	padding-right:20px !important;
-	border-right:1px dashed #ccc;
+	width:578px;
 }

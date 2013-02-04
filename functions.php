@@ -60,9 +60,9 @@ function shell_theme_setup() {
 	add_theme_support( 'hybrid-core-theme-settings', array( 'about', 'footer' ) );
 	add_theme_support( 'hybrid-core-template-hierarchy' );
 	add_theme_support( 'hybrid-core-scripts', array( 'drop-downs' ) );
-	if ( is_child_theme() ) // child theme
+	if ( is_child_theme() ) // in child theme
 		add_theme_support( 'hybrid-core-styles', array( 'parent', 'media-queries', 'skin', 'style' ) );
-	else // parent theme
+	else // in parent theme
 		add_theme_support( 'hybrid-core-styles', array( 'style', 'media-queries', 'skin' ) );
 
 	/* Add theme support for framework extensions. */
@@ -151,15 +151,13 @@ function shell_theme_setup() {
 
 	/* Add editor style */
 	add_editor_style();
-	add_action( 'admin_head', 'shell_theme_layout_editor_style' );
+	add_filter( 'mce_css', 'shell_theme_layout_editor_style' );
 
 	/* Modify tinymce */
 	add_filter( 'mce_buttons', 'shell_tinymce_1', 1 ); // ist row
 	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1 ); // 2nd row
 	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1 ); // 3rd row
 	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1 ); //style select settings
-	
-	add_theme_support( 'post-formats', array( 'aside', 'audio', 'image', 'gallery', 'link', 'quote', 'status', 'video' ) );
 }
 
 
@@ -186,9 +184,7 @@ if( !function_exists( 'shell_custom_background' ) ){
 
 /**
  * Add Media Queries Stylesheet to 'hybrid-core-styles' feature. 
- * Child theme can override media queries css by creating media-queries.css file in root folder.
- * Skin plugin can override media queries css with 'shell_media_queries_css' filter.
- * If skin plugin filter it, it need to enable child theme to override this using similar file_exist check.
+ * Child theme can override media queries css file by creating media-queries.css file in root folder.
  *
  * @since  0.1.0
  * @param  array $styles Hybrid Core Styles
@@ -196,44 +192,34 @@ if( !function_exists( 'shell_custom_background' ) ){
  */
 function shell_styles( $styles ) {
 
-	/* Get parent theme data */
-	$theme = wp_get_theme( get_template() );
+	/* media queries dependency */
+	$deps = null;
+	if ( file_exists( get_stylesheet_directory() . '/media-queries.css' ))
+		$deps = array('style');
 
-	/* Media queries CSS */
-	$media_queries_css = array();
-
-	/* Media queries CSS File */
-	$media_queries_css['src'] = trailingslashit( get_template_directory_uri() ) . 'media-queries.css';
-
-	/* Media queries CSS version using theme version */
-	$media_queries_css['version'] = $theme->get( 'Version' );
-
-	/* Allow child theme to override media queries css using file_exist check */
-	if ( file_exists( trailingslashit( get_stylesheet_directory() ) . 'media-queries.css' )){
-
-		/* Get child theme data  */
-		$theme = wp_get_theme();
-
-		/* Child Theme media queries CSS File */
-		$media_queries_css['src'] = trailingslashit( get_stylesheet_directory_uri() ) . 'media-queries.css';
-
-		/* Child Theme media queries CSS verion using child theme version */
-		$media_queries_css['version'] = $theme->get( 'Version' );
-	}
-
-	/* Media queries CSS media */
-	$media_queries_css['media'] = 'all';
-
-	/* Media queries CSS dependency */
-	$media_queries_css['deps'] = 'style';
-
-	/* Allow override to filter if needed */
-	$media_queries_css = apply_filters( 'shell_media_queries_css', $media_queries_css );
-
-	/* add media queries css */
-	$styles['media-queries'] = $media_queries_css;
+	/* Media Queries CSS */
+	$styles['media-queries'] = array(
+		'src'		=> hybrid_locate_theme_file( 'media-queries.css' ),
+		'version'	=> shell_theme_file_version( 'media-queries.css' ),
+		'media'		=> 'all',
+		'deps'		=> $deps,
+	);
 
 	return $styles;
+}
+
+
+/**
+ * Get the version of theme file using theme version. 
+ * 
+ * @since 0.1.0
+ */
+function shell_theme_file_version( $file ){
+	$theme = wp_get_theme( get_template() );
+	if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file )){
+		$theme = wp_get_theme();
+	}
+	return $theme->get( 'Version' );
 }
 
 
@@ -269,8 +255,8 @@ function shell_script(){
 function shell_respond_html5shiv() {
 	?><!-- Enables media queries and html5 in some unsupported browsers. -->
 	<!--[if (lt IE 9) & (!IEMobile)]>
-	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/respond/respond.min.js"></script>
-	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/html5shiv/html5shiv.js"></script>
+	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/respond.min.js"></script>
+	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/html5shiv.js"></script>
 	<![endif]--><?php
 }
 
@@ -560,7 +546,9 @@ function shell_get_menu_subsidiary(){
  * @since 0.1.0
  */
 function shell_mobile_menu(){?>
-<div class="mobile-menu-button"></div><?php
+<div class="mobile-menu-button" title="navigation">
+	<span><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></span>
+</div><?php
 }
 
 
@@ -603,14 +591,14 @@ function shell_edit_link(){
 			&& ( $cpt->show_ui || 'attachment' == $current_object->post_type ) )
 		{
 			$edit_link = get_edit_post_link( $current_object->ID );
-			return ' <a class="edit-link" href="'.$edit_link.'"> - Edit</a>';
+			return ' <a class="edit-link" href="'.$edit_link.'">' . __( ' - Edit', 'shell' ) . '</a>';
 	} elseif ( ! empty( $current_object->taxonomy )
 			&& ( $tax = get_taxonomy( $current_object->taxonomy ) )
 			&& current_user_can( $tax->cap->edit_terms )
 			&& $tax->show_ui )
 		{
 			$edit_link = get_edit_term_link( $current_object->term_id, $current_object->taxonomy );
-			return ' <a class="edit-link" href="'.$edit_link.'"> - Edit</a>';
+			return ' <a class="edit-link" href="'.$edit_link.'">' . __( ' - Edit', 'shell' ) . '</a>';
 	}
 }
 
@@ -1179,14 +1167,14 @@ function shell_loop_meta_description(){
  *
  * @since 0.1.0
  */
-function shell_theme_layout_editor_style() {
+function shell_theme_layout_editor_style( $mce_css ) {
 
 	global $pagenow;
 
 	/* only if theme layout is supported */
 	if ( current_theme_supports( 'theme-layouts' ) ) {
 
-		/* only in */
+		/* only in post and page edit screen */
 		if ( in_array( $pagenow, array( 'page.php', 'page-new.php', 'post.php', 'post-new.php' ) ) ) {
 
 			/* get id */
@@ -1201,17 +1189,19 @@ function shell_theme_layout_editor_style() {
 				/* get current post layout */
 				$layout = get_post_layout( $post_id );
 
-				/* if current layout is 3 column */
-				if ( '3c-l' == $layout || '3c-r' == $layout || '3c-c' == $layout )
-					add_editor_style( 'editor-style-3c.css' );
-
 				/* if current layout is 1 column */
-				elseif ( '1c' == $layout ) {
-					add_editor_style( 'editor-style-1c.css' );
+				if ( '1c' == $layout ) {
+					$mce_css .= ', ' . hybrid_locate_theme_file( 'editor-style-1c.css' );
+				}
+
+				/* if current layout is 3 column */
+				elseif ( '3c-l' == $layout || '3c-r' == $layout || '3c-c' == $layout ){
+					$mce_css .= ', ' . hybrid_locate_theme_file( 'editor-style-3c.css' );
 				}
 			}
 		}
 	}
+	return $mce_css;
 }
 
 

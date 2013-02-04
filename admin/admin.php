@@ -100,6 +100,13 @@ function shell_skin_meta_box() {
 					if ( isset( $skin_data['version'] ) || !empty( $skin_data['version'] ) )
 						$version = ' <span class="skin-version">' . $skin_data['version'] . '</span>';
 
+					/* skin page uri */
+					$skin_uri = '';
+					if ( isset( $skin_data['skin_uri'] ) || !empty( $skin_data['skin_uri'] ) ){
+						$skin_uri = esc_url_raw( $skin_data['skin_uri'] );
+						$skin_uri = ' <a class="skin-uri" href="' . $skin_uri . '">' . _x( 'Skin Page &#8594', 'settings', 'shell'  ) . '</a>';
+					}
+
 					/* skin image */
 					if ( !isset( $skin_data['screenshot'] ) || empty( $skin_data['screenshot'] ) )
 						$image = get_template_directory_uri() . '/images/skin-no-image.jpg';
@@ -128,7 +135,7 @@ function shell_skin_meta_box() {
 
 						<div style="background-image:url(<?php echo esc_url( $image ); ?>);" title="<?php echo esc_attr( $skin_id ); ?>" class="skin-img<?php echo esc_attr( $selected ); ?>" onclick="document.getElementById('<?php echo esc_attr( $skin_id ); ?>').checked=true;" /></div>
 
-						<div class="skin-name"><?php echo esc_html( $skin_data['name'] ); echo $version; ?></div>
+						<div class="skin-name"><?php echo esc_html( $skin_data['name'] ); echo $version; echo $skin_uri ?></div>
 
 						<?php if ( !empty( $author ) ){?>
 						<div class="skin-author"><?php printf( _x( 'By %s', 'settings', 'shell' ), $author ); ?></div>
