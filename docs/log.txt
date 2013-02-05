@@ -1,3 +1,7 @@
+========================
+Shell: Development LOG
+========================
+
 02 Feb 2013 #1
 ===============
 ::: Change version to 0.0.1 for beta
@@ -31,7 +35,7 @@
 ===============
 - fix grid col. css. new icon etc...
 - all function is rearrange. and re code....
-- change sking filter
+- change skin filter
 - update langs.
 - All seems to be done. (for now)
 - and new readme
@@ -52,9 +56,6 @@
 04 Feb 2013 #2
 ===============
 - fix editor style width. (my fault it's not a bug)
-
-04 Feb 2013 #3
-===============
 - improvement on mobile menu.
 - fix style loader
 - add skin uri
@@ -64,3 +65,25 @@
 - no subfolder in js.
 - css in all in root, cause editor cannot edit css in root (?)
 - ALL DONE, now wait for themehybrid.com review.
+
+05 Feb 2013
+===============
+- all js is minified, and can be override by child theme.
+- add filter shell_atomic_template. so we can have template based on cats, tags, custom field, etc..
+	based on post data, this will give dev more flexibility (almost the same as carrington core)
+- remove page template archives.
+- loop-nav now using atomic template "loop-nav"
+- attachment now using atomic template "content" attachment.php deleted.
+- add _sticky.php in atomic template for sticky post.
+- skin class moved to HTML Class
+- remove active theme in html class.
+
+
+
+
+
+
+
+
+
+

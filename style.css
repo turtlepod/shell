@@ -925,7 +925,7 @@ body {
 .page-links a:hover {
 	color: #eee;
 	background: #252525;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 /* Archive/search pagination and comment pagination */
@@ -946,7 +946,7 @@ body {
 .pagination a:hover, .comment-navigation a:hover {
 	color: #eee;
 	background: #252525;
-	text-decoration: underline;
+	text-decoration: none;
 }
 .pagination .current, .comment-navigation .current {
 	font-weight: bold;

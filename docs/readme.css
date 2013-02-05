@@ -105,3 +105,13 @@ a:hover{
 	border:1px solid #ccc;
 	word-wrap:break-word;
 }
+.hooks{
+	max-height:150px;
+	padding:10px 20px;
+	background:#fff;
+	overflow:auto;
+	border:1px solid #ccc;
+	word-wrap:break-word;
+}
+.hooks ul li ul li {color:#aeaeae}
+.hooks ul li ul li code{color:#000}

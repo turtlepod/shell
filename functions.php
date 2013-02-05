@@ -236,10 +236,14 @@ function shell_script(){
 	if ( !is_admin() ) {
 
 		/*  Mobile Menu Script */
-		wp_enqueue_script( 'shell-menu', get_template_directory_uri() . '/js/shell-menu.js', array('jquery'), false, true );
+		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.min.js' );
+		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.min.js' );
+		wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
 		/* Enqueue FitVids */
-		wp_enqueue_script( 'shell-fitvids', trailingslashit( get_template_directory_uri() ) . 'js/fitvids.js', array( 'jquery' ), '20120625', true );
+		$fitvids_file = hybrid_locate_theme_file( 'js/fitvids.min.js' );
+		$fitvids_version = shell_theme_file_version( 'js/fitvids.min.js' );
+		wp_enqueue_script( 'shell-fitvids', $fitvids_file, array( 'jquery' ), $fitvids_version, true );
 	}
 }
 
@@ -255,9 +259,10 @@ function shell_script(){
 function shell_respond_html5shiv() {
 	?><!-- Enables media queries and html5 in some unsupported browsers. -->
 	<!--[if (lt IE 9) & (!IEMobile)]>
-	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/respond.min.js"></script>
-	<script type="text/javascript" src="<?php echo trailingslashit( get_template_directory_uri() ); ?>js/html5shiv.js"></script>
-	<![endif]--><?php
+	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( 'js/respond.min.js' ); ?>"></script>
+	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( 'js/html5shiv.min.js' ); ?>"></script>
+	<![endif]-->
+<?php
 }
 
 
@@ -367,7 +372,7 @@ function shell_customizer_register( $wp_customize ) {
 
 		/* Get list of available skin */
 		$skins = shell_skins();
-		$skin_choises = array();
+		$skin_choices = array();
 		foreach ( $skins as $skin_id => $skin_data ){
 			$skin_choises[$skin_id] = $skin_data['name'];
 		}
@@ -388,7 +393,7 @@ function shell_customizer_register( $wp_customize ) {
 			'section' => 'shell_customize_skin',
 			'settings' => 'shell_theme_settings[skin]',
 			'type' => 'select',
-			'choices' => $skin_choises,
+			'choices' => $skin_choices,
 		));
 	}
 }
@@ -470,6 +475,7 @@ function shell_disable_sidebars( $sidebars_widgets ) {
 
 /**
  * Load Sidebar Header
+ * Loaded in 'shell_header' hook in header.php
  * 
  * @since 0.1.0
  */
@@ -480,6 +486,7 @@ function shell_get_sidebar_header(){
 
 /**
  * Load Sidebar Primary and Secondary
+ * Loaded in 'shell_sidebar' hook in footer.php
  * 
  * @since 0.1.0
  */
@@ -491,6 +498,7 @@ function shell_get_sidebar(){
 
 /**
  * Load Sidebar Subsidiary
+ * Loaded in 'shell_after_main' hook in footer.php
  * 
  * @since 0.1.0
  */
@@ -501,6 +509,7 @@ function shell_get_sidebar_subsidiary(){
 
 /**
  * Load Sidebar After Singular
+ * Loaded in 'shell_after_singular' hook in singular.php
  * 
  * @since 0.1.0
  */
@@ -511,6 +520,7 @@ function shell_get_sidebar_after_singular(){
 
 /**
  * Load Menu Primary
+ * Loaded in 'shell_before_header' hook in header.php
  * 
  * @since 0.1.0
  */
@@ -521,6 +531,7 @@ function shell_get_menu_primary(){
 
 /**
  * Load Menu Secondary
+ * Loaded in 'shell_after_header' hook in header.php
  * 
  * @since 0.1.0
  */
@@ -531,6 +542,7 @@ function shell_get_menu_secondary(){
 
 /**
  * Load Menu Subsidiary
+ * Loaded in 'shell_before_footer' hook in footer.php
  * 
  * @since 0.1.0
  */
@@ -541,7 +553,8 @@ function shell_get_menu_subsidiary(){
 
 /**
  * Mobile Menu HTML.
- * This is added in 'shell_open_menu_primary' and 'shell_open_menu_secondary' hook
+ * Added in 'shell_open_menu_primary' in menu-primary.php
+ * and 'shell_open_menu_secondary' hook in menu-secondary.php
  * 
  * @since 0.1.0
  */
@@ -554,6 +567,7 @@ function shell_mobile_menu(){?>
 
 /**
  * Add Breadcrumb Trail
+ * Added in 'shell_open_main' hook in header.php
  * 
  * @since 0.1.0
  */
@@ -564,7 +578,8 @@ function shell_breadcrumb(){
 
 
 /**
- * Shell Breadcrumb Trail Args
+ * Shell Breadcrumb Trail Args.
+ * Add edit link for singular pages and taxonomy term archive pages in breadcrumb trail.
  * 
  * @since 0.1.0
  */
@@ -576,7 +591,7 @@ function shell_breadcrumb_trail_args( $args ){
 
 /**
  * Edit Link for singular post and taxonomy
- * code from wordpress tool bar/admin bar.
+ * Code from wordpress tool bar/admin bar.
  *
  * @since 0.1.0
  */
@@ -604,7 +619,8 @@ function shell_edit_link(){
 
 
 /**
- * Add Thumbnail
+ * Add Thumbnail in archive type pages.
+ * Added in 'shell_open_entry' hook in content area, all files is in "content" folder.
  * 
  * @since 0.1.0
  */
@@ -622,6 +638,7 @@ function shell_thumbnail(){
 
 /**
  * Add WP Link Pages
+ * Added in 'shell_close_entry_summary' hook in archive content area, all files is in "content" folder.
  * 
  * @since 0.1.0
  */
@@ -632,6 +649,8 @@ function shell_summary_wp_link_pages(){
 
 /**
  * Attachment Gallery
+ * Added in 'shell_after_entry_content' hook in content/attachment-image.php
+ * Hook added with atomic hook 'attachment-image' using 'shell_attachment-image_after_entry_content' hook.
  * 
  * @since 0.1.0
  */
@@ -654,11 +673,11 @@ function shell_footer_content(){
 
 	/* If there is a child theme active, add the [child-link] shortcode to the $footer_insert. */
 	if ( is_child_theme() )
-		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link], [theme-link], and [child-link].', 'hybrid-core' ) . '</p>';
+		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'shell' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link], [theme-link], and [child-link].', 'shell' ) . '</p>';
 
 	/* If no child theme is active, leave out the [child-link] shortcode. */
 	else
-		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'hybrid-core' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link] and [theme-link].', 'hybrid-core' ) . '</p>';
+		$content = '<p class="copyright">' . __( 'Copyright &#169; [the-year] [site-link].', 'shell' ) . '</p>' . "\n\n" . '<p class="credit">' . __( 'Powered by [wp-link] and [theme-link].', 'shell' ) . '</p>';
 
 	/* Check support for hybrid core settings */
 	if ( current_theme_supports( 'hybrid-core-theme-settings' ) ) {
@@ -682,7 +701,7 @@ function shell_footer_content(){
  * An easy to use feature for developer to create context based template file.
  * 
  * @param $dir	string	template files directory
- * @param $loop	bool	if it's used in the loop, to give extra template based on post type and post formats.
+ * @param $loop	bool	if it's used in the loop, to give extra template based on post data.
  * @since 0.1.0
  */
 function shell_get_atomic_template( $dir, $loop = false ) {
@@ -704,7 +723,10 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 	}
 
 	/* get current page (atomic) contexts */
-	foreach ( hybrid_get_context() as $context ){
+	$contexts = hybrid_get_context();
+
+	/* for each contexts */
+	foreach ( $contexts as $context ){
 
 		/* add context based template */
 		$templates[] = "{$dir}/{$context}.php";
@@ -731,12 +753,21 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 
 				/* add file based on post type and post format */
 				foreach ( $files as $file ){
-
 					$templates[] = "{$dir}/{$context}_{$file}.php";
+				}
+
+				/* add sticky post in home page */
+				if ( is_home() && !is_paged() ){
+					if ( is_sticky( get_the_ID() ) ){
+						$templates[] = "{$dir}/_sticky.php";
+					}
 				}
 			}
 		}
 	}
+	/* allow developer to modify template */
+	$templates = apply_filters( 'shell_atomic_template',  $templates, $dir, $loop );
+
 	return locate_template( array_reverse( $templates ), true, false );
 }
 
@@ -752,9 +783,6 @@ function shell_html_class( $class = '' ){
 
 	/* default var */
 	$classes = array();
-
-	/* Active Theme */
-	$classes[] = get_stylesheet();
 
 	/* not singular pages - sometimes i need this */
 	if (! is_singular())
@@ -775,6 +803,21 @@ function shell_html_class( $class = '' ){
 			$classes[] = 'layout-3c';
 	}
 
+	/* Skins */
+	$skin_count = count( shell_skins() );
+
+	/* check if custom skin exist */
+	if ( $skin_count > 1 ){
+
+		/* get skin settings */
+		$active_skin = shell_active_skin();
+
+		/* if custom skin selected */
+		if ( $active_skin && $active_skin != 'default' ){
+			$classes[] = $active_skin . '-skin-active';
+		}
+	}
+
 	/* user input */
 	if ( ! empty( $class ) ) {
 		if ( !is_array( $class ) )
@@ -786,7 +829,7 @@ function shell_html_class( $class = '' ){
 	}
 
 	/* enable filter */
-	$classes = apply_atomic( 'html_class', $classes, $class );
+	$classes = apply_atomic( 'html_class', $classes, $class ); //shell_html_class
 
 	/* sanitize it */
 	$classes = array_map( 'esc_attr', $classes );
@@ -803,7 +846,7 @@ function shell_html_class( $class = '' ){
 
 
 /**
- * Additional body class for current page active sidebars, menus, and theme layout.
+ * Additional body class for current page active sidebars, menus, theme layout, and skin.
  * 
  * @since 0.1.0
  */
@@ -834,24 +877,6 @@ function shell_body_class( $classes ){
 
 			/* add active/inactive class */
 			$classes[] = has_nav_menu( $menu_id ) ? "menu-{$menu_id}-active" : "menu-{$menu_id}-inactive";
-		}
-	}
-
-	/* Skins */
-	$skin_count = count( shell_skins() );
-
-	/* check if custom skin exist */
-	if ( $skin_count > 1 ){
-
-		/* get skin settings */
-		$skin_option = hybrid_get_setting( 'skin' );
-
-		/* if custom skin selected */
-		if ( $skin_option && $skin_option != 'default' ){
-
-			/* validate */
-			if ( in_array( $skin_option, shell_skins() ) )
-				$classes[] = $skin_option . '-skin-active';
 		}
 	}
 
@@ -911,7 +936,7 @@ function shell_widget_classes( $params ) {
 		$class .= 'widget-last ';
 	}
 
-	/* str replace before_widget param with new class class */
+	/* str replace before_widget param with new class */
 	$params[0]['before_widget'] = str_replace( 'class="widget ', $class, $params[0]['before_widget'] );
 
 	return $params;

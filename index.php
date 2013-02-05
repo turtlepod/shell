@@ -43,7 +43,7 @@ get_header(); // Loads the header.php template. ?>
 
 		<?php do_atomic( 'close_content' ); // shell_close_content ?>
 
-		<?php get_template_part( 'loop-nav' ); // Loads the loop-nav.php template. ?>
+		<?php shell_get_atomic_template( 'loop-nav' ); // atomic context loop template, in "loop-nav" directory ?>
 
 	</div><!-- #content -->
 
