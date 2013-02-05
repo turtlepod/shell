@@ -1,0 +1,420 @@
+/**
+ * Media Queries CSS
+ * Shell Theme
+ */
+
+
+/* for zoom */
+@media screen and (max-width: 980px) {
+	/* Menu Primary
+	*******************************************/
+	#menu-primary div.menu{
+		padding-bottom:5px;
+	}
+	#menu-primary li a{
+		border:1px solid #DFDFDF;
+		margin:5px 0 0 5px;
+	}
+	#menu-primary li li a{
+		border-top:none;
+		border-right:none;
+		margin:0;
+	}
+	#menu-primary .sub-menu{
+		margin-top:5px;
+		margin-left:6px;
+	}
+	#menu-primary .sub-menu .sub-menu{
+		margin-top:0;
+	}
+
+	/* Menu Secondary
+	*******************************************/
+	#menu-secondary div.menu{
+		padding-bottom:5px;
+	}
+	#menu-secondary li a{
+		border:1px solid #DFDFDF;
+		margin:5px 0 0 5px;
+	}
+	#menu-secondary li li a{
+		border-top:none;
+		border-right:none;
+		margin:0;
+	}
+	#menu-secondary .sub-menu{
+		margin-top:5px;
+		margin-left:6px;
+	}
+	#menu-secondary .sub-menu .sub-menu{
+		margin-top:0;
+	}
+	.menu-container div.search .search-form{
+		margin:5px 0 0 5px;
+		padding:5px;
+		border:1px solid #DFDFDF;
+	}
+	.menu-container .search-form input[type="text"]{
+		margin-top:0;
+	}
+}
+/* for tablet */
+@media screen and (max-width: 760px) {
+
+	/* content
+	*******************************************/
+	.layout-default #content,
+	.layout-2c-l #content,
+	.layout-2c-r #content,
+	.layout-3c-l #content,
+	.layout-3c-r #content,
+	.layout-3c-c #content{
+		width:100%;
+		margin:0;
+		margin-bottom:25px;
+		clear:both;
+	}
+
+	/* sidebar primary
+	*******************************************/
+	.layout-default #sidebar-primary,
+	.layout-2c-l #sidebar-primary,
+	.layout-2c-r #sidebar-primary,
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:48.75%;
+		float:left;
+		clear:left;
+		margin:0;
+	}
+
+	/* sidebar secondary
+	*******************************************/
+	.layout-default #sidebar-secondary,
+	.layout-2c-l #sidebar-secondary,
+	.layout-2c-r #sidebar-secondary,
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:48.75%;
+		float:right;
+		clear:right;
+		margin:0;
+	}
+
+	/* sidebar subsidiary
+	*******************************************/
+	#sidebar-subsidiary .widget{
+		width:47.5%;
+	}
+	#sidebar-subsidiary div.widget:nth-child(odd) {
+		clear:left;
+	}
+	#sidebar-subsidiary div.widget:nth-child(even) {
+		clear:right;
+	}
+}
+/* for another tablet */
+@media screen and (max-width: 600px) {
+
+	/* header
+	*******************************************/
+	#branding{
+		width:100%;
+	}
+	#sidebar-header{
+		width:100%;
+		height:auto;
+	}
+
+	/* menu subsidiary
+	*******************************************/
+	#menu-subsidiary div.menu li{
+		float:none
+	}
+	#menu-subsidiary ul {
+		text-align: center;
+	}
+	#menu-subsidiary li {
+		display: inline-block;
+		*display: inline; /* hack for IE */
+		*zoom: 1; /* hack for IE */
+	}
+	#menu-subsidiary li a{
+		border: 1px solid #DFDFDF;
+		margin:10px 0;
+	}
+}
+/* for mobile */
+@media screen and (max-width: 480px) {
+
+	/* Mobile Nav Button
+	*******************************************/
+	.mobile-menu-button {
+		position: relative;
+		width:130px;
+		height: 38px;
+		line-height:38px;
+		margin-bottom: 3px;
+		margin-right: 3px;
+		display: block;
+		float: left;
+		cursor: pointer;
+		background: url(images/menu-icon.png) no-repeat center right;
+	}
+	.mobile-menu-button:hover,
+	.mobile-menu-button:active{
+		text-decoration:underline;
+	}
+
+	/* Menu Primary
+	*******************************************/
+	#menu-primary .mobile-menu-button{
+		float:right;
+		width:115px;
+	}
+	#menu-primary{
+		display: block;
+		padding:2.5%;
+		height:55px;
+		border:1px solid #DFDFDF;
+		border-bottom:none;
+	}
+	#menu-primary div.wrap{
+		clear: both;
+		position: absolute;
+		top: auto;
+		right: 4%;
+		left: auto;
+		bottom: auto;
+		width: 200px;
+		z-index: 1000;
+		padding: 10px 5px;
+		margin-top:40px;
+		background: #fff;
+		border: solid 1px #999;
+		display: none;
+	}
+
+	/* Active */
+	body #menu-primary div.wrap-menu-active{
+		display: block ;
+	}
+
+	#menu-primary div.wrap .menu{
+		border:none;
+	}
+	#menu-primary div.wrap li {
+		clear: both;
+		float: none;
+		margin: 5px 0 0 10px;
+		padding: 0;
+		border: none;
+		width: auto !important;
+	}
+	#menu-primary div.wrap a, 
+	#menu-primary div.wrap ul a {
+		font: inherit;
+		text-transform: inherit;
+		background: none !important;
+		width: auto !important;
+		display: inline !important;
+		visibility: visible !important;
+		padding: 0;
+		color: #666 !important;
+		border: none !important;
+	}
+	#menu-primary div.wrap .submenu{
+		visibility: visible !important;
+	}
+	#menu-primary div.wrap ul {
+		position: static;
+		display: block !important;
+		visibility: visible !important;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+	#menu-primary div.menu li,
+	#menu-primary div.menu ul li,
+	#menu-primary div.menu ul ul li{
+		width:auto !important;
+		background: none !important;
+	}
+	#menu-primary .wrap a {
+		margin: 0 10px 5px 0;
+		padding: 4px 7px;
+	}
+	#menu-primary ul li a:hover,
+	#menu-primary li ul li a:hover{
+		text-decoration:underline;
+	}
+
+	/* Secondary Menu
+	*******************************************/
+	#menu-secondary .mobile-menu-button{
+		background: url(images/menu-icon.png) no-repeat center left;
+		padding-left:35px;
+	}
+	#menu-secondary{
+		display: block;
+		padding:2.5%;
+		height:55px;
+		border:1px solid #DFDFDF;
+		border-top:none;
+	}
+	#menu-secondary div.wrap{
+		clear: both;
+		position: absolute;
+		top: auto;
+		right: auto;
+		left: 4%;
+		bottom: auto;
+		width: 200px;
+		z-index: 1000;
+		padding: 10px 5px;
+		margin-top:40px;
+		background: #fff;
+		border: solid 1px #999;
+		display: none;
+	}
+
+	/* Active */
+	body #menu-secondary div.wrap-menu-active{
+		display: block;
+	}
+
+	#menu-secondary div.wrap li {
+		clear: both;
+		float: none;
+		margin: 5px 0 0 10px;
+		padding: 0;
+		border: none;
+		width: auto !important;
+	}
+	#menu-secondary div.wrap a, 
+	#menu-secondary div.wrap ul a {
+		font: inherit;
+		text-transform: inherit;
+		background: none !important;
+		width: auto !important;
+		display: inline !important;
+		visibility: visible !important;
+		padding: 0;
+		color: #666 !important;
+		border: none !important;
+	}
+	#menu-secondary div.wrap .submenu{
+		visibility: visible !important;
+	}
+	#menu-secondary div.wrap ul {
+		position: static;
+		display: block !important;
+		visibility: visible !important;
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+	#menu-secondary div.menu li,
+	#menu-secondary div.menu ul li,
+	#menu-secondary div.menu ul ul li{
+		width:auto !important;
+		background: none !important;
+	}
+	#menu-secondary .wrap a {
+		margin: 0 10px 5px 0;
+		padding: 4px 7px;
+	}
+	#menu-secondary ul li a:hover,
+	#menu-secondary li ul li a:hover{
+		text-decoration:underline;
+	}
+	/* search */
+	.menu-container div.search{
+		width:130px;
+	}
+	.menu-container div.search .search-form{
+		margin:0;
+		padding:4px;
+		border:none;
+	}
+
+	/* Primary Sidebar
+	*******************************************/
+	.layout-default #sidebar-primary,
+	.layout-2c-l #sidebar-primary,
+	.layout-2c-r #sidebar-primary,
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:100%;
+		float:left;
+		clear:both;
+		margin:0;
+	}
+
+	/* Secondary Sidebar
+	*******************************************/
+	.layout-default #sidebar-secondary,
+	.layout-2c-l #sidebar-secondary,
+	.layout-2c-r #sidebar-secondary,
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:100%;
+		float:right;
+		clear:both;
+		margin:0;
+	}
+
+	/* Subsidiary Sidebar
+	*******************************************/
+	#sidebar-subsidiary .widget{
+		width:100%;
+		clear:both;
+	}
+
+	/* Footer
+	*******************************************/
+	#footer .copyright{
+		float:none;
+		width:100%;
+		text-align: center;
+	}
+	#footer .credit{
+		float:none;
+		width:100%;
+		text-align: center;
+	}
+
+	/* Grid Column
+	*******************************************/
+	.grid-column-2{
+		width:100%;
+		padding:0;
+		margin:0 0 25px 0;
+	}
+	.grid-column-1-3{
+		width:100%;
+		padding:0;
+		margin:0 0 25px 0;
+	}
+	.grid-column-2-3{
+		width:100%;
+		padding:0;
+		margin:0 0 25px 0;
+	}
+	.grid-column-1-4{
+		width:100%;
+		padding:0;
+		margin:0 0 25px 0;
+	}
+	.grid-column-3-4{
+		width:100%;
+		padding:0;
+		margin:0 0 25px 0;
+	}
+}
