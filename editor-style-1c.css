@@ -1,0 +1,10 @@
+body#tinymce.wp-editor { 
+	max-width:930px;
+	padding-right:0;
+	border-right:none;
+}
+body.wp-fullscreen-editor {
+	max-width:930px;
+	padding-right:0;
+	border-right:none;
+}
