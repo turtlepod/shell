@@ -134,6 +134,9 @@ function shell_theme_setup() {
 	/* Add gallery in attachment image page */
 	add_action( "{$prefix}_attachment-image_after_entry_content", 'shell_attachment_gallery' );
 
+	/* Avatar size in comments: Hybrid Core - Comments Args */
+	add_filter( "shell_list_comments_args", 'shell_comments_args' );
+
 	/* Additional Body class */
 	add_filter( 'body_class','shell_body_class');
 
@@ -657,6 +660,19 @@ function shell_summary_wp_link_pages(){
 function shell_attachment_gallery(){
 	global $post;
 	echo do_shortcode( sprintf( '[gallery id="%1$s" exclude="%2$s" columns="8"]', $post->post_parent, $post->ID ) );
+}
+
+
+/**
+ * Hybrid Comments Args to change avatar size.
+ * 
+ * @see 	Hybrid::hybrid_list_comments_args()
+ * @return	array
+ * @since 	0.1.1
+ */
+function shell_comments_args( $args ) {
+	$args['avatar_size'] = 40;
+	return $args;
 }
 
 

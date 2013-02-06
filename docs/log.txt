@@ -78,7 +78,15 @@ Shell: Development LOG
 - skin class moved to HTML Class
 - remove active theme in html class.
 
-
+07 Feb 2013
+===============
+BUG IN PROTOTYPE:
+- comment content with list <ul> or <ol> is not styled properly. :FIXED
+- comment type trackback and pingback avatar is not loaded correctly
+	i guess wordpress change the data validation for avatar url (?)
+	fixed with not loading avatar in trackback and pingback type : comment.php.
+- filter comment avatar size: 40px.
+- min css
 
 
 
