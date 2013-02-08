@@ -21,7 +21,7 @@
 
 			<?php do_atomic( 'open_comment' ); // shell_open_comment ?>
 
-			<?php if ( get_comment_type() != 'pingback' && get_comment_type() != 'trackback' ) echo hybrid_avatar(); ?>
+			<?php echo hybrid_avatar(); ?>
 
 			<?php echo apply_atomic_shortcode( 'comment_meta', '<div class="comment-meta">[comment-author] [comment-published] [comment-permalink before="| "] [comment-edit-link before="| "] [comment-reply-link before="| "]</div>' ); // shell_comment_meta ?>
 

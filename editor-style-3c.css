@@ -2,5 +2,5 @@ body#tinymce.wp-editor {
 	max-width:578px;
 }
 body.wp-fullscreen-editor {
-	width:578px;
+	width:578px !important;
 }

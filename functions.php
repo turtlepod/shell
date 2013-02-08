@@ -856,7 +856,7 @@ function shell_html_class( $class = '' ){
 	/* Join all the classes into one string. */
 	$class = join( ' ', $classes );
 
-	/* Print the body class. */
+	/* Print html class. */
 	echo $class;
 }
 
@@ -1267,7 +1267,6 @@ function shell_tinymce_1( $buttons ){
 /**
  * Modify tinyMCE 2nd row
  * Add horizontal line and background color
- * 
  * 
  * @since 0.1.0
  */

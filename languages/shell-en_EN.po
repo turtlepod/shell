@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shell WordPress Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-04 21:26+0700\n"
+"POT-Creation-Date: 2013-02-08 21:59+0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: dave <david.warna@gmail.com>\n"
 "Language-Team:  <justin@justintadlock.com>\n"
@@ -22,20 +22,6 @@ msgstr ""
 #: 404.php:32
 #, php-format
 msgid "You tried going to %1$s, and it doesn't exist. All is not lost! You can search for what you're looking for."
-msgstr ""
-
-#: attachment.php:51
-#, php-format
-msgid "Download &quot;%1$s&quot;"
-msgstr ""
-
-#: attachment.php:56
-msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
-
-#: attachment.php:57
-#: functions.php:631
-msgid "Pages:"
 msgstr ""
 
 #: comment.php:30
@@ -63,187 +49,191 @@ msgstr ""
 msgid "Comments are closed."
 msgstr ""
 
-#: functions.php:295
+#: functions.php:301
 msgid "This is default skin for Shell Theme."
 msgstr ""
 
-#: functions.php:379
-#: functions.php:389
+#: functions.php:385
+#: functions.php:395
 msgctxt "customizer"
 msgid "Skins"
 msgstr ""
 
-#: functions.php:564
+#: functions.php:579
 msgid "You are here:"
 msgstr ""
 
-#: functions.php:596
-#: functions.php:603
+#: functions.php:612
+#: functions.php:619
 msgid " - Edit"
 msgstr ""
 
-#: functions.php:659
-#: functions.php:663
+#: functions.php:649
+msgid "Pages:"
+msgstr ""
+
+#: functions.php:692
+#: functions.php:696
 msgid "Copyright &#169; [the-year] [site-link]."
 msgstr ""
 
-#: functions.php:659
+#: functions.php:692
 msgid "Powered by [wp-link], [theme-link], and [child-link]."
 msgstr ""
 
-#: functions.php:663
+#: functions.php:696
 msgid "Powered by [wp-link] and [theme-link]."
 msgstr ""
 
-#: functions.php:1066
-#: functions.php:1072
-#: functions.php:1075
-#: functions.php:1081
-#: functions.php:1084
+#: functions.php:1105
+#: functions.php:1111
+#: functions.php:1114
+#: functions.php:1120
+#: functions.php:1123
 #, php-format
 msgid "%1$s"
 msgstr ""
 
-#: functions.php:1066
+#: functions.php:1105
 msgid "g:i a"
 msgstr ""
 
-#: functions.php:1069
+#: functions.php:1108
 #, php-format
 msgid "minute %1$s"
 msgstr ""
 
-#: functions.php:1069
+#: functions.php:1108
 msgid "i"
 msgstr ""
 
-#: functions.php:1072
+#: functions.php:1111
 msgid "g a"
 msgstr ""
 
-#: functions.php:1075
+#: functions.php:1114
 msgid "F jS, Y"
 msgstr ""
 
-#: functions.php:1078
+#: functions.php:1117
 #, php-format
 msgid "week %1$s of %2$s"
 msgstr ""
 
-#: functions.php:1078
+#: functions.php:1117
 msgid "W"
 msgstr ""
 
-#: functions.php:1078
-#: functions.php:1084
+#: functions.php:1117
+#: functions.php:1123
 msgid "Y"
 msgstr ""
 
-#: functions.php:1089
+#: functions.php:1128
 msgid "Archives"
 msgstr ""
 
-#: functions.php:1272
+#: functions.php:1313
 msgctxt "tinymce"
 msgid "Code"
 msgstr ""
 
-#: functions.php:1273
+#: functions.php:1314
 msgctxt "tinymce"
 msgid "Clear"
 msgstr ""
 
-#: functions.php:1276
+#: functions.php:1317
 msgctxt "tinymce"
 msgid "Columns"
 msgstr ""
 
-#: functions.php:1277
+#: functions.php:1318
 msgctxt "tinymce"
 msgid "Half"
 msgstr ""
 
-#: functions.php:1278
+#: functions.php:1319
 msgctxt "tinymce"
 msgid "One-third"
 msgstr ""
 
-#: functions.php:1279
+#: functions.php:1320
 msgctxt "tinymce"
 msgid "Two-third"
 msgstr ""
 
-#: functions.php:1280
+#: functions.php:1321
 msgctxt "tinymce"
 msgid "One-fourth"
 msgstr ""
 
-#: functions.php:1281
+#: functions.php:1322
 msgctxt "tinymce"
 msgid "Three-fourth"
 msgstr ""
 
-#: functions.php:1282
+#: functions.php:1323
 msgctxt "tinymce"
 msgid "Last column*"
 msgstr ""
 
-#: functions.php:1285
+#: functions.php:1326
 msgctxt "tinymce"
 msgid "Info Boxes"
 msgstr ""
 
-#: functions.php:1286
+#: functions.php:1327
 msgctxt "tinymce"
 msgid "Note"
 msgstr ""
 
-#: functions.php:1287
+#: functions.php:1328
 msgctxt "tinymce"
 msgid "Alert"
 msgstr ""
 
-#: functions.php:1288
+#: functions.php:1329
 msgctxt "tinymce"
 msgid "Error"
 msgstr ""
 
-#: functions.php:1289
+#: functions.php:1330
 msgctxt "tinymce"
 msgid "Download"
 msgstr ""
 
-#: functions.php:1292
+#: functions.php:1333
 msgctxt "tinymce"
 msgid "Buttons"
 msgstr ""
 
-#: functions.php:1293
+#: functions.php:1334
 msgctxt "tinymce"
 msgid "White"
 msgstr ""
 
-#: functions.php:1294
+#: functions.php:1335
 msgctxt "tinymce"
 msgid "Green"
 msgstr ""
 
-#: functions.php:1295
+#: functions.php:1336
 msgctxt "tinymce"
 msgid "Blue"
 msgstr ""
 
-#: functions.php:1296
+#: functions.php:1337
 msgctxt "tinymce"
 msgid "Black"
 msgstr ""
 
-#: functions.php:1297
+#: functions.php:1338
 msgctxt "tinymce"
 msgid "Red"
 msgstr ""
 
-#: functions.php:1298
+#: functions.php:1339
 msgctxt "tinymce"
 msgid "Small*"
 msgstr ""
@@ -307,6 +297,14 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
+#: content/attachment-image.php:29
+#: content/singular-attachment.php:31
+#: content/singular-page.php:25
+#: content/singular-post.php:27
+#: content/singular.php:30
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
 #: content/index.php:21
 #: content/search_page.php:19
 msgid "By [entry-author] on [entry-published] [entry-edit-link before=\" | \"]"
@@ -314,6 +312,11 @@ msgstr ""
 
 #: content/index.php:37
 msgid "[entry-terms taxonomy=\"category\" before=\"Posted in \"] [entry-terms before=\"| Tagged \"] [entry-comments-link before=\" | \"]"
+msgstr ""
+
+#: content/singular-attachment.php:28
+#, php-format
+msgid "Download &quot;%1$s&quot;"
 msgstr ""
 
 #: content/singular-post.php:19
@@ -1226,13 +1229,5 @@ msgstr ""
 
 #: library/functions/sidebars.php:112
 msgid "Loaded on singular post (page, attachment, etc.) views before the comments area."
-msgstr ""
-
-#: page-template/page-template-archives.php:36
-msgid "Archives by category"
-msgstr ""
-
-#: page-template/page-template-archives.php:42
-msgid "Archives by month"
 msgstr ""
 

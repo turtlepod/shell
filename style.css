@@ -7,12 +7,12 @@
  * Documentation URI: http://themehybrid.com/docs/for/themes/shell
  * Author: David Chandra Purnama
  * Author URI: http://shellcreeper.com/
- * Tags: theme-options, threaded-comments, microformats, translation-ready, rtl-language-support, one-column, two-columns, right-sidebar, left-sidebar, fixed-width, sticky-post, custom-background, custom-menu, full-width-template, featured-images
+ * Tags: theme-options, threaded-comments, translation-ready, one-column, two-columns, right-sidebar, left-sidebar, fixed-width, sticky-post, custom-background, custom-menu, full-width-template, featured-images
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Copyright (c) 2013 David Chandra Purnama.
- * http://shellcreeper.com/
+ * http://shellcreeper.com
  * Copyright (c) 2010 - 2013 Justin Tadlock.
  * http://justintadlock.com
  */
@@ -1105,9 +1105,9 @@ body {
 }
 .comment-content li {
 	border:none;
-	padding-left: 0px;
-	padding-top:0px;
-	margin-top:0px;
+	padding-left: 0;
+	padding-top: 0;
+	margin-top: 0;
 }
 .comment-content ol{
 	list-style: decimal;
@@ -1116,7 +1116,7 @@ body {
 }
 .comment-content ol li {
 	border:none;
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 /* Comment form */
@@ -1254,7 +1254,6 @@ body {
 .layout-1c #content {
 	width: 100%;
 }
-
 .layout-2c-l #content, .layout-default #content {
 	float: left;
 	width: 65%;
@@ -1268,7 +1267,6 @@ body {
 	float: right;
 	width: 32.5%;
 }
-
 .layout-2c-r #content {
 	float: right;
 	width: 65%;
@@ -1282,7 +1280,6 @@ body {
 	clear: left;
 	width: 32.5%;
 }
-
 .layout-3c-l #content {
 	float: left;
 	width: 60%;
@@ -1297,7 +1294,6 @@ body {
 	padding: 0;
 	border: none;
 }
-
 .layout-3c-r #content {
 	float: right;
 	width: 60%;
@@ -1312,7 +1308,6 @@ body {
 	padding: 0;
 	border: none;
 }
-
 .layout-3c-c #content {
 	float: left;
 	margin-left: 20%;

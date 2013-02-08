@@ -88,8 +88,13 @@ BUG IN PROTOTYPE:
 - filter comment avatar size: 40px.
 - min css
 
-
-
+08 Feb 2013
+===============
+false alarm, not a bug:
+- pingback and trackback avatar not working only in localhost.
+- add trackback + pingback avatar back.
+- update to HC.1.5.3
+- fix editor style in full screen, need !important for width.
 
 
 
