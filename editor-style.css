@@ -440,7 +440,7 @@ body#tinymce.wp-editor {
 }
 /* full screen width */
 body.wp-fullscreen-editor {
-	width:620px !important;
+	max-width:620px !important;
 	padding-right:20px !important;
 	border-right:1px dashed #ccc;
 }

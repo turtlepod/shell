@@ -4,7 +4,7 @@ body#tinymce.wp-editor {
 	border-right:none;
 }
 body.wp-fullscreen-editor {
-	max-width:930px;
-	padding-right:0;
+	max-width:930px !important;
+	padding-right:0 !important;
 	border-right:none;
 }

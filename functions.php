@@ -134,6 +134,9 @@ function shell_theme_setup() {
 	/* Add gallery in attachment image page */
 	add_action( "{$prefix}_attachment-image_after_entry_content", 'shell_attachment_gallery' );
 
+	/* Avatar size in comments: Hybrid Core - Comments Args */
+	add_filter( "shell_list_comments_args", 'shell_comments_args' );
+
 	/* Additional Body class */
 	add_filter( 'body_class','shell_body_class');
 
@@ -661,6 +664,19 @@ function shell_attachment_gallery(){
 
 
 /**
+ * Hybrid Comments Args to change avatar size.
+ * 
+ * @see 	Hybrid::hybrid_list_comments_args()
+ * @return	array
+ * @since 	0.1.1
+ */
+function shell_comments_args( $args ) {
+	$args['avatar_size'] = 40;
+	return $args;
+}
+
+
+/**
  * Shell Footer Content
  * So we can remove support for hybrid core settings if needed.
  * 
@@ -840,7 +856,7 @@ function shell_html_class( $class = '' ){
 	/* Join all the classes into one string. */
 	$class = join( ' ', $classes );
 
-	/* Print the body class. */
+	/* Print html class. */
 	echo $class;
 }
 
@@ -1251,7 +1267,6 @@ function shell_tinymce_1( $buttons ){
 /**
  * Modify tinyMCE 2nd row
  * Add horizontal line and background color
- * 
  * 
  * @since 0.1.0
  */
