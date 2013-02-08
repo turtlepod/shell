@@ -3,9 +3,9 @@
  * Shell Theme
  */
 
-
 /* for zoom */
 @media screen and (max-width: 980px) {
+
 	/* Menu Primary
 	*******************************************/
 	#menu-primary div.menu{
@@ -58,6 +58,7 @@
 		margin-top:0;
 	}
 }
+
 /* for tablet */
 @media screen and (max-width: 760px) {
 
@@ -115,6 +116,7 @@
 		clear:right;
 	}
 }
+
 /* for another tablet */
 @media screen and (max-width: 600px) {
 
@@ -146,6 +148,7 @@
 		margin:10px 0;
 	}
 }
+
 /* for mobile */
 @media screen and (max-width: 480px) {
 
