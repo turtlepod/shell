@@ -1338,6 +1338,10 @@ function shell_tinymce_style_select( $settings ) {
 		array( 'title' => _x( 'Small*', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-small' ),
 
 	);
+
+	/* filters */
+	$style_formats = apply_filters( 'shell_tinymce_style_select', $style_formats );
+
 	$settings['style_formats'] = json_encode( $style_formats );
 	return $settings;
 }

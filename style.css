@@ -2,7 +2,7 @@
  * Theme Name: Shell
  * Theme URI: http://themehybrid.com/themes/shell
  * Description: A responsive version of Prototype Theme.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Support URI: http://themehybrid.com/support/
  * Documentation URI: http://themehybrid.com/docs/for/themes/shell
  * Author: David Chandra Purnama
@@ -175,7 +175,7 @@ pre code {
 /* Forms */
 input[type="text"] {
 	display: block;
-	width: 300px;
+	width: auto;
 }
 input[type="submit"]:hover {
 	cursor: pointer
