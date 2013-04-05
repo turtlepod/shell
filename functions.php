@@ -1096,7 +1096,7 @@ function shell_loop_meta_title(){
 
 		/* If viewing a post type archive. */
 		elseif ( is_post_type_archive() ) {
-			$current = post_type_archive_title( false );
+			$current = post_type_archive_title( '', false );
 		}
 
 		/* If viewing a date-/time-based archive. */
