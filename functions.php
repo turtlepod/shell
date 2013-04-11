@@ -22,7 +22,7 @@
  * @subpackage Functions
  * @version 0.1.0
  * @since 0.1.0
- * @author David Chandra Purnama <david.warna@gmail.com>
+ * @author David Chandra Purnama <david@shellcreeper.com>
  * @copyright Copyright (c) 2013, David Chandra Purnama
  * @copyright Copyright (c) 2010 - 2013, Justin Tadlock
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -157,11 +157,28 @@ function shell_theme_setup() {
 	add_filter( 'mce_css', 'shell_theme_layout_editor_style' );
 
 	/* Modify tinymce */
-	add_filter( 'mce_buttons', 'shell_tinymce_1', 1 ); // ist row
-	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1 ); // 2nd row
-	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1 ); // 3rd row
-	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1 ); //style select settings
+	add_filter( 'mce_buttons', 'shell_tinymce_1', 1, 2 ); // ist row
+	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1, 2 ); // 2nd row
+	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1, 2 ); // 3rd row
+	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1, 2 ); //style select settings
+
+	/* Updater args */
+	$updater_args = array(
+		'repo_uri' => 'http://repo.shellcreeper.com/',
+		'repo_slug' => 'shell',
+	);
+
+	/* Add support for updater */
+	add_theme_support( 'auto-hosted-theme-updater', $updater_args );
 }
+
+
+/**
+ * Load Updater Class
+ * @since 0.1.2
+ * @link http://autohosted.com/
+ */
+require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
 
 
 /* function check to enable override/disable custom background feature from child theme  */
@@ -1096,7 +1113,7 @@ function shell_loop_meta_title(){
 
 		/* If viewing a post type archive. */
 		elseif ( is_post_type_archive() ) {
-			$current = post_type_archive_title( false );
+			$current = post_type_archive_title( '', false );
 		}
 
 		/* If viewing a date-/time-based archive. */
@@ -1252,7 +1269,11 @@ function shell_theme_layout_editor_style( $mce_css ) {
  * 
  * @since 0.1.0
  */
-function shell_tinymce_1( $buttons ){
+function shell_tinymce_1( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add underline after italic button */
 	array_splice( $buttons, 2, 0, 'underline' );
@@ -1270,7 +1291,11 @@ function shell_tinymce_1( $buttons ){
  * 
  * @since 0.1.0
  */
-function shell_tinymce_2( $buttons ){
+function shell_tinymce_2( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add background color button after color button */
 	array_splice( $buttons, 4, 0, 'backcolorpicker' );
@@ -1288,7 +1313,11 @@ function shell_tinymce_2( $buttons ){
  * 
  * @since 0.1.0
  */
-function shell_tinymce_3( $buttons ){
+function shell_tinymce_3( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add style select in the first button position */
 	array_unshift( $buttons, 'styleselect' );
@@ -1303,7 +1332,11 @@ function shell_tinymce_3( $buttons ){
  * @link http://tinymce.moxiecode.com/examples/example_24.php
  * @since 1.0.0.
  */
-function shell_tinymce_style_select( $settings ) {
+function shell_tinymce_style_select( $settings, $id ) {
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $settings;
 
 	/* style dropdown */
 	$style_formats = array(
@@ -1338,6 +1371,8 @@ function shell_tinymce_style_select( $settings ) {
 		array( 'title' => _x( 'Small*', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-small' ),
 
 	);
+
 	$settings['style_formats'] = json_encode( $style_formats );
+
 	return $settings;
 }
