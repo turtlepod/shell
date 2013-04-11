@@ -96,7 +96,18 @@ false alarm, not a bug:
 - update to HC.1.5.3
 - fix editor style in full screen, need !important for width.
 
+21 FEB 2013
+===============
+- fix css: textarea/input width.
 
+20 MAR 2013
+===============
+- fix input width
+- add filter in tinyMCE style dropdown
+	shell_tinymce_style_select
 
-
-
+11 APRIL 2013
+===============
+- only add tinymce mod in content, and not in others.
+- using self hosted automatic updates. pull data from github.
+- change my email to david@shellcreeper.com
