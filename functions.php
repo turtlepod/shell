@@ -161,7 +161,20 @@ function shell_theme_setup() {
 	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1, 2 ); // 2nd row
 	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1, 2 ); // 3rd row
 	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1, 2 ); //style select settings
+
+	/* updater args */
+	$updater_args = array(
+		'repo_uri' => 'http://repo.shellcreeper.com/',
+		'repo_slug' => 'shell',
+	);
+
+	/* add support for updater */
+	add_theme_support( 'auto-hosted-theme-updater', $updater_args );
 }
+
+
+/* Load Updater Class */
+require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
 
 
 /* function check to enable override/disable custom background feature from child theme  */
