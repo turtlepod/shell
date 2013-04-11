@@ -157,10 +157,10 @@ function shell_theme_setup() {
 	add_filter( 'mce_css', 'shell_theme_layout_editor_style' );
 
 	/* Modify tinymce */
-	add_filter( 'mce_buttons', 'shell_tinymce_1', 1 ); // ist row
-	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1 ); // 2nd row
-	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1 ); // 3rd row
-	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1 ); //style select settings
+	add_filter( 'mce_buttons', 'shell_tinymce_1', 1, 2 ); // ist row
+	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1, 2 ); // 2nd row
+	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1, 2 ); // 3rd row
+	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1, 2 ); //style select settings
 }
 
 
@@ -1252,7 +1252,11 @@ function shell_theme_layout_editor_style( $mce_css ) {
  * 
  * @since 0.1.0
  */
-function shell_tinymce_1( $buttons ){
+function shell_tinymce_1( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add underline after italic button */
 	array_splice( $buttons, 2, 0, 'underline' );
@@ -1270,7 +1274,11 @@ function shell_tinymce_1( $buttons ){
  * 
  * @since 0.1.0
  */
-function shell_tinymce_2( $buttons ){
+function shell_tinymce_2( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add background color button after color button */
 	array_splice( $buttons, 4, 0, 'backcolorpicker' );
@@ -1288,7 +1296,11 @@ function shell_tinymce_2( $buttons ){
  * 
  * @since 0.1.0
  */
-function shell_tinymce_3( $buttons ){
+function shell_tinymce_3( $buttons, $id ){
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
 
 	/* add style select in the first button position */
 	array_unshift( $buttons, 'styleselect' );
@@ -1303,7 +1315,11 @@ function shell_tinymce_3( $buttons ){
  * @link http://tinymce.moxiecode.com/examples/example_24.php
  * @since 1.0.0.
  */
-function shell_tinymce_style_select( $settings ) {
+function shell_tinymce_style_select( $settings, $id ) {
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $settings;
 
 	/* style dropdown */
 	$style_formats = array(
@@ -1339,9 +1355,7 @@ function shell_tinymce_style_select( $settings ) {
 
 	);
 
-	/* filters */
-	$style_formats = apply_filters( 'shell_tinymce_style_select', $style_formats );
-
 	$settings['style_formats'] = json_encode( $style_formats );
+
 	return $settings;
 }

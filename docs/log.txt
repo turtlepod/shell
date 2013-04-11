@@ -107,7 +107,9 @@ false alarm, not a bug:
 	shell_tinymce_style_select
 	
 
-
+11 APRIL 2013
+===============
+- only add tinymce mod in content, and not in others.
 
 
 
