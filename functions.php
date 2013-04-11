@@ -22,7 +22,7 @@
  * @subpackage Functions
  * @version 0.1.0
  * @since 0.1.0
- * @author David Chandra Purnama <david.warna@gmail.com>
+ * @author David Chandra Purnama <david@shellcreeper.com>
  * @copyright Copyright (c) 2013, David Chandra Purnama
  * @copyright Copyright (c) 2010 - 2013, Justin Tadlock
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -162,18 +162,22 @@ function shell_theme_setup() {
 	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1, 2 ); // 3rd row
 	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1, 2 ); //style select settings
 
-	/* updater args */
+	/* Updater args */
 	$updater_args = array(
 		'repo_uri' => 'http://repo.shellcreeper.com/',
 		'repo_slug' => 'shell',
 	);
 
-	/* add support for updater */
+	/* Add support for updater */
 	add_theme_support( 'auto-hosted-theme-updater', $updater_args );
 }
 
 
-/* Load Updater Class */
+/**
+ * Load Updater Class
+ * @since 0.1.2
+ * @link http://autohosted.com/
+ */
 require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
 
 

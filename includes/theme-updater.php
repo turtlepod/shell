@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @version 0.1.0
- * @author David Chandra Purnama <david.warna@gmail.com>
+ * @author David Chandra Purnama <david@shellcreeper.com>
  * @link http://shellcreeper.com
  * @link http://autohosted.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
