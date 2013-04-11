@@ -238,4 +238,4 @@ class Shell_Theme_Updater{
 	}
 }
 
-new Auto_Hosted_Theme_Updater;
+new Shell_Theme_Updater;
