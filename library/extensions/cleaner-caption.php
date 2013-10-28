@@ -16,9 +16,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package CleanerCaption
- * @version 0.1.1
+ * @version 0.2.1
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2012, Justin Tadlock
+ * @copyright Copyright (c) 2013, Justin Tadlock
  * @link http://justintadlock.com
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -67,19 +67,19 @@ function cleaner_caption( $output, $attr, $content ) {
 	/* Set up the attributes for the caption <div>. */
 	$attributes = ( !empty( $attr['id'] ) ? ' id="' . esc_attr( $attr['id'] ) . '"' : '' );
 	$attributes .= ' class="wp-caption ' . esc_attr( $attr['align'] ) . '"';
-	$attributes .= ' style="width: ' . esc_attr( $attr['width'] ) . 'px"';
+	$attributes .= ' style="max-width: ' . esc_attr( $attr['width'] ) . 'px"';
 
 	/* Open the caption <div>. */
-	$output = '<div' . $attributes .'>';
+	$output = '<figure' . $attributes .'>';
 
 	/* Allow shortcodes for the content the caption was created for. */
 	$output .= do_shortcode( $content );
 
 	/* Append the caption text. */
-	$output .= '<p class="wp-caption-text">' . $attr['caption'] . '</p>';
+	$output .= '<figcaption class="wp-caption-text">' . $attr['caption'] . '</figcaption>';
 
 	/* Close the caption </div>. */
-	$output .= '</div>';
+	$output .= '</figure>';
 
 	/* Return the formatted, clean caption. */
 	return apply_filters( 'cleaner_caption', $output );
