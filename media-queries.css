@@ -66,10 +66,7 @@
 	*******************************************/
 	.layout-default #content,
 	.layout-2c-l #content,
-	.layout-2c-r #content,
-	.layout-3c-l #content,
-	.layout-3c-r #content,
-	.layout-3c-c #content{
+	.layout-2c-r #content{
 		width:100%;
 		margin:0;
 		margin-bottom:25px;
@@ -80,10 +77,7 @@
 	*******************************************/
 	.layout-default #sidebar-primary,
 	.layout-2c-l #sidebar-primary,
-	.layout-2c-r #sidebar-primary,
-	.layout-3c-l #sidebar-primary,
-	.layout-3c-r #sidebar-primary,
-	.layout-3c-c #sidebar-primary{
+	.layout-2c-r #sidebar-primary{
 		width:48.75%;
 		float:left;
 		clear:left;
@@ -94,10 +88,7 @@
 	*******************************************/
 	.layout-default #sidebar-secondary,
 	.layout-2c-l #sidebar-secondary,
-	.layout-2c-r #sidebar-secondary,
-	.layout-3c-l #sidebar-secondary,
-	.layout-3c-r #sidebar-secondary,
-	.layout-3c-c #sidebar-secondary{
+	.layout-2c-r #sidebar-secondary{
 		width:48.75%;
 		float:right;
 		clear:right;
@@ -349,10 +340,7 @@
 	*******************************************/
 	.layout-default #sidebar-primary,
 	.layout-2c-l #sidebar-primary,
-	.layout-2c-r #sidebar-primary,
-	.layout-3c-l #sidebar-primary,
-	.layout-3c-r #sidebar-primary,
-	.layout-3c-c #sidebar-primary{
+	.layout-2c-r #sidebar-primary{
 		width:100%;
 		float:left;
 		clear:both;
@@ -363,10 +351,7 @@
 	*******************************************/
 	.layout-default #sidebar-secondary,
 	.layout-2c-l #sidebar-secondary,
-	.layout-2c-r #sidebar-secondary,
-	.layout-3c-l #sidebar-secondary,
-	.layout-3c-r #sidebar-secondary,
-	.layout-3c-c #sidebar-secondary{
+	.layout-2c-r #sidebar-secondary{
 		width:100%;
 		float:right;
 		clear:both;

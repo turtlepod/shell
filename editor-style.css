@@ -349,16 +349,11 @@ img.alignleft, img.alignright {
 
 /* Max-widths for images */
 .entry-content img { max-width: 100%; }
-.layout-1c .entry-content img { max-width:  100%; }
-.layout-3c-l .entry-content img, .layout-3c-r .entry-content img, .layout-3c-c .entry-content img { max-width:  100%; }
 
 .wp-caption { max-width:  100%; }
-.layout-1c .wp-caption { max-width:  100%; }
-.layout-3c-l .wp-caption, .layout-3c-r .wp-caption, .layout-3c-c .wp-caption { max-width:  100%; }
 
 .wp-caption img { max-width:  100%; }
-.layout-1c .wp-caption img { max-width:  100%; }
-.layout-3c-l .wp-caption img, .layout-3c-r .wp-caption img, .layout-3c-c .wp-caption img { max-width:  100%; }
+
 
 /* Smiley */
 img.wp-smiley {

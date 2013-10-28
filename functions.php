@@ -69,7 +69,7 @@ function shell_theme_setup() {
 	}
 
 	/* Add theme support for framework extensions. */
-	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c' ) );
+	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r' ) );
 	add_theme_support( 'loop-pagination' );
 	add_theme_support( 'get-the-image' );
 	add_theme_support( 'breadcrumb-trail' );
@@ -82,7 +82,7 @@ function shell_theme_setup() {
 	add_filter( "{$prefix}_styles", 'shell_styles' );
 
 	/* Enqueue script. */
-	add_action('wp_enqueue_scripts', 'shell_script');
+	add_action( 'wp_enqueue_scripts', 'shell_script');
 
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
@@ -439,9 +439,7 @@ function shell_embed_defaults( $args ) {
 		$layout = theme_layouts_get_layout();
 
 		/* width in pixel based on current page theme layout */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$args['width'] = 558;
-		elseif ( 'layout-1c' == $layout )
+		if ( 'layout-1c' == $layout )
 			$args['width'] = 930;
 		else
 			$args['width'] = 600;
@@ -835,9 +833,6 @@ function shell_html_class( $class = '' ){
 		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
 			$classes[] = 'layout-2c';
 
-		/* if current theme layout is 3 column */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$classes[] = 'layout-3c';
 	}
 
 	/* Skins */
@@ -1039,9 +1034,6 @@ function shell_atomic_widgets_context( $context ){
 		if ( 'layout-default' == $layout || 'layout-2c-l' == $layout || 'layout-2c-r' == $layout )
 			$context[] = 'layout-2c';
 
-		/* if current theme layout is 3 column */
-		if ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout )
-			$context[] = 'layout-3c';
 	}
 
 	return $context;
@@ -1254,11 +1246,6 @@ function shell_theme_layout_editor_style( $mce_css ) {
 				/* if current layout is 1 column */
 				if ( '1c' == $layout ) {
 					$mce_css .= ', ' . hybrid_locate_theme_file( 'editor-style-1c.css' );
-				}
-
-				/* if current layout is 3 column */
-				elseif ( '3c-l' == $layout || '3c-r' == $layout || '3c-c' == $layout ){
-					$mce_css .= ', ' . hybrid_locate_theme_file( 'editor-style-3c.css' );
 				}
 			}
 		}

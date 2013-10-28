@@ -130,7 +130,7 @@ false alarm, not a bug:
        add_filter('shell_parent_css','__return_false');
    }`
 - Remove theme support for `dev-stylesheet`: it's no longer needed.
-- 
+- Remove all 3 column layout
 
 
 
