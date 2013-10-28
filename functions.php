@@ -60,10 +60,13 @@ function shell_theme_setup() {
 	add_theme_support( 'hybrid-core-theme-settings', array( 'about', 'footer' ) );
 	add_theme_support( 'hybrid-core-template-hierarchy' );
 	add_theme_support( 'hybrid-core-scripts', array( 'drop-downs' ) );
-	if ( is_child_theme() ) // in child theme
+	// Hybrid Core Style
+	if ( is_child_theme() && apply_filters( 'shell_parent_css', true ) ){ // in child theme
 		add_theme_support( 'hybrid-core-styles', array( 'parent', 'media-queries', 'skin', 'style' ) );
-	else // in parent theme
+	}
+	else { // in parent theme
 		add_theme_support( 'hybrid-core-styles', array( 'style', 'media-queries', 'skin' ) );
+	}
 
 	/* Add theme support for framework extensions. */
 	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r', '3c-l', '3c-r', '3c-c' ) );

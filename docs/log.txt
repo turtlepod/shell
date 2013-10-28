@@ -111,3 +111,43 @@ false alarm, not a bug:
 - only add tinymce mod in content, and not in others.
 - using self hosted automatic updates. pull data from github.
 - change my email to david@shellcreeper.com
+
+28 OCTOBER 2013
+===============
+- Update to Hybrid Core 1.6.1
+- Deprecated tinymce mod
+- Add filter to disable parent stylesheet `shell_parent_css`
+  usage in child theme:
+  `/* Add the child theme setup function to the 'after_setup_theme' hook. */
+   add_action( 'after_setup_theme', 'shell_child_theme_disable_parent_css', 10 );
+
+   /**
+    * Disable Parent CSS
+    * 
+    * @since 0.2.0
+    */
+   function shell_child_theme_disable_parent_css(){
+       add_filter('shell_parent_css','__return_false');
+   }`
+
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
