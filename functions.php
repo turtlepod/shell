@@ -156,12 +156,6 @@ function shell_theme_setup() {
 	add_editor_style();
 	add_filter( 'mce_css', 'shell_theme_layout_editor_style' );
 
-	/* Modify tinymce */
-	add_filter( 'mce_buttons', 'shell_tinymce_1', 1, 2 ); // ist row
-	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1, 2 ); // 2nd row
-	add_filter( 'mce_buttons_3', 'shell_tinymce_3', 1, 2 ); // 3rd row
-	add_filter( 'tiny_mce_before_init', 'shell_tinymce_style_select', 1, 2 ); //style select settings
-
 	/* Updater args */
 	$updater_args = array(
 		'repo_uri' => 'http://repo.shellcreeper.com/',
@@ -179,6 +173,14 @@ function shell_theme_setup() {
  * @link http://autohosted.com/
  */
 require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
+
+
+
+/**
+ * Load Deprecated Functions
+ * @since 0.2.0
+ */
+require_once( trailingslashit( get_template_directory() ) . 'includes/deprecated.php' );
 
 
 /* function check to enable override/disable custom background feature from child theme  */
@@ -1263,116 +1265,3 @@ function shell_theme_layout_editor_style( $mce_css ) {
 }
 
 
-/**
- * Modify tinyMCE 1st row
- * Add Strikethrough, UnderScore, and PageBreak in tinyMCE 1st row
- * 
- * @since 0.1.0
- */
-function shell_tinymce_1( $buttons, $id ){
-
-	/* only add this for content editor */
-	if ( 'content' != $id )
-		return $buttons;
-
-	/* add underline after italic button */
-	array_splice( $buttons, 2, 0, 'underline' );
-
-	/* add next page after more tag button */
-	array_splice( $buttons, 13, 0, 'wp_page' );
-
-	return $buttons;
-}
-
-
-/**
- * Modify tinyMCE 2nd row
- * Add horizontal line and background color
- * 
- * @since 0.1.0
- */
-function shell_tinymce_2( $buttons, $id ){
-
-	/* only add this for content editor */
-	if ( 'content' != $id )
-		return $buttons;
-
-	/* add background color button after color button */
-	array_splice( $buttons, 4, 0, 'backcolorpicker' );
-
-	/* add horizontal button after indent button */
-	array_splice( $buttons, 11, 0, 'hr' );
-
-	return $buttons;
-}
-
-
-/**
- * Modify tinyMCE 3rd row
- * Add Style Dropdown in tinyMCE 3rd row
- * 
- * @since 0.1.0
- */
-function shell_tinymce_3( $buttons, $id ){
-
-	/* only add this for content editor */
-	if ( 'content' != $id )
-		return $buttons;
-
-	/* add style select in the first button position */
-	array_unshift( $buttons, 'styleselect' );
-
-	return $buttons;
-}
-
-
-/**
- * Add Style Options to tinyMCE
- *
- * @link http://tinymce.moxiecode.com/examples/example_24.php
- * @since 1.0.0.
- */
-function shell_tinymce_style_select( $settings, $id ) {
-
-	/* only add this for content editor */
-	if ( 'content' != $id )
-		return $settings;
-
-	/* style dropdown */
-	$style_formats = array(
-
-		/* Code and clear both */
-		array( 'title' => _x( 'Code', 'tinymce', 'shell' ),			'inline' => 'code', ),
-		array( 'title' => _x( 'Clear', 'tinymce', 'shell' ),		'block' => 'div',  'classes' => 'clear' ),
-
-		/* Column */
-		array( 'title' => _x( 'Columns', 'tinymce', 'shell' ) ),
-		array( 'title' => _x( 'Half', 'tinymce', 'shell' ),			'block' => 'p', 'classes' => 'grid-column-2' ),
-		array( 'title' => _x( 'One-third', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-1-3' ),
-		array( 'title' => _x( 'Two-third', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-2-3' ),
-		array( 'title' => _x( 'One-fourth', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-1-4' ),
-		array( 'title' => _x( 'Three-fourth', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-3-4' ),
-		array( 'title' => _x( 'Last column*', 'tinymce', 'shell' ),	'block' => 'p', 'classes' => 'grid-column-last' ),
-
-		/* Info Boxes */
-		array( 'title' => _x( 'Info Boxes', 'tinymce', 'shell' ) ),
-		array( 'title' => _x( 'Note', 'tinymce', 'shell' ),		'block' => 'div', 'classes' => 'note' ),
-		array( 'title' => _x( 'Alert', 'tinymce', 'shell' ), 	'block' => 'div', 'classes' => 'alert' ),
-		array( 'title' => _x( 'Error', 'tinymce', 'shell' ), 	'block' => 'div', 'classes' => 'error' ),
-		array( 'title' => _x( 'Download', 'tinymce', 'shell' ),	'block' => 'div', 'classes' => 'download' ),
-
-		/* Buttons */
-		array( 'title' => _x( 'Buttons', 'tinymce', 'shell' ) ),
-		array( 'title' => _x( 'White', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button' ),
-		array( 'title' => _x( 'Green', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-green' ),
-		array( 'title' => _x( 'Blue', 'tinymce', 'shell' ),		'inline' => 'span', 'classes' => 'button button-blue' ),
-		array( 'title' => _x( 'Black', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-black' ),
-		array( 'title' => _x( 'Red', 'tinymce', 'shell' ),		'inline' => 'span', 'classes' => 'button button-red' ),
-		array( 'title' => _x( 'Small*', 'tinymce', 'shell' ),	'inline' => 'span', 'classes' => 'button button-small' ),
-
-	);
-
-	$settings['style_formats'] = json_encode( $style_formats );
-
-	return $settings;
-}
