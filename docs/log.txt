@@ -132,11 +132,14 @@ false alarm, not a bug:
 - Remove theme support for `dev-stylesheet`: it's no longer needed.
 - Remove all 3 column layout
 - Update Auto-Hosted theme updater to version 0.1.4
+- Add HTML Class: js-disabled, shell-is-mobile, shell-is-not-mobile, shell-is-opera-mini
+- Add theme script js/shell.js "shell-js" to change "js-disabled" to "js-enabled"
+- Update and minify FitVids.js to version 1.0.3 and add widget as selector
+- Add context "home-archive-search" for archive type pages to hybrid get context.
+- 
 
-
-
-
-
+Temp To-Do:
+- minify js/shell.js
 
 
 

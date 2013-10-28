@@ -264,6 +264,11 @@ function shell_script(){
 		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.min.js' );
 		wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
+		/*  Theme Script */
+		$shell_js_file = hybrid_locate_theme_file( 'js/shell.js' );
+		$shell_js_version = shell_theme_file_version( 'js/shell.js' );
+		wp_enqueue_script( 'shell-js', $shell_js_file, array('jquery'), $shell_js_version, true );
+
 		/* Enqueue FitVids */
 		$fitvids_file = hybrid_locate_theme_file( 'js/fitvids.min.js' );
 		$fitvids_version = shell_theme_file_version( 'js/fitvids.min.js' );
@@ -850,6 +855,23 @@ function shell_html_class( $class = '' ){
 		}
 	}
 
+	/* Javascript disabled class, this will be changed to js-enable by theme js/shell.js */
+	$classes[] = 'js-disabled';
+
+	/* Mobile visitor */
+	if ( wp_is_mobile() ){
+		$classes[] = 'shell-is-mobile';
+
+		/* Opera Mini Browser visitor */
+		if ( strpos( $_SERVER['HTTP_USER_AGENT'], 'Opera Mini' ) !== false ){
+			$classes[] = 'shell-is-opera-mini';
+		}
+	}
+	/* non-mobile visitor */
+	else{
+		$classes[] = 'shell-is-not-mobile';
+	}
+
 	/* user input */
 	if ( ! empty( $class ) ) {
 		if ( !is_array( $class ) )
@@ -1004,6 +1026,10 @@ function shell_hybrid_context( $context ){
 			foreach ( explode( '/', get_post_mime_type() ) as $type )
 				$context[] = "attachment-{$type}";
 		}
+	}
+	/* Archive type pages */
+	else if ( is_home() || is_archive() || is_search() ){
+		$context[] = "home-archive-search";
 	}
 
 	/* make it unique */
