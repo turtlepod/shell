@@ -131,7 +131,7 @@ false alarm, not a bug:
    }`
 - Remove theme support for `dev-stylesheet`: it's no longer needed.
 - Remove all 3 column layout
-
+- Update Auto-Hosted theme updater to version 0.1.4
 
 
 

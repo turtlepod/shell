@@ -175,7 +175,7 @@ function shell_theme_setup() {
  * @link http://autohosted.com/
  */
 require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
-
+new Shell_Theme_Updater;
 
 
 /**
