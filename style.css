@@ -499,6 +499,11 @@ body {
 .mobile-menu-button{
 	display:none;
 }
+/* sub-menu-toggle */
+.sub-menu-toggle{
+	display:none;
+}
+
 
 /* Primary menu */
 #menu-primary {

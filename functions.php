@@ -59,7 +59,8 @@ function shell_theme_setup() {
 	add_theme_support( 'hybrid-core-shortcodes' );
 	add_theme_support( 'hybrid-core-theme-settings', array( 'about', 'footer' ) );
 	add_theme_support( 'hybrid-core-template-hierarchy' );
-	add_theme_support( 'hybrid-core-scripts', array( 'drop-downs' ) );
+	if ( !wp_is_mobile() ) // only add drop down script in non-mobile device
+		add_theme_support( 'hybrid-core-scripts', array( 'drop-downs' ) );
 	// Hybrid Core Style
 	if ( is_child_theme() && apply_filters( 'shell_parent_css', true ) ){ // in child theme
 		add_theme_support( 'hybrid-core-styles', array( 'parent', 'media-queries', 'skin', 'style' ) );
@@ -260,8 +261,8 @@ function shell_script(){
 	if ( !is_admin() ) {
 
 		/*  Mobile Menu Script */
-		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.min.js' );
-		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.min.js' );
+		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.js' );
+		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.js' );
 		wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
 		/*  Theme Script */
@@ -591,7 +592,6 @@ function shell_mobile_menu(){?>
 </div><?php
 }
 
-
 /**
  * Add Breadcrumb Trail
  * Added in 'shell_open_main' hook in header.php
@@ -774,25 +774,45 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 		/* if context is in the loop, ( how to check if it's in the loop? ) */
 		if ( true === $loop ){
 
-			/* file based on post data */
-			$files = array();
+			/* in singular */
+			if ( is_singular() ){
 
-			/* current post - post type */
-			$files[] = get_post_type();
+				/* if post type support post-formats */
+				if ( post_type_supports( get_post_type(), 'post-formats' ) ){
 
-			/* if post type support post-formats */
-			if ( post_type_supports( get_post_type(), 'post-formats' ) ){
-				$files[] = get_post_type() . '-format-' . get_post_format();
+					// {content}/{singular}_format-{gallery}.php
+					$templates[] = "{$dir}/singular_format-" . get_post_format() . "php";
+
+					// {content}/{singular-post}_format-{gallery}.php
+					$templates[] = "{$dir}/singular-" . get_post_type() . "_format-" . get_post_format() . "php";
+				}
 			}
 
-			/*
-			 * In blog pages, archives and search result pages, add post type and post format template
-			 * post format in singular pages is not needed, cause it's already added in core context.
-			 */
-			if ( !is_singular() ){
+			/* if it's blog, archive, or search */
+			elseif ( is_home() || is_archive() || is_search() ){
+
+				/* file based on post data */
+				$files = array();
+
+				/* current post - post type */
+				$files[] = get_post_type();
+
+				/* if post type support post-formats */
+				if ( post_type_supports( get_post_type(), 'post-formats' ) ){
+
+					/* current post formats */
+					$files[] = 'format-' . get_post_format();
+
+					/* post type and post formats */
+					$files[] = get_post_type() . '-format-' . get_post_format();
+				}
 
 				/* add file based on post type and post format */
 				foreach ( $files as $file ){
+
+					// {content}/{home-archive-search}_{post}.php: post type template
+					// {content}/{home-archive-search}_format-{gallery}.php: for all post type
+					// {content}/{home-archive-search}_{post}-format-{gallery}.php: only for posts
 					$templates[] = "{$dir}/{$context}_{$file}.php";
 				}
 
@@ -805,6 +825,7 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 			}
 		}
 	}
+
 	/* allow developer to modify template */
 	$templates = apply_filters( 'shell_atomic_template',  $templates, $dir, $loop );
 

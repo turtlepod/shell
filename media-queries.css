@@ -226,10 +226,11 @@
 		position: static;
 		display: block !important;
 		visibility: visible !important;
-		margin: 0;
+		margin-left: 10px;
 		padding: 0;
 		background: none;
 		border: none;
+		list-style: square;
 	}
 	#menu-primary div.menu li,
 	#menu-primary div.menu ul li,
@@ -307,10 +308,11 @@
 		position: static;
 		display: block !important;
 		visibility: visible !important;
-		margin: 0;
 		padding: 0;
+		margin-left:10px;
 		background: none;
 		border: none;
+		list-style:square;
 	}
 	#menu-secondary div.menu li,
 	#menu-secondary div.menu ul li,
@@ -406,3 +408,153 @@
 		margin:0 0 25px 0;
 	}
 }
+
+
+
+/**
+ * Sub-menu toggle
+ * -------------------------------------
+ * this sub menu is added for better navigation for mobile device with width more than 481px
+ * in previous version sub-menu only can be displayed by hover.
+ */
+@media screen and (min-width: 481px) {
+
+	/* display sub-menu toggle, only if it's mobile and only if js-enabled */
+	html.shell-is-mobile.js-enabled  .sub-menu-toggle{
+		display:block;
+	}
+
+	/* Hide sub-menu, activate using click */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu{
+		display: none;
+	}
+
+	/* Display sub-menu if active */
+	html.shell-is-mobile.js-enabled div.menu .parent-menu-active .sub-menu{
+		display: block;
+	}
+
+	/* Sub-Menu item background color when active */
+	html.shell-is-mobile.js-enabled #menu-primary div.menu .parent-menu-active li a,
+	html.shell-is-mobile.js-enabled #menu-secondary div.menu .parent-menu-active li a{
+		background: #252525;
+	}
+
+	/* Fix Sub-menu position without hover */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu{
+		top:37px;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary li li ul,
+	html.shell-is-mobile.js-enabled #menu-secondary li li ul{
+		top:37px;
+		margin-left: 0;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li:hover ul,
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li:hover li ul,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li:hover ul,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li:hover li ul{
+		margin-left:-10em;
+	}
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu{
+		top:1px;
+	}
+
+	/* active menu z-index */
+	html.shell-is-mobile.js-enabled div.menu .parent-menu-active{
+		z-index: 10;
+	}
+
+
+	/* Sub-menu list style,
+	 * 2nd level and more sub-menu need to be displayed as one drop down for easier navigation.
+	------------------------------------- */
+
+	/* 3rd level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu li a::before{
+		content:"\2022"; /* circle */
+		padding-right:10px;
+	}
+	/* 4th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022"; /* two circle */
+	}
+	/* 5th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022";
+	}
+	/* 6th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022";
+	}
+	/* 7th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022";
+	}
+	/* 8th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022\2022";
+	}
+	/* 9th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022\2022\2022";
+	}
+	/* 10th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022\2022\2022\2022";
+	}
+	/* 11th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022\2022\2022\2022\2022";
+	}
+	/* 12th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2022\2022\2022\2022\2022\2022\2022\2022\2022\2022";
+	}
+
+
+	/*  Sub menu toggle
+	------------------------------------------------ */
+
+	/* Remove Padding menu item have toggle */
+	html.shell-is-mobile.js-enabled #menu-primary li.menu-item-has-children a,
+	html.shell-is-mobile.js-enabled #menu-secondary li.menu-item-has-children a{
+		padding-right: 0;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li a,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li a{
+		padding-right: 25px;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li.menu-item-has-children a,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li.menu-item-has-children a{
+		padding-right: 0;
+	}
+
+	/* Style sub-menu toggle, make it bigger for easy click  */
+	html.shell-is-mobile.js-enabled .sub-menu-toggle{
+		width: 37px;
+		height: 37px;
+		display:block;
+		float:right;
+		margin-top:-12px;
+		margin-left: 25px;
+		line-height:1px;
+		padding: 18px; /* ( 37px[width] - 1px[line-height] ) : 2 */
+		border-left: 1px solid #DFDFDF;
+	}
+
+	/* fix border color */
+	html.shell-is-mobile.js-enabled div.menu li a:hover .sub-menu-toggle{
+		border-color:#444;
+		background:#666;
+	}
+
+}
+
+
+
+
+
+
+
+
+

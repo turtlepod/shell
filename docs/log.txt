@@ -136,21 +136,14 @@ false alarm, not a bug:
 - Add theme script js/shell.js "shell-js" to change "js-disabled" to "js-enabled"
 - Update and minify FitVids.js to version 1.0.3 and add widget as selector
 - Add context "home-archive-search" for archive type pages to hybrid get context.
-- 
+- Better support for post format in shell atomic template
+  now support "singular_format-{gallery}" etc. for better file organization.
+- sub-menu toggle for mobile device with width more than 480px
+  
+
 
 Temp To-Do:
+- test new shell atomic template
 - minify js/shell.js
-
-
-
-
-
-
-
-
-
-
-
-
 
 
