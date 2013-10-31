@@ -10,7 +10,7 @@
 
 <?php do_atomic( 'before_entry' ); // shell_before_entry ?>
 
-<div id="post-<?php the_ID(); ?>" class="<?php hybrid_entry_class(); ?>">
+<article <?php hybrid_post_attributes(); ?>>
 
 	<?php do_atomic( 'open_entry' ); // shell_open_entry ?>
 
@@ -36,6 +36,6 @@
 
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
-</div><!-- .hentry -->
+</article><!-- .hentry -->
 
 <?php do_atomic( 'after_entry' ); // shell_after_entry ?>

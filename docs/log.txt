@@ -112,7 +112,13 @@ false alarm, not a bug:
 - using self hosted automatic updates. pull data from github.
 - change my email to david@shellcreeper.com
 
-28 OCTOBER 2013
+
+===================
+   VERSION 0.2.0
+===================
+
+
+28-29 OCTOBER 2013
 ===============
 - Update to Hybrid Core 1.6.1
 - Deprecated tinymce mod
@@ -139,11 +145,55 @@ false alarm, not a bug:
 - Better support for post format in shell atomic template
   now support "singular_format-{gallery}" etc. for better file organization.
 - sub-menu toggle for mobile device with width more than 480px
-  
+
+
+31 OCTOBER 2013
+===============
+- fix sub menu indicator to load only in primary and secondary in shell-menu.js
+- add bottom primary and secondary menu for js-disabled && < 480px screen in before_footer hook.
+- deprecate shell_mobile_menu function
+- add mobile shell_mobile_menu_primary and secondary with links to bottom navigation.
+- change div to nav in all menus, keep div in sidebar
+- change hybrid_*_class to hybrid_*_attributes 
+- loop_nav also using "nav" and not "div"
+- use "header" instead of "div" in loop-meta
+  http://html5doctor.com/the-header-element/
+- in singular wrap entry_title and byline in `<header="entry-header"></header>`
+- new action hook; open_entry_header, close_entry_header in singular content.
+- comments.php using <section>
+- add inline docs in all hooks and functions in template files, just like oenology theme by chip bennet
+  @link: http://www.chipbennett.net/themes/oenology/
+  this inline docs is not for php doc block parser, but more for readability of the code.
+  this is for easier development. and part of the goals for hybrid core 2.0 and the future
+  Making it easy for new theme authors to learn from our code.
+  http://themehybrid.com/support/topic/hybrid-core-20-and-the-future
+- add readme file in all "atomic folders"
+- follow wordpress coding standard
+  - change all php "if" from using ":" to bracket "{}"
+  - 
+
 
 
 Temp To-Do:
 - test new shell atomic template
 - minify js/shell.js
+- create child theme "shell-max" and "shell-min"
+- all template inline docs (now only header.php)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

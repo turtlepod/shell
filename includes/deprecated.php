@@ -51,3 +51,18 @@ function shell_tinymce_style_select(){
 	return;
 }
 
+
+/**
+ * @since 0.1.0
+ * @deprecated 0.2.0 use shell_mobile_menu_primary() and shell_mobile_menu_secondary()
+ */
+function shell_mobile_menu(){
+	_deprecated_function( __FUNCTION__, '0.2.0', 'shell_mobile_menu_primary() or shell_mobile_menu_secondary()' );
+	return;
+}
+
+
+
+
+
+

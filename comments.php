@@ -14,7 +14,7 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
 	return;
 ?>
 
-<div id="comments-template">
+<section id="comments-template">
 
 	<div class="comments-wrap">
 
@@ -60,4 +60,4 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
 
 	</div><!-- .comments-wrap -->
 
-</div><!-- #comments-template -->
+</section><!-- #comments-template -->

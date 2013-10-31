@@ -21,7 +21,17 @@ get_header(); // Loads the header.php template. ?>
 
 			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
 
-			<?php if (!is_singular() ){ shell_get_atomic_template( 'loop-meta' ); } // atomic context template, in "loop-meta" directory  ?>
+			<?php
+			/**
+			 * In non singular template load 'loop-meta' content
+			 * this will load template files in 'loop-meta' directory based on current page context.
+			 */
+			if (!is_singular() ){
+
+				shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory
+
+			}
+			?>
 
 			<?php if ( have_posts() ) : ?>
 

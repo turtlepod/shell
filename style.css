@@ -1221,6 +1221,28 @@ body {
 	text-decoration: none;
 }
 
+/* Menu Bottom */
+.menu-bottom-container{
+	display:none;
+	clear:both;
+	background: #fff;
+	border-left: 1px solid #DFDFDF;
+	border-right: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+}
+.menu-bottom-title{
+	font-weight: bold;
+	border-bottom: 1px solid #DFDFDF;
+	padding:10px 25px;
+}
+.menu-bottom-title a{
+	font-weight: normal;
+	float: right;
+}
+.menu-bottom-items{
+	padding: 25px 25px 0 0;
+}
+
 /* Footer */
 #footer {
 	overflow: hidden;

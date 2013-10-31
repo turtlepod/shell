@@ -116,13 +116,14 @@ function shell_theme_setup() {
 	add_action( "{$prefix}_before_header", 'shell_get_menu_primary' ); // menu-primary.php
 	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu-secondary.php
 	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu-subsidiary.php
+	add_action( "{$prefix}_before_footer", 'shell_get_menu_mobile_bottom' ); // menu-primary-bottom.php, menu-secondary-bottom.php
 
 	/* Load searchform.php Template File */
 	add_action( "{$prefix}_close_menu_secondary", 'get_search_form' );
 
 	/* Add mobile menu */
-	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu' );
-	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu' );
+	add_action( "{$prefix}_open_menu_primary", 'shell_mobile_menu_primary' );
+	add_action( "{$prefix}_open_menu_secondary", 'shell_mobile_menu_secondary' );
 
 	/* Add breadcrumb Trail */
 	add_action( "{$prefix}_open_main", 'shell_breadcrumb' );
@@ -569,6 +570,22 @@ function shell_get_menu_secondary(){
 
 
 /**
+ * Load Menu Primary and Secondary in footer
+ * this is for mobile device < 480px browser width and js-disabled
+ * Loaded in 'shell_before_footer' hook in footer.php
+ * 
+ * @since 0.2.0
+ */
+function shell_get_menu_mobile_bottom(){
+
+	/* Check mobile user agent */
+	if ( wp_is_mobile() ){
+
+		get_template_part( 'menu', 'bottom' ); // load menu-bottom.php
+	}
+}
+
+/**
  * Load Menu Subsidiary
  * Loaded in 'shell_before_footer' hook in footer.php
  * 
@@ -580,17 +597,30 @@ function shell_get_menu_subsidiary(){
 
 
 /**
- * Mobile Menu HTML.
- * Added in 'shell_open_menu_primary' in menu-primary.php
- * and 'shell_open_menu_secondary' hook in menu-secondary.php
+ * Mobile Menu Primary HTML.
+ * Added in 'shell_open_menu_primary' hook in menu-primary.php
  * 
- * @since 0.1.0
+ * @since 0.2.0
  */
-function shell_mobile_menu(){?>
+function shell_mobile_menu_primary(){?>
 <div class="mobile-menu-button" title="navigation">
-	<span><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></span>
+	<span><a href="#menu-primary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
 </div><?php
 }
+
+
+/**
+ * Mobile Menu Secondary HTML.
+ * Added in 'shell_open_menu_secondary' hook in menu-secondary.php
+ * 
+ * @since 0.2.0
+ */
+function shell_mobile_menu_secondary(){?>
+<div class="mobile-menu-button" title="navigation">
+	<span><a href="#menu-secondary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
+</div><?php
+}
+
 
 /**
  * Add Breadcrumb Trail
@@ -835,6 +865,8 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 
 /**
  * Dynamic HTML Class to target context in body class.
+ * Can be modified using filter hook "shell_html_class"
+ *
  *
  * @since 0.1.0
  */

@@ -10,11 +10,19 @@
 
 <?php do_atomic( 'before_entry' ); // shell_before_entry ?>
 
-<div id="post-<?php the_ID(); ?>" class="<?php hybrid_entry_class(); ?>">
+<article <?php hybrid_post_attributes(); ?>>
 
 	<?php do_atomic( 'open_entry' ); // shell_open_entry ?>
 
-	<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
+	<header="entry-header">
+
+		<?php do_atomic( 'open_entry_header' ); // shell_open_entry_header ?>
+
+		<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
+
+		<?php do_atomic( 'close_entry_header' ); // shell_close_entry_header ?>
+
+	</header><!-- .entry-header -->
 
 	<?php do_atomic( 'before_entry_content' ); // shell_before_entry_content ?>
 
@@ -38,6 +46,6 @@
 
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
-</div><!-- .hentry -->
+</article><!-- .hentry -->
 
 <?php do_atomic( 'after_entry' ); // shell_after_entry ?>

@@ -10,7 +10,7 @@
 			$id = get_query_var( 'author' );
 			$author_desc = apply_atomic( 'loop_meta_description',  get_the_author_meta( 'description', $id ) ); // shell_loop_meta_description  ?>
 
-			<div id="hcard-<?php the_author_meta( 'user_nicename', $id ); ?>" class="loop-meta vcard">
+			<header id="hcard-<?php the_author_meta( 'user_nicename', $id ); ?>" class="loop-meta vcard">
 
 				<h1 class="loop-title fn n"><?php echo apply_atomic( 'loop_meta_title', get_the_author_meta( 'display_name', $id ) ); // shell_loop_meta_title ?></h1>
 
@@ -24,4 +24,4 @@
 					<?php endif; ?>
 				</div><!-- .loop-description -->
 
-			</div><!-- .loop-meta -->
+			</header><!-- .loop-meta -->

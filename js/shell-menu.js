@@ -6,7 +6,16 @@ jQuery( document ).ready( function($) {
 	 * ----------------------------------
 	 * compatibility with previous version of superfish drop down
 	 */
-	$( '.menu-item-has-children' ).children('a').append( '<span class="sf-sub-indicator"> »</span>' );
+	/* For each parent menu item */
+	$( ".menu .menu-item-has-children" ).each( function () {
+
+		/* if this parent menu item have sub-menu available */
+		if ( $( this ).children( "ul" ).length > 0 ){
+
+			/* add sub-menu indicator */
+			$( this ).children('a').append( '<span class="sf-sub-indicator"> »</span>' );
+		}
+	});
 
 
 	/**
@@ -15,6 +24,10 @@ jQuery( document ).ready( function($) {
 	 * This is for device with width < 480px
 	 * menu display is controlled by stylesheet
 	 */
+	/* Remove Bottom menu */
+	$( '' ).remove(); 
+	
+	/* Click event of mobile menu toggle */
 	$( '.mobile-menu-button' ).click( function(e) {
 		e.preventDefault();
 

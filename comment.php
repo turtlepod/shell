@@ -13,7 +13,7 @@
 	global $post, $comment;
 ?>
 
-	<li id="comment-<?php comment_ID(); ?>" class="<?php hybrid_comment_class(); ?>">
+	<li <?php hybrid_comment_attributes(); ?>>
 
 		<?php do_atomic( 'before_comment' ); // shell_before_comment ?>
 
