@@ -244,23 +244,22 @@ wp_head(); ?>
 					 * Output the html of site title using dynamic heading tag.
 					 * Site title is defined on the General Settings page in the admin panel.
 					 *
-					 * Heading Tag:
+					 * Tag:
 					 * - on front page: "h1"
-					 * - other pages: "h2"
-					 * It's possible this tag will be changed to h1 for all pages for consistency.
+					 * - other pages: "div"
 					 * 
 					 * To style this via css use the id of elements instead using the element tag:
 					 * - right: #site-title{}
 					 * - right: #site-title a{}
-					 * - wrong: #brading h1, #branding h2{}
-					 * - wrong: #brading h1 a, #branding h2 a{}
+					 * - wrong: #brading h1{}
+					 * - wrong: #brading h1 a{}
 					 * 
 					 * Example output:
-					 * <{heading tag} id="site-title">
+					 * <{tag} id="site-title">
 					 *   <a rel="home" title="{site title}" href="{site url}">
 					 *       <span>{site title}</span>
 					 *   </a>
-					 * </{heading tag}>
+					 * </{tag}>
 					 *
 					 * >> file: library/functions/utillity.php
 					 * >> filter: "shell_site_title" (atomic)
@@ -277,7 +276,6 @@ wp_head(); ?>
 					 * Tag:
 					 * - on front page: "h2"
 					 * - other pages: "div"
-					 * It's possible this tag will be changed to h2 for all pages for consistency.
 					 * 
 					 * To style this via css use the id of elements instead using the element tag:
 					 * - right: #site-description{}
