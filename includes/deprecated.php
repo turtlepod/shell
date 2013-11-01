@@ -62,6 +62,16 @@ function shell_mobile_menu(){
 }
 
 
+/**
+ * @since 0.1.0
+ * @deprecated 0.2.0
+ */
+function shell_theme_layout_meta_box(){
+	_deprecated_function( __FUNCTION__, '0.2.0' );
+	return;
+}
+
+
 
 
 

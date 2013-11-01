@@ -56,20 +56,6 @@ function shell_theme_settings_meta_boxes() {
 			'high'								// High/low within the meta box holder
 		);
 	}
-
-	/* add theme layout metabox only if theme support it */
-	if ( current_theme_supports( 'theme-layouts' ) ) {
-
-		/* Add Theme Layout Meta box */
-		add_meta_box(
-			'shell-theme-layout-meta-box',				// Name/ID
-			_x( 'Theme Layout', 'settings', 'shell' ),	// Label
-			'shell_theme_layout_meta_box',				// Callback function
-			'appearance_page_theme-settings',			// Page to load on, leave as is
-			'side',										// Which meta box holder?
-			'low'										// High/low within the meta box holder
-		);
-	}
 }
 
 /**
@@ -156,31 +142,6 @@ function shell_skin_meta_box() {
 		</tr><!-- End custom form elements. -->
 	</table><!-- .form-table -->
 <?php }
-
-
-
-/**
- * Theme Layout Meta box
- * 
- * @since 0.1.0
- */
-function shell_theme_layout_meta_box(){
-?>
-	<table class="form-table">
-		<!-- Theme Layout -->
-		<tr>
-			<td>
-				<p><?php _ex( 'Want to set default global layout?', 'settings', 'shell' ); ?></p>
-
-				<a href="<?php echo admin_url( 'customize.php' ); ?>" name="reset" class="reset-button button-secondary"><?php esc_html_e( 'Customize', 'shell' ); ?></a>
-			</td>
-		</tr>
-
-		<!-- End custom form elements. -->
-	</table><!-- .form-table -->
-<?php }
-
-
 
 /**
  * Validate Theme Settings

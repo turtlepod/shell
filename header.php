@@ -300,7 +300,7 @@ wp_head(); ?>
 					 */
 					do_atomic( 'close_branding' ); ?>
 
-					</div><!-- #branding -->
+				</div><!-- #branding -->
 
 				<?php do_atomic( 'after_branding' ); // shell_after_branding ?>
 

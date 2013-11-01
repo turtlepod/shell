@@ -168,20 +168,28 @@ false alarm, not a bug:
   Making it easy for new theme authors to learn from our code.
   http://themehybrid.com/support/topic/hybrid-core-20-and-the-future
 - add readme file in all "atomic folders"
-- follow wordpress coding standard
-  - change all php "if" from using ":" to bracket "{}"
-  - 
 
-
+01 NOVEMBER 2013
+========================
+- fix sub-menu toggle.
+- to be consistent, use top:-999em instead of display: none;
+- use endash in sub-menu sub-menu lists, because the code is "2013/" = this year! :)
+- remove menu-bottom via javascript: js/shell-menu.js
+- fix primary secondary menu width in tablet.
+- fix style loader to be in priority 11, for easier child theme filter.
+- remove theme layout metabox in settings.
+- add "content" class in 1c editor style, to make sure it's only for content area.
+- still not sure about the editor-syle.css
 
 Temp To-Do:
 - test new shell atomic template
 - minify js/shell.js
 - create child theme "shell-max" and "shell-min"
 - all template inline docs (now only header.php)
+- change all php "if" from using ":" to bracket "{}"
 
-
-
+Future to-do:
+- loop meta title and loop meta description will be using hc.2.0 functions.
 
 
 

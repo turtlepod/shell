@@ -1,4 +1,7 @@
-// Mobile Menu
+/**
+ * Shell Mobile Menu
+ * ============================
+ */
 jQuery( document ).ready( function($) {
 
 	/**
@@ -25,7 +28,7 @@ jQuery( document ).ready( function($) {
 	 * menu display is controlled by stylesheet
 	 */
 	/* Remove Bottom menu */
-	$( '' ).remove(); 
+	$( '.menu-bottom-container' ).remove(); 
 	
 	/* Click event of mobile menu toggle */
 	$( '.mobile-menu-button' ).click( function(e) {
@@ -71,4 +74,3 @@ jQuery( document ).ready( function($) {
 		});
 	}
 });
-

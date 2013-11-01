@@ -61,13 +61,6 @@ function shell_theme_setup() {
 	add_theme_support( 'hybrid-core-template-hierarchy' );
 	if ( !wp_is_mobile() ) // only add drop down script in non-mobile device
 		add_theme_support( 'hybrid-core-scripts', array( 'drop-downs' ) );
-	// Hybrid Core Style
-	if ( is_child_theme() && apply_filters( 'shell_parent_css', true ) ){ // in child theme
-		add_theme_support( 'hybrid-core-styles', array( 'parent', 'media-queries', 'skin', 'style' ) );
-	}
-	else { // in parent theme
-		add_theme_support( 'hybrid-core-styles', array( 'style', 'media-queries', 'skin' ) );
-	}
 
 	/* Add theme support for framework extensions. */
 	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r' ) );
@@ -204,6 +197,27 @@ if( !function_exists( 'shell_custom_background' ) ){
 	 */
 	function shell_custom_background(){
 		add_theme_support( 'custom-background', array( 'default-color' => 'f9f9f9' ) );
+	}
+}
+
+
+/* Shell load style */
+add_action( 'after_setup_theme', 'shell_load_style', 11 );
+
+/**
+ * Shell Core Style
+ * Add in priority 11 for easier child theme filter
+ * 
+ * @since 0.2.0
+ */
+function shell_load_style(){
+
+	// Hybrid Core Style
+	if ( is_child_theme() && apply_filters( 'shell_parent_css', true ) ){ // in child theme
+		add_theme_support( 'hybrid-core-styles', array( 'parent', 'media-queries', 'skin', 'style' ) );
+	}
+	else { // in parent theme
+		add_theme_support( 'hybrid-core-styles', array( 'style', 'media-queries', 'skin' ) );
 	}
 }
 
