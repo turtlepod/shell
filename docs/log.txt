@@ -188,6 +188,7 @@ false alarm, not a bug:
 - add entry-wrap for easy styling in list-views and all singular.
 - hook: open_entry_wrap & close_entry_wrap
 - USE this beta version on real site, to test everything.
+- minify evrything, css and js.
 
 
 Temp To-Do:

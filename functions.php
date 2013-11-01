@@ -276,8 +276,8 @@ function shell_script(){
 	if ( !is_admin() ) {
 
 		/*  Mobile Menu Script */
-		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.js' );
-		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.js' );
+		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.min.js' );
+		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.min.js' );
 		wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
 		/*  Theme Script */
