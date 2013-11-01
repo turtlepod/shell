@@ -156,7 +156,7 @@ function shell_theme_setup() {
 	/* Updater args */
 	$updater_args = array(
 		'repo_uri' => 'http://repo.shellcreeper.com/',
-		'repo_slug' => 'shell',
+		'repo_slug' => 'shell-beta',
 	);
 
 	/* Add support for updater */

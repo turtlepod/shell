@@ -113,9 +113,9 @@ false alarm, not a bug:
 - change my email to david@shellcreeper.com
 
 
-===================
-   VERSION 0.2.0
-===================
+======================
+   VERSION 0.2.0 DEV
+======================
 
 
 28-29 OCTOBER 2013
@@ -135,7 +135,7 @@ false alarm, not a bug:
    function shell_child_theme_disable_parent_css(){
        add_filter('shell_parent_css','__return_false');
    }`
-- Remove theme support for `dev-stylesheet`: it's no longer needed.
+- Remove theme support for `dev-stylesheet`.
 - Remove all 3 column layout
 - Update Auto-Hosted theme updater to version 0.1.4
 - Add HTML Class: js-disabled, shell-is-mobile, shell-is-not-mobile, shell-is-opera-mini
@@ -169,6 +169,7 @@ false alarm, not a bug:
   http://themehybrid.com/support/topic/hybrid-core-20-and-the-future
 - add readme file in all "atomic folders"
 
+
 01 NOVEMBER 2013
 ========================
 - fix sub-menu toggle.
@@ -183,11 +184,14 @@ false alarm, not a bug:
 - post attributes in 404 pages.
 - remove loop-nav.php
 - change "archive type" pages context to "_list_view" (with underscore)
-
-- 
+- switch to shell beta tester repo for nightly build of shell.
+- add entry-wrap for easy styling in list-views and all singular.
+- hook: open_entry_wrap & close_entry_wrap
+- USE this beta version on real site, to test everything.
 
 
 Temp To-Do:
+--------------
 - test new shell atomic template
 - minify js/shell.js
 - create child theme "shell-max" and "shell-min"
@@ -195,46 +199,50 @@ Temp To-Do:
 - change all php "if" from using ":" to bracket "{}"
 
 Maybe to-do:
-- replace all template function in hybrid core to shell. => check list of hybrid core templates functions
-  just create a wrapper for now.
+--------------
+- replace all template function in hybrid core to shell.
+  => check list of hybrid core templates functions
 - use simple action and filter (no atomic) (???)
 - add template functions in includes, to make sure everything works.
   this is only functions can be used by child theme,
   other functions, child theme author need to make their own function.
 - loop meta title and loop meta description will be using hc.2.0 functions.
+- add checkbox in theme settings to disable updates.
+- rtl stylesheet support
+- create a plugin to modify all string used in shell theme.
+  only the one used, separate to front end and backend.
+  add it in theme settings, as meta box.
 
 
 List Of HC template functions:
-header.php============
+-------------------------------
++ shell_get_atomic_template()
+
+- apply_atomic()
+- do_atomic()
+
+header.php
+============
 - hybrid_document_title()
 - hybrid_body_attributes()
 - hybrid_site_title()
 - hybrid_site_description()
-- 
 
-comment.php===========
+comment.php
+============
 - hybrid_comment_attributes()
 - hybrid_avatar()
-- 
 
-comments.php===========
+comments.php
+============
 - hybrid_list_comments_args()
 
-all loop==============
+all loop
+============
 - hybrid_post_attributes()
 - hybrid_attachment()
 
-loop-nav/=================
+loop-nav/
+============
 - loop_pagination()
-
-
-
-
-
-
-
-
-
-
-
 

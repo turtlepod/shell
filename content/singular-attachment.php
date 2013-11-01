@@ -14,35 +14,43 @@
 
 	<?php do_atomic( 'open_entry' ); // shell_open_entry ?>
 
-	<header="entry-header">
+	<div class="entry-wrap">
 
-		<?php do_atomic( 'open_entry_header' ); // shell_open_entry_header ?>
+		<?php do_atomic( 'open_entry_wrap' ); // shell_open_entry_wrap ?>
 
-		<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
+		<header="entry-header">
 
-		<?php do_atomic( 'close_entry_header' ); // shell_close_entry_header ?>
+			<?php do_atomic( 'open_entry_header' ); // shell_open_entry_header ?>
 
-	</header><!-- .entry-header -->
+			<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); // shell_entry_title ?>
 
-	<?php do_atomic( 'before_entry_content' ); // shell_before_entry_content ?>
+			<?php do_atomic( 'close_entry_header' ); // shell_close_entry_header ?>
 
-	<div class="entry-content">
+		</header><!-- .entry-header -->
 
-		<?php do_atomic( 'open_entry_content' ); // shell_open_entry_content ?>
+		<?php do_atomic( 'before_entry_content' ); // shell_before_entry_content ?>
 
-		<?php hybrid_attachment(); // Function for handling non-image attachments. ?>
+		<div class="entry-content">
 
-		<p class="download">
-			<a href="<?php echo wp_get_attachment_url(); ?>" title="<?php the_title_attribute(); ?>" rel="enclosure" type="<?php echo get_post_mime_type(); ?>"><?php printf( __( 'Download &quot;%1$s&quot;', 'shell' ), the_title( '<span class="fn">', '</span>', false) ); ?></a>
-		</p><!-- .download -->
+			<?php do_atomic( 'open_entry_content' ); // shell_open_entry_content ?>
 
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) ); ?>
+			<?php hybrid_attachment(); // Function for handling non-image attachments. ?>
 
-		<?php do_atomic( 'close_entry_content' ); // shell_close_entry_content ?>
+			<p class="download">
+				<a href="<?php echo wp_get_attachment_url(); ?>" title="<?php the_title_attribute(); ?>" rel="enclosure" type="<?php echo get_post_mime_type(); ?>"><?php printf( __( 'Download &quot;%1$s&quot;', 'shell' ), the_title( '<span class="fn">', '</span>', false) ); ?></a>
+			</p><!-- .download -->
 
-	</div><!-- .entry-content -->
+			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) ); ?>
 
-	<?php do_atomic( 'after_entry_content' ); // shell_after_entry_content ?>
+			<?php do_atomic( 'close_entry_content' ); // shell_close_entry_content ?>
+
+		</div><!-- .entry-content -->
+
+		<?php do_atomic( 'after_entry_content' ); // shell_after_entry_content ?>
+
+		<?php do_atomic( 'close_entry_wrap' ); // shell_close_entry_wrap ?>
+
+	</div><!-- .entry-wrap -->
 
 	<?php do_atomic( 'close_entry' ); // shell_close_entry ?>
 
