@@ -854,9 +854,9 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 				/* add file based on post type and post format */
 				foreach ( $files as $file ){
 
-					// {content}/{home-archive-search}_{post}.php: post type template
-					// {content}/{home-archive-search}_format-{gallery}.php: for all post type
-					// {content}/{home-archive-search}_{post}-format-{gallery}.php: only for posts
+					// {content}/{_list-view}_{post}.php: post type template
+					// {content}/{_list-view}_format-{gallery}.php: for all post type
+					// {content}/{_list-view}_{post}-format-{gallery}.php: only for posts
 					$templates[] = "{$dir}/{$context}_{$file}.php";
 				}
 
@@ -1096,7 +1096,7 @@ function shell_hybrid_context( $context ){
 	}
 	/* Archive type pages */
 	else if ( is_home() || is_archive() || is_search() ){
-		$context[] = "home-archive-search";
+		$context[] = "_list-view";
 	}
 
 	/* make it unique */

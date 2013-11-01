@@ -8,7 +8,7 @@
  * @subpackage Template
  */
 ?>
-	<div id="post-0" class="<?php hybrid_entry_class(); ?>">
+	<article <?php hybrid_post_attributes(); ?>>
 
 		<div class="entry-content">
 
@@ -16,4 +16,4 @@
 
 		</div><!-- .entry-content -->
 
-	</div><!-- .hentry .error -->
+	</article><!-- .hentry .error -->

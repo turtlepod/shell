@@ -180,6 +180,12 @@ false alarm, not a bug:
 - remove theme layout metabox in settings.
 - add "content" class in 1c editor style, to make sure it's only for content area.
 - still not sure about the editor-syle.css
+- post attributes in 404 pages.
+- remove loop-nav.php
+- change "archive type" pages context to "_list_view" (with underscore)
+
+- 
+
 
 Temp To-Do:
 - test new shell atomic template
@@ -188,11 +194,38 @@ Temp To-Do:
 - all template inline docs (now only header.php)
 - change all php "if" from using ":" to bracket "{}"
 
-Future to-do:
+Maybe to-do:
+- replace all template function in hybrid core to shell. => check list of hybrid core templates functions
+  just create a wrapper for now.
+- use simple action and filter (no atomic) (???)
+- add template functions in includes, to make sure everything works.
+  this is only functions can be used by child theme,
+  other functions, child theme author need to make their own function.
 - loop meta title and loop meta description will be using hc.2.0 functions.
 
 
+List Of HC template functions:
+header.php============
+- hybrid_document_title()
+- hybrid_body_attributes()
+- hybrid_site_title()
+- hybrid_site_description()
+- 
 
+comment.php===========
+- hybrid_comment_attributes()
+- hybrid_avatar()
+- 
+
+comments.php===========
+- hybrid_list_comments_args()
+
+all loop==============
+- hybrid_post_attributes()
+- hybrid_attachment()
+
+loop-nav/=================
+- loop_pagination()
 
 
 

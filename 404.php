@@ -22,7 +22,7 @@ get_header(); // Loads the header.php template. ?>
 
 		<div class="hfeed">
 
-			<div id="post-0" class="<?php hybrid_entry_class(); ?>">
+			<article <?php hybrid_post_attributes(); ?>>
 
 				<h1 class="error-404-title entry-title"><?php _e( 'Not Found', 'shell' ); ?></h1>
 
@@ -36,7 +36,7 @@ get_header(); // Loads the header.php template. ?>
 
 				</div><!-- .entry-content -->
 
-			</div><!-- .hentry -->
+			</article><!-- .hentry -->
 
 		</div><!-- .hfeed -->
 
