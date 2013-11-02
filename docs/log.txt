@@ -189,6 +189,9 @@ false alarm, not a bug:
 - hook: open_entry_wrap & close_entry_wrap
 - USE this beta version on real site, to test everything.
 - minify evrything, css and js.
+- bring back style loader the way it used to be.
+  the filter is not needed when using theme support in hc.
+- change version to 0.2.0beta1.
 
 
 Temp To-Do:
@@ -203,16 +206,18 @@ Maybe to-do:
 --------------
 - replace all template function in hybrid core to shell.
   => check list of hybrid core templates functions
-- use simple action and filter (no atomic) (???)
 - add template functions in includes, to make sure everything works.
   this is only functions can be used by child theme,
   other functions, child theme author need to make their own function.
-- loop meta title and loop meta description will be using hc.2.0 functions.
+- loop meta title and loop meta description will be using hc.2.0 functions.(?)
 - add checkbox in theme settings to disable updates.
 - rtl stylesheet support
 - create a plugin to modify all string used in shell theme.
   only the one used, separate to front end and backend.
   add it in theme settings, as meta box.
+- updater options, nightly build options:
+  [] enable auto update
+  [] use beta version.
 
 
 List Of HC template functions:
