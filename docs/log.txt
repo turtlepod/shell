@@ -192,6 +192,11 @@ false alarm, not a bug:
 - bring back style loader the way it used to be.
   the filter is not needed when using theme support in hc.
 - change version to 0.2.0beta1.
+- add shell_get_template function.
+- content, loop-meta, loop-nav use conditional, remove template file.
+- remove singular template
+- fix resources file loader.
+- add shell get template part
 
 
 Temp To-Do:

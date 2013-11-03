@@ -1,6 +1,6 @@
 <?php
 /**
- * Home Template
+ * Index Template
  *
  * This is the home template.  Technically, it is the "posts page" template.  It is used when a visitor is on the 
  * page assigned to show a site's latest blog posts.
@@ -26,10 +26,8 @@ get_header(); // Loads the header.php template. ?>
 			 * In non singular template load 'loop-meta' content
 			 * this will load template files in 'loop-meta' directory based on current page context.
 			 */
-			if (!is_singular() ){
-
+			if ( !is_singular() ){
 				shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory
-
 			}
 			?>
 
@@ -38,6 +36,16 @@ get_header(); // Loads the header.php template. ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php shell_get_atomic_template( 'content', true ); // atomic context loop template, in "content" directory ?>
+
+					<?php
+					/**
+					 * Only in singular, load shell_after_singular hook and comments
+					 */
+					if ( is_singular() ){
+						do_atomic( 'after_singular' ); // shell_after_singular
+						comments_template( '/comments.php', true ); // Loads the comments.php template.
+					}
+					?>
 
 				<?php endwhile; ?>
 

@@ -7,7 +7,6 @@
  * @package Shell
  * @subpackage Template
  */
-
 if ( has_nav_menu( 'primary' ) ) : ?>
 
 	<?php do_atomic( 'before_menu_primary' ); // shell_before_menu_primary ?>

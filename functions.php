@@ -219,15 +219,19 @@ if( !function_exists( 'shell_custom_background' ) ){
  */
 function shell_styles( $styles ) {
 
+	/* Use the .min script if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 	/* media queries dependency */
 	$deps = null;
-	if ( file_exists( get_stylesheet_directory() . '/media-queries.css' ))
+	if ( file_exists( get_stylesheet_directory() . "/media-queries{$suffix}.css" ) 
+		|| file_exists( get_stylesheet_directory() . "/media-queries.css" ) )
 		$deps = array('style');
 
 	/* Media Queries CSS */
 	$styles['media-queries'] = array(
-		'src'		=> hybrid_locate_theme_file( 'media-queries.css' ),
-		'version'	=> shell_theme_file_version( 'media-queries.css' ),
+		'src'		=> hybrid_locate_theme_file( array( "media-queries{$suffix}.css", "media-queries.css" ) ),
+		'version'	=> shell_theme_file_version( array( "media-queries{$suffix}.css", "media-queries.css" ) ),
 		'media'		=> 'all',
 		'deps'		=> $deps,
 	);
@@ -241,11 +245,27 @@ function shell_styles( $styles ) {
  * 
  * @since 0.1.0
  */
-function shell_theme_file_version( $file ){
+function shell_theme_file_version( $file_names ){
+
+	/* Get Theme */
 	$theme = wp_get_theme( get_template() );
-	if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $file )){
-		$theme = wp_get_theme();
+
+	/* Loops through each of the given file names. */
+	foreach ( (array) $file_names as $file ) {
+
+		/* If the file exists in the stylesheet (child theme) directory. */
+		if ( is_child_theme() && file_exists( trailingslashit( get_stylesheet_directory() ) . $file ) ) {
+			$theme = wp_get_theme();
+			break;
+		}
+
+		/* If the file exists in the template (parent theme) directory. */
+		elseif ( file_exists( trailingslashit( get_template_directory() ) . $file ) ) {
+			$theme = wp_get_theme( get_template() );
+			break;
+		}
 	}
+
 	return $theme->get( 'Version' );
 }
 
@@ -259,24 +279,23 @@ function shell_theme_file_version( $file ){
  */
 function shell_script(){
 
-	/* do not load on admin */
-	if ( !is_admin() ) {
+	/* Use the .min script if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		/*  Mobile Menu Script */
-		$shell_menu_file = hybrid_locate_theme_file( 'js/shell-menu.min.js' );
-		$shell_menu_version = shell_theme_file_version( 'js/shell-menu.min.js' );
-		wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
+	/*  Mobile Menu Script */
+	$shell_menu_file = hybrid_locate_theme_file( array( "js/shell-menu{$suffix}.js", "js/shell-menu.js" ) );
+	$shell_menu_version = shell_theme_file_version( array( "js/shell-menu{$suffix}.js", "js/shell-menu.js" ) );
+	wp_enqueue_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
-		/*  Theme Script */
-		$shell_js_file = hybrid_locate_theme_file( 'js/shell.js' );
-		$shell_js_version = shell_theme_file_version( 'js/shell.js' );
-		wp_enqueue_script( 'shell-js', $shell_js_file, array('jquery'), $shell_js_version, true );
+	/*  Theme Script */
+	$shell_js_file = hybrid_locate_theme_file( array( "js/shell{$suffix}.js', 'js/shell.js" ) );
+	$shell_js_version = shell_theme_file_version( array( "js/shell{$suffix}.js', 'js/shell.js" ) );
+	wp_enqueue_script( 'shell-js', $shell_js_file, array('jquery'), $shell_js_version, true );
 
-		/* Enqueue FitVids */
-		$fitvids_file = hybrid_locate_theme_file( 'js/fitvids.min.js' );
-		$fitvids_version = shell_theme_file_version( 'js/fitvids.min.js' );
-		wp_enqueue_script( 'shell-fitvids', $fitvids_file, array( 'jquery' ), $fitvids_version, true );
-	}
+	/* Enqueue FitVids */
+	$fitvids_file = hybrid_locate_theme_file( array( "js/fitvids{$suffix}.js", "js/fitvids.js" ) );
+	$fitvids_version = shell_theme_file_version( array( "js/fitvids{$suffix}.js", "js/fitvids.js" ) );
+	wp_enqueue_script( 'shell-fitvids', $fitvids_file, array( 'jquery' ), $fitvids_version, true );
 }
 
 
@@ -289,10 +308,14 @@ function shell_script(){
  * @since 0.1.0
  */
 function shell_respond_html5shiv() {
+
+	/* Use the .min script if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 	?><!-- Enables media queries and html5 in some unsupported browsers. -->
 	<!--[if (lt IE 9) & (!IEMobile)]>
-	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( 'js/respond.min.js' ); ?>"></script>
-	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( 'js/html5shiv.min.js' ); ?>"></script>
+	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( array( "js/respond{$suffix}.js", "js/respond.js" ) ); ?>"></script>
+	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( array( "js/html5shiv{$suffix}.js", "js/html5shiv.js" ) ); ?>"></script>
 	<![endif]-->
 <?php
 }
@@ -510,7 +533,7 @@ function shell_disable_sidebars( $sidebars_widgets ) {
  * @since 0.1.0
  */
 function shell_get_sidebar_header(){
-	get_sidebar( 'header' ); // sidebar-header.php
+	shell_get_template( 'sidebar', 'header' ); // sidebar-header.php
 }
 
 
@@ -521,8 +544,8 @@ function shell_get_sidebar_header(){
  * @since 0.1.0
  */
 function shell_get_sidebar(){
-	get_sidebar( 'primary' ); // sidebar-primary.php
-	get_sidebar( 'secondary' ); // sidebar-secondary.php
+	shell_get_template( 'sidebar', 'primary' ); // sidebar-primary.php
+	shell_get_template( 'sidebar', 'secondary' ); // sidebar-secondary.php
 }
 
 
@@ -533,7 +556,7 @@ function shell_get_sidebar(){
  * @since 0.1.0
  */
 function shell_get_sidebar_subsidiary(){
-	get_sidebar( 'subsidiary' ); // sidebar-subsidiary.php
+	shell_get_template( 'sidebar', 'subsidiary' ); // sidebar-subsidiary.php
 }
 
 
@@ -544,7 +567,7 @@ function shell_get_sidebar_subsidiary(){
  * @since 0.1.0
  */
 function shell_get_sidebar_after_singular(){
-	get_sidebar( 'after-singular' ); // sidebar-after-singular.php
+	shell_get_template( 'sidebar', 'after-singular' ); // sidebar-after-singular.php
 }
 
 
@@ -555,7 +578,7 @@ function shell_get_sidebar_after_singular(){
  * @since 0.1.0
  */
 function shell_get_menu_primary(){
-	get_template_part( 'menu', 'primary' ); // menu-primary.php
+	shell_get_template( 'menu', 'primary' ); // menu-primary.php
 }
 
 
@@ -566,7 +589,7 @@ function shell_get_menu_primary(){
  * @since 0.1.0
  */
 function shell_get_menu_secondary(){
-	get_template_part( 'menu', 'secondary' ); // menu-secondary.php
+	shell_get_template( 'menu', 'secondary' ); // menu-secondary.php
 }
 
 
@@ -582,7 +605,7 @@ function shell_get_menu_mobile_bottom(){
 	/* Check mobile user agent */
 	if ( wp_is_mobile() ){
 
-		get_template_part( 'menu', 'bottom' ); // load menu-bottom.php
+		shell_get_template( 'menu', 'bottom' ); // load menu-bottom.php
 	}
 }
 
@@ -593,7 +616,7 @@ function shell_get_menu_mobile_bottom(){
  * @since 0.1.0
  */
 function shell_get_menu_subsidiary(){
-	get_template_part( 'menu', 'subsidiary' ); // menu-subsidiary.php
+	shell_get_template( 'menu', 'subsidiary' ); // menu-subsidiary.php
 }
 
 
@@ -861,6 +884,46 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 	$templates = apply_filters( 'shell_atomic_template',  $templates, $dir, $loop );
 
 	return locate_template( array_reverse( $templates ), true, false );
+}
+
+
+/**
+ * Shell Get Template
+ * Function for loading template with folder/dir support
+ * this is a replacement for `get_template_part` and `get_sidebar`
+ * To load sidebar use `sidebar` as $slug
+ * 
+ * @param $slug string directory/slug
+ * @param $name file name to load
+ * @since 0.2.0
+ */
+function shell_get_template( $slug, $name = null ){
+
+	/* wp_hook compat */
+	if ( 'sidebar' == $slug ){
+		do_action( 'get_sidebar', $name );
+	}
+	else{
+		do_action( "get_template_part_{$slug}", $slug, $name );
+	}
+
+	/* Start */
+	$templates = array();
+	$name = (string) $name;
+
+	/* get_template_part compat */
+	if ( '' !== $name ){
+		$templates[] = "{$slug}-{$name}.php";
+	}
+	$templates[] = "{$slug}.php";
+
+	/* sub-dir */
+	if ( '' !== $name ){
+		$templates[] = "{$slug}/{$name}.php";
+	}
+	$templates[] = "{$slug}/index.php";
+
+	locate_template($templates, true, false);
 }
 
 
