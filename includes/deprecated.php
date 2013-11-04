@@ -73,8 +73,3 @@ function shell_theme_layout_meta_box(){
 	return;
 }
 
-
-
-
-
-

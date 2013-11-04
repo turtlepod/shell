@@ -18,14 +18,14 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @package Shell
- * @subpackage Functions
- * @version 0.1.0
- * @since 0.1.0
- * @author David Chandra Purnama <david@shellcreeper.com>
- * @copyright Copyright (c) 2013, David Chandra Purnama
- * @copyright Copyright (c) 2010 - 2013, Justin Tadlock
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @package       Shell
+ * @subpackage    Functions
+ * @version       0.1.0
+ * @since         0.1.0
+ * @author        David Chandra Purnama <david@shellcreeper.com>
+ * @copyright     Copyright (c) 2013, David Chandra Purnama
+ * @copyright     Copyright (c) 2010 - 2013, Justin Tadlock
+ * @license       http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Load the core theme framework. */
@@ -39,9 +39,9 @@ add_action( 'after_setup_theme', 'shell_theme_setup' );
  * Theme setup function.  This function adds support for theme features and defines the default theme
  * actions and filters.
  *
- * @since  0.1.0
- * @access public
- * @return void
+ * @since     0.1.0
+ * @access    public
+ * @return    void
  */
 function shell_theme_setup() {
 
@@ -310,9 +310,9 @@ function shell_script(){
  * Function for help to unsupported browsers understand mediaqueries and html5.
  * This is added in 'head' using 'wp_head' hook.
  *
- * @link: https://github.com/scottjehl/Respond
- * @link: http://code.google.com/p/html5shiv/
- * @since 0.1.0
+ * @link   https://github.com/scottjehl/Respond
+ * @link   https://github.com/aFarkas/html5shiv
+ * @since  0.1.0
  */
 function shell_respond_html5shiv() {
 
@@ -737,6 +737,15 @@ function shell_summary_wp_link_pages(){
 	wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) );
 }
 
+/**
+ * More link text.
+ * Used as Args in the_content() function
+ * 
+ * @since 0.2.0
+ */
+function shell_the_content_more(){
+	return apply_atomic( 'the_content_more', __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) );
+}
 
 /**
  * Attachment Gallery

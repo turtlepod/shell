@@ -170,7 +170,7 @@ false alarm, not a bug:
 - add readme file in all "atomic folders"
 
 
-01 NOVEMBER 2013
+01-04 NOVEMBER 2013
 ========================
 - fix sub-menu toggle.
 - to be consistent, use top:-999em instead of display: none;
@@ -199,7 +199,10 @@ false alarm, not a bug:
 - add shell get template part
 - add wrapper function for hc template functions except for extension.
 - revert updater uri, if needed to change, should be in child theme.
-
+- update respond.js from 1.1.0 to version 1.3.0
+- update html5 shift to version 3.7.1
+- clean up editor-style.css
+- add more link text function with filter.
 
 Maybe to-do:
 --------------
@@ -207,4 +210,3 @@ Maybe to-do:
 - create a plugin to modify all string used in shell theme.
   only the one used, separate to front end and backend.
   add it in theme settings, as meta box.
-

@@ -42,6 +42,13 @@ get_header(); // Loads the header.php template. ?>
 					 * Only in singular, load shell_after_singular hook and comments
 					 */
 					if ( is_singular() ){
+						/**
+						 * "shell_after_singular" (atomic action hook)
+						 * sidebar-after-singular.php is loaded in this hook
+						 * 
+						 * @see shell_get_sidebar_after_singular()
+						 * @since 0.1.0
+						 */
 						do_atomic( 'after_singular' ); // shell_after_singular
 						comments_template( '/comments.php', true ); // Loads the comments.php template.
 					}

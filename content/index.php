@@ -71,7 +71,7 @@ do_atomic( 'before_entry' ); // shell_before_entry ?>
 
 				<?php } ?>
 
-				<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'shell' ) ); ?>
+				<?php the_content( shell_the_content_more() ); ?>
 				<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', 'shell' ), 'after' => '</p>' ) ); ?>
 
 				<?php do_atomic( 'close_entry_content' ); // shell_close_entry_content ?>
