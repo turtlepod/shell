@@ -10,10 +10,10 @@
  */
 do_atomic( 'before_entry' ); // shell_before_entry ?>
 
-<article <?php hybrid_post_attributes(); ?>>
+<article <?php shell_post_attributes(); ?>>
 
 	<?php
-	/* shell_thumbnail() loaded here. */
+	/* shell_thumbnail() loaded here. only in singular pages. */
 	do_atomic( 'open_entry' ); // shell_open_entry ?>
 
 	<div class="entry-wrap">
@@ -61,7 +61,7 @@ do_atomic( 'before_entry' ); // shell_before_entry ?>
 
 					<?php } else { /* Non Image Attachment */ ?>
 
-						<?php hybrid_attachment(); // Function for handling non-image attachments. ?>
+						<?php shell_attachment(); // Function for handling non-image attachments. ?>
 
 						<p class="download">
 							<a href="<?php echo wp_get_attachment_url(); ?>" title="<?php the_title_attribute(); ?>" rel="enclosure" type="<?php echo get_post_mime_type(); ?>"><?php printf( __( 'Download &quot;%1$s&quot;', 'shell' ), the_title( '<span class="fn">', '</span>', false) ); ?></a>

@@ -27,7 +27,7 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
 				<?php do_atomic( 'before_comment_list' );// shell_before_comment_list ?>
 
 				<ol class="comment-list">
-					<?php wp_list_comments( hybrid_list_comments_args() ); ?>
+					<?php wp_list_comments( shell_list_comments_args() /* shell_list_comments_args */ ); ?>
 				</ol><!-- .comment-list -->
 
 				<?php do_atomic( 'after_comment_list' ); // shell_after_comment_list ?>

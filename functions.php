@@ -108,16 +108,16 @@ function shell_theme_setup() {
 	add_action( 'template_redirect', 'shell_one_column' );
 
 	/* Load Sidebar Template Files */
-	add_action( "{$prefix}_header", 'shell_get_sidebar_header' ); // sidebar-header.php
-	add_action( "{$prefix}_sidebar", 'shell_get_sidebar' ); // sidebar-primary.php and sidebar-secondary.php
-	add_action( "{$prefix}_after_main", 'shell_get_sidebar_subsidiary' ); // sidebar-subsidiary.php
-	add_action( "{$prefix}_after_singular", 'shell_get_sidebar_after_singular' ); // sidebar-after-singular.php
+	add_action( "{$prefix}_header", 'shell_get_sidebar_header' ); // sidebar/header.php
+	add_action( "{$prefix}_sidebar", 'shell_get_sidebar' ); // sidebar/-primary.php and sidebar/secondary.php
+	add_action( "{$prefix}_after_main", 'shell_get_sidebar_subsidiary' ); // sidebar/subsidiary.php
+	add_action( "{$prefix}_after_singular", 'shell_get_sidebar_after_singular' ); // sidebar/after-singular.php
 
 	/* Load Menu Template Files */
-	add_action( "{$prefix}_before_header", 'shell_get_menu_primary' ); // menu-primary.php
-	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu-secondary.php
-	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu-subsidiary.php
-	add_action( "{$prefix}_before_footer", 'shell_get_menu_mobile_bottom' ); // menu-primary-bottom.php, menu-secondary-bottom.php
+	add_action( "{$prefix}_before_header", 'shell_get_menu_primary' ); // menu/primary.php
+	add_action( "{$prefix}_after_header", 'shell_get_menu_secondary' ); // menu/secondary.php
+	add_action( "{$prefix}_before_footer", 'shell_get_menu_subsidiary' ); // menu/subsidiary.php
+	add_action( "{$prefix}_before_footer", 'shell_get_menu_mobile_bottom' ); // menu/bottom.php
 
 	/* Load searchform.php Template File */
 	add_action( "{$prefix}_close_menu_secondary", 'get_search_form' );
@@ -164,7 +164,7 @@ function shell_theme_setup() {
 	/* Updater args */
 	$updater_args = array(
 		'repo_uri' => 'http://repo.shellcreeper.com/',
-		'repo_slug' => 'shell-beta',
+		'repo_slug' => 'shell',
 	);
 
 	/* Add support for updater */
@@ -179,6 +179,13 @@ function shell_theme_setup() {
  */
 require_once( trailingslashit( get_template_directory() ) . 'includes/theme-updater.php' );
 new Shell_Theme_Updater;
+
+
+/**
+ * Load Wrapper Functions for Hybrid Core Template Function
+ * @since 0.2.0
+ */
+require_once( trailingslashit( get_template_directory() ) . 'includes/library.php' );
 
 
 /**
@@ -470,13 +477,16 @@ function shell_embed_defaults( $args ) {
 		$layout = theme_layouts_get_layout();
 
 		/* width in pixel based on current page theme layout */
-		if ( 'layout-1c' == $layout )
+		if ( 'layout-1c' == $layout ){
 			$args['width'] = 930;
-		else
+		}
+		else{
 			$args['width'] = 600;
+		}
 	}
-	else
+	else{
 		$args['width'] = 600;
+	}
 
 	return $args;
 }
@@ -627,7 +637,7 @@ function shell_get_menu_subsidiary(){
  * @since 0.2.0
  */
 function shell_mobile_menu_primary(){?>
-<div class="mobile-menu-button" title="navigation">
+<div id="mobile-menu-button-primary" class="mobile-menu-button" title="navigation">
 	<span><a href="#menu-primary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
 </div><?php
 }
@@ -640,7 +650,7 @@ function shell_mobile_menu_primary(){?>
  * @since 0.2.0
  */
 function shell_mobile_menu_secondary(){?>
-<div class="mobile-menu-button" title="navigation">
+<div id="mobile-menu-button-secondary" class="mobile-menu-button" title="navigation">
 	<span><a href="#menu-secondary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
 </div><?php
 }
@@ -928,10 +938,32 @@ function shell_get_template( $slug, $name = null ){
 
 
 /**
- * Dynamic HTML Class to target context in body class.
- * Can be modified using filter hook "shell_html_class"
+ * shell_html_class()
+ * Output dynamic HTML Class to target context in body class.
+ * 
+ * This classes is added as utillity class/helper class.
+ * This classes is not added in body class for organization purpose.
+ * 
+ * Classes added:
+ * - "not-singular" : all pages except singular pages
+ * - "layout-2c" : if using layout 2c-l and 2c-r to easily target all 2 column layout.
+ * - "{skin-id}_skin_active" : class to identify active skin 
+ * - "js-disabled" : browser with javascript disabled, will be removed by "js/shell.js" javasript.
+ * - "js-enabled" : browser with javascript enabled, this added via "js/shell.js" after removing "js-disabled" class.
+ * - "shell-is-mobile" : using mobile browser detected by wp_is_mobile()
+ * - "shell-is-not-mobile" : using non-mobile browser detected by wp_is_mobile()
+ * - "shell-is-opera-mini" : using opera mini browser detected by wp_is_mobile() and Opera Mini user agent.
+ * 
+ * >> filter: "shell_html_class" (atomic)
  *
- *
+ * @param string|array $class additional classes to add; default: none
+ * @return string e.g. "not-singular layout-2c js-disabled shell-is-not-mobile"
+ * @uses is_singular() {@link http://codex.wordpress.org/Function_Reference/is_singular}
+ * @uses current_theme_supports() {@link http://codex.wordpress.org/Function_Reference/current_theme_supports}
+ * @uses wp_is_mobile() {@link http://codex.wordpress.org/Function_Reference/wp_is_mobile}
+ * @uses theme_layouts_get_layout() {@link http://themehybrid.com/docs/tutorials/theme-layouts}
+ * @uses apply_atomic()  {@link http://themehybrid.com/docs/tutorials/creating-custom-hooks}
+ * @uses shell_active_skin() to check active skin.
  * @since 0.1.0
  */
 function shell_html_class( $class = '' ){

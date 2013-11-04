@@ -197,63 +197,14 @@ false alarm, not a bug:
 - remove singular template
 - fix resources file loader.
 - add shell get template part
+- add wrapper function for hc template functions except for extension.
+- revert updater uri, if needed to change, should be in child theme.
 
-
-Temp To-Do:
---------------
-- test new shell atomic template
-- minify js/shell.js
-- create child theme "shell-max" and "shell-min"
-- all template inline docs (now only header.php)
-- change all php "if" from using ":" to bracket "{}"
 
 Maybe to-do:
 --------------
-- replace all template function in hybrid core to shell.
-  => check list of hybrid core templates functions
-- add template functions in includes, to make sure everything works.
-  this is only functions can be used by child theme,
-  other functions, child theme author need to make their own function.
-- loop meta title and loop meta description will be using hc.2.0 functions.(?)
-- add checkbox in theme settings to disable updates.
 - rtl stylesheet support
 - create a plugin to modify all string used in shell theme.
   only the one used, separate to front end and backend.
   add it in theme settings, as meta box.
-- updater options, nightly build options:
-  [] enable auto update
-  [] use beta version.
-
-
-List Of HC template functions:
--------------------------------
-+ shell_get_atomic_template()
-
-- apply_atomic()
-- do_atomic()
-
-header.php
-============
-- hybrid_document_title()
-- hybrid_body_attributes()
-- hybrid_site_title()
-- hybrid_site_description()
-
-comment.php
-============
-- hybrid_comment_attributes()
-- hybrid_avatar()
-
-comments.php
-============
-- hybrid_list_comments_args()
-
-all loop
-============
-- hybrid_post_attributes()
-- hybrid_attachment()
-
-loop-nav/
-============
-- loop_pagination()
 

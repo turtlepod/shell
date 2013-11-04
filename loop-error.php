@@ -8,7 +8,7 @@
  * @subpackage Template
  */
 ?>
-	<article <?php hybrid_post_attributes(); ?>>
+	<article id="post-0" class="<?php shell_post_class(); ?>">
 
 		<div class="entry-wrap">
 
