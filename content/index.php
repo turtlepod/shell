@@ -84,7 +84,7 @@ do_atomic( 'before_entry' ); // shell_before_entry ?>
 
 			<?php
 			/**
-			 * Post 
+			 * Entry Meta
 			 * ----------------------------
 			 */
 			if ( is_singular( 'post' ) ){
@@ -126,7 +126,7 @@ do_atomic( 'before_entry' ); // shell_before_entry ?>
 
 			<?php
 			/**
-			 * Post 
+			 * Entry meta
 			 * ----------------------------
 			 */
 			if ( 'post' == get_post_type( get_the_ID() ) ){

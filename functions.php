@@ -128,7 +128,6 @@ function shell_theme_setup() {
 
 	/* Add breadcrumb Trail */
 	add_action( "{$prefix}_open_main", 'shell_breadcrumb' );
-	add_filter( 'breadcrumb_trail_args', 'shell_breadcrumb_trail_args' ); // add edit link
 
 	/* Add thumbnail */
 	add_action( "{$prefix}_open_entry", 'shell_thumbnail' );
@@ -663,8 +662,16 @@ function shell_mobile_menu_secondary(){?>
  * @since 0.1.0
  */
 function shell_breadcrumb(){
-	if ( current_theme_supports( 'breadcrumb-trail' ) ) 
-		breadcrumb_trail( array( 'before' => __( 'You are here:', 'shell' ) ) );
+	if ( current_theme_supports( 'breadcrumb-trail' ) ){
+		breadcrumb_trail( array(
+			'before'         => __( 'You are here:', 'shell' ),
+			'post_taxonomy'   => array(
+			 'post'  => 'post_tag',
+		),
+			'show_browse'    => false,
+			'after'          =>  shell_edit_link()
+		));
+	}
 }
 
 
@@ -674,10 +681,7 @@ function shell_breadcrumb(){
  * 
  * @since 0.1.0
  */
-function shell_breadcrumb_trail_args( $args ){
-	$args['after'] = shell_edit_link();
-	return $args;
-}
+
 
 
 /**

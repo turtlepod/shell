@@ -21,15 +21,7 @@ get_header(); // Loads the header.php template. ?>
 
 			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
 
-			<?php
-			/**
-			 * In non singular template load 'loop-meta' content
-			 * this will load template files in 'loop-meta' directory based on current page context.
-			 */
-			if ( !is_singular() ){
-				shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory
-			}
-			?>
+			<?php shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory ?>
 
 			<?php if ( have_posts() ) : ?>
 
@@ -37,22 +29,7 @@ get_header(); // Loads the header.php template. ?>
 
 					<?php shell_get_atomic_template( 'content', true ); // atomic context loop template, in "content" directory ?>
 
-					<?php
-					/**
-					 * Only in singular, load shell_after_singular hook and comments
-					 */
-					if ( is_singular() ){
-						/**
-						 * "shell_after_singular" (atomic action hook)
-						 * sidebar-after-singular.php is loaded in this hook
-						 * 
-						 * @see shell_get_sidebar_after_singular()
-						 * @since 0.1.0
-						 */
-						do_atomic( 'after_singular' ); // shell_after_singular
-						comments_template( '/comments.php', true ); // Loads the comments.php template.
-					}
-					?>
+					<?php shell_get_atomic_template( 'content-after', true ); // atomic context loop template, in "content-after" directory ?>
 
 				<?php endwhile; ?>
 

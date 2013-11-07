@@ -8,7 +8,7 @@
  * @subpackage Template
  */
 ?>
-	<article id="post-0" class="<?php shell_post_class(); ?>">
+	<article <?php shell_post_attributes(); ?>>
 
 		<div class="entry-wrap">
 

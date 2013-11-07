@@ -204,9 +204,45 @@ false alarm, not a bug:
 - clean up editor-style.css
 - add more link text function with filter.
 
+05-07 NOVEMBER 2013
+========================
+- update to HC 1.6.2
+- deprecate shell_breaadcrumb_trail_args
+- removing shell_post_class()
+  > add $post check in shell_post_attributes();
+- add loop "content-after/"
+- remove conditional on loading loop-meta, add conditoinal inside post meta
+
+
+
 Maybe to-do:
 --------------
 - rtl stylesheet support
 - create a plugin to modify all string used in shell theme.
   only the one used, separate to front end and backend.
   add it in theme settings, as meta box.
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

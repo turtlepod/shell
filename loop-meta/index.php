@@ -8,6 +8,12 @@
  * @package Shell
  * @subpackage Template
  */
+
+	/* return on singular pages */
+	if ( is_singular() ){
+		return;
+	}
+
 	do_atomic( 'before_loop_meta' ); // shell_before_loop_meta  ?>
 
 	<?php
