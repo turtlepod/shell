@@ -855,10 +855,10 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 				if ( post_type_supports( get_post_type(), 'post-formats' ) ){
 
 					// {content}/{singular}_format-{gallery}.php
-					$templates[] = "{$dir}/singular_format-" . get_post_format() . "php";
+					$templates[] = "{$dir}/singular_format-" . get_post_format() . ".php";
 
 					// {content}/{singular-post}_format-{gallery}.php
-					$templates[] = "{$dir}/singular-" . get_post_type() . "_format-" . get_post_format() . "php";
+					$templates[] = "{$dir}/singular-" . get_post_type() . "_format-" . get_post_format() . ".php";
 				}
 			}
 
