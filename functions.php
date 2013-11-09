@@ -664,12 +664,9 @@ function shell_mobile_menu_secondary(){?>
 function shell_breadcrumb(){
 	if ( current_theme_supports( 'breadcrumb-trail' ) ){
 		breadcrumb_trail( array(
-			'before'         => __( 'You are here:', 'shell' ),
-			'post_taxonomy'   => array(
-			 'post'  => 'post_tag',
-		),
-			'show_browse'    => false,
-			'after'          =>  shell_edit_link()
+			'before'           => __( 'You are here:', 'shell' ),
+			'show_browse'      => false,
+			'after'            => shell_edit_link()
 		));
 	}
 }

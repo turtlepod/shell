@@ -212,7 +212,8 @@ false alarm, not a bug:
   > add $post check in shell_post_attributes();
 - add loop "content-after/"
 - remove conditional on loading loop-meta, add conditoinal inside post meta
-
+- fix entry header
+- fix breadcrumb args
 
 
 Maybe to-do:

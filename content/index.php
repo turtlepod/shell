@@ -27,7 +27,7 @@ do_atomic( 'before_entry' ); // shell_before_entry ?>
 		 */
 		if ( is_singular( get_post_type() ) ) { ?>
 
-			<header="entry-header">
+			<header class="entry-header">
 
 				<?php do_atomic( 'open_entry_header' ); // shell_open_entry_header ?>
 
