@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @version 0.1.4
+ * @version 0.1.5
  * @author David Chandra Purnama <david@shellcreeper.com>
  * @link http://autohosted.com/
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -67,24 +67,65 @@ class Shell_Theme_Updater{
 
 
 	/**
-	 * Disable request to wp.org theme repository
+	 * Disable request to wp.org themes repository
+	 * this function is to remove update request data of this (active) theme to wp.org
+	 * so wordpress would not do update check for this theme.
+	 *
 	 * @link http://markjaquith.wordpress.com/2009/12/14/excluding-your-plugin-or-theme-from-update-checks/
 	 * @since 0.1.2
 	 */
 	public function disable_wporg_request( $r, $url ){
-	
-		/* If it's not a theme request, bail early */
-		if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) )
+
+		/* WP.org theme update check URL */
+		$wp_url_string = 'api.wordpress.org/themes/update-check';
+
+		/* If it's not a theme update check request, bail early */
+		if ( false === strpos( $url, $wp_url_string ) ){
 			return $r;
+		}
 
-		/* unserialize data */
-		$themes = unserialize( $r['body']['themes'] );
+		/* Get this theme slug (active theme) */
+		$theme_slug = get_option( 'template' );
 
-		/* unset this theme only */
-		unset( $themes[ get_option( 'template' ) ] );
+		/* Get response body (json/serialize data) */
+		$r_body = wp_remote_retrieve_body( $r );
 
-		/* serialize it back */
-		$r['body']['themes'] = serialize( $themes );
+		/* Get theme request */
+		$r_themes = '';
+		$r_themes_json = false;
+		if( isset( $r_body['themes'] ) ){
+
+			/* Check if data can be serialized */
+			if ( is_serialized( $r_body['themes'] ) ){
+
+				/* unserialize data ( PRE WP 3.7 ) */
+				$r_themes = @unserialize( $r_body['themes'] );
+				$r_themes = (array) $r_themes; //make sure it's an array
+			}
+
+			/* if unserialize didn't work ( POST WP.3.7 using json ) */
+			else{
+				/* use json decode to make body request to array */
+				$r_themes = json_decode( $r_body['themes'], true );
+				$r_themes_json = true;
+			}
+		}
+
+		/* check if themes request is not empty */
+		if  ( !empty( $r_themes ) ){
+
+			/* Unset this theme */
+			if ( true === $r_themes_json ){ // json encode data
+				unset( $r_themes['themes'][ $theme_slug ] );
+				$r['body']['themes'] = json_encode( $r_themes );
+			}
+			else{ // serialize data
+				unset( $r_themes[ $theme_slug ] );
+				$r['body']['themes'] = serialize( $r_themes );
+			}
+		}
+
+		/* return the request */
 		return $r;
 	}
 
@@ -110,7 +151,7 @@ class Shell_Theme_Updater{
 			'key'         => '',
 			'dashboard'   => false,
 			'username'    => false,
-			'autohosted'  => 'theme.0.1.4',
+			'autohosted'  => 'theme.0.1.5',
 		);
 
 		/* merge configs and defaults */
@@ -261,7 +302,7 @@ class Shell_Theme_Updater{
 				$theme_name = $upgrader->skin->theme_info->template;
 
 				/* add notification feedback text */
-				$upgrader->skin->feedback( __( 'Executing upgrader_source_selection filter function...', 'text-domain' ) );
+				$upgrader->skin->feedback( __( 'Executing upgrader_source_selection filter function...', 'shell' ) );
 
 				/* only if everything is set */
 				if( isset( $source, $remote_source, $theme_name ) ){
@@ -271,18 +312,18 @@ class Shell_Theme_Updater{
 
 					/* rename the folder */
 					if(@rename( $source, $new_source ) ){
-						$upgrader->skin->feedback( __( 'Renamed theme folder successfully.', 'text-domain' ) );
+						$upgrader->skin->feedback( __( 'Renamed theme folder successfully.', 'shell' ) );
 						return $new_source;
 					}
 					/* unable to rename the folder to correct theme folder */
 					else{
-						$upgrader->skin->feedback( __( '**Unable to rename downloaded theme.', 'text-domain' ) );
+						$upgrader->skin->feedback( __( '**Unable to rename downloaded theme.', 'shell' ) );
 						return new WP_Error();
 					}
 				}
 				/* fallback */
 				else
-					$upgrader->skin->feedback( __( '**Source or Remote Source is unavailable.', 'text-domain' ) );
+					$upgrader->skin->feedback( __( '**Source or Remote Source is unavailable.', 'shell' ) );
 			}
 		}
 		return $source;
@@ -303,7 +344,7 @@ class Shell_Theme_Updater{
 		$widget_id = 'aht_' . $updater_data['slug'] . '_activation_key';
 
 		/* Widget name */
-		$widget_name = $updater_data['name'] . __( ' Theme Updates', 'text-domain' );
+		$widget_name = $updater_data['name'] . __( ' Theme Updates', 'shell' );
 
 		/* role check, in default install only administrator have this cap */
 		if ( current_user_can( 'update_themes' ) ) {
@@ -341,37 +382,37 @@ class Shell_Theme_Updater{
 
 				/* username */
 				$username = isset( $widget_option['username'] ) ? $widget_option['username'] : '';
-				echo '<p>'. __( 'Username: ', 'text-domain' ) . '<code>' . $username . '</code></p>';
+				echo '<p>'. __( 'Username: ', 'shell' ) . '<code>' . $username . '</code></p>';
 
 				/* activation key input */
 				$key = isset( $widget_option['key'] ) ? $widget_option['key'] : '' ;
-				echo '<p>'. __( 'Email: ', 'text-domain' ) . '<code>' . $key . '</code></p>';
+				echo '<p>'. __( 'Email: ', 'shell' ) . '<code>' . $key . '</code></p>';
 			}
 			else{
 
 				/* activation key input */
 				$key = isset( $widget_option['key'] ) ? $widget_option['key'] : '' ;
-				echo '<p>'. __( 'Key: ', 'text-domain' ) . '<code>' . $key . '</code></p>';
+				echo '<p>'. __( 'Key: ', 'shell' ) . '<code>' . $key . '</code></p>';
 			}
 
 			/* if key status is valid */
 			if ( $widget_option['status'] == 'valid' ){
-				_e( '<p>Your plugin update is <span style="color:green">active</span></p>', 'text-domain' );
+				_e( '<p>Your plugin update is <span style="color:green">active</span></p>', 'shell' );
 			}
 			/* if key is not valid */
 			elseif( $widget_option['status'] == 'invalid' ){
-				_e( '<p>Your input is <span style="color:red">not valid</span>, automatic updates is <span style="color:red">not active</span>.</p>', 'text-domain' );
-				echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Edit Key', 'text-domain' ) . '</a></p>';
+				_e( '<p>Your input is <span style="color:red">not valid</span>, automatic updates is <span style="color:red">not active</span>.</p>', 'shell' );
+				echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Edit Key', 'shell' ) . '</a></p>';
 			}
 			/* else */
 			else{
 				_e( '<p>Unable to validate update activation.</p>', 'auto-hosted' );
-				echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Try again', 'text-domain' ) . '</a></p>';
+				echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Try again', 'shell' ) . '</a></p>';
 			}
 		}
 		/* if activation key is not yet set/empty */
 		else{
-			echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Add Key', 'text-domain' ) . '</a></p>';
+			echo '<p><a href="' . $edit_url . '" class="button-primary">' . __( 'Add Key', 'shell' ) . '</a></p>';
 		}
 	}
 
@@ -390,8 +431,9 @@ class Shell_Theme_Updater{
 		$widget_id = 'aht_' . $updater_data['slug'] . '_activation_key';
 
 		/* check options is set before saving */
-		if ( isset( $_POST[$widget_id] ) ){
+		if ( isset( $_POST[$widget_id] ) && isset( $_POST['dashboard-widget-nonce'] ) && wp_verify_nonce( $_POST['dashboard-widget-nonce'], 'edit-dashboard-widget_' . $widget_id ) ){
 
+			/* get submitted data */
 			$submit_data = $_POST[$widget_id];
 
 			/* username submitted */
@@ -456,13 +498,13 @@ class Shell_Theme_Updater{
 		<?php if ( true === $updater_data['role'] ) { // members only update ?>
 
 		<p>
-			<label for="<?php echo $widget_id; ?>-username"><?php _e( 'User name', 'text-domain' ); ?></label>
+			<label for="<?php echo $widget_id; ?>-username"><?php _e( 'User name', 'shell' ); ?></label>
 		</p>
 		<p>
 			<input id="<?php echo $widget_id; ?>-username" name="<?php echo $widget_id; ?>[username]" type="text" value="<?php echo $username_option;?>"/>
 		</p>
 		<p>
-			<label for="<?php echo $widget_id; ?>-key"><?php _e( 'Email', 'text-domain' ); ?></label>
+			<label for="<?php echo $widget_id; ?>-key"><?php _e( 'Email', 'shell' ); ?></label>
 		</p>
 		<p>
 			<input id="<?php echo $widget_id; ?>-key" class="regular-text" name="<?php echo $widget_id; ?>[key]" type="text" value="<?php echo $key_option;?>"/>
@@ -471,7 +513,7 @@ class Shell_Theme_Updater{
 		<?php } else { // activation keys ?>
 
 		<p>
-			<label for="<?php echo $widget_id; ?>-key"><?php _e( 'Activation Key', 'text-domain' ); ?></label>
+			<label for="<?php echo $widget_id; ?>-key"><?php _e( 'Activation Key', 'shell' ); ?></label>
 		</p>
 		<p>
 			<input id="<?php echo $widget_id; ?>-key" class="regular-text" name="<?php echo $widget_id; ?>[key]" type="text" value="<?php echo $key_option;?>"/>

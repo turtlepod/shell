@@ -215,6 +215,11 @@ false alarm, not a bug:
 - fix entry header
 - fix breadcrumb args
 
+25 NOVEMBER 2013
+========================
+- update auto-hosted theme updater to version 0.1.5
+
+
 
 Maybe to-do:
 --------------

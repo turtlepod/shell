@@ -673,15 +673,6 @@ function shell_breadcrumb(){
 
 
 /**
- * Shell Breadcrumb Trail Args.
- * Add edit link for singular pages and taxonomy term archive pages in breadcrumb trail.
- * 
- * @since 0.1.0
- */
-
-
-
-/**
  * Edit Link for singular post and taxonomy
  * Code from wordpress tool bar/admin bar.
  *
