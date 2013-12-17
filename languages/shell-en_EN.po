@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shell WordPress Theme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 15:16+0700\n"
+"POT-Creation-Date: 2013-12-18 00:04+0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: dave <david.warna@gmail.com>\n"
 "Language-Team:  <justin@justintadlock.com>\n"
@@ -54,97 +54,6 @@ msgstr ""
 msgid "Comments are closed."
 msgstr ""
 
-#: functions.php:359
-msgid "This is default skin for Shell Theme."
-msgstr ""
-
-#: functions.php:443 functions.php:453
-msgctxt "customizer"
-msgid "Skins"
-msgstr ""
-
-#: functions.php:667
-msgid "You are here:"
-msgstr ""
-
-#: functions.php:701 functions.php:708
-msgid " - Edit"
-msgstr ""
-
-#: functions.php:738 content/index.php:75
-msgid "Pages:"
-msgstr ""
-
-#: functions.php:748
-msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
-
-#: functions.php:790 functions.php:794 library/functions/settings.php:83
-#: library/functions/settings.php:87
-msgid "Copyright &#169; [the-year] [site-link]."
-msgstr ""
-
-#: functions.php:790 library/functions/settings.php:83
-msgid "Powered by [wp-link], [theme-link], and [child-link]."
-msgstr ""
-
-#: functions.php:794 library/functions/settings.php:87
-msgid "Powered by [wp-link] and [theme-link]."
-msgstr ""
-
-#: functions.php:1303 functions.php:1309 functions.php:1312 functions.php:1318
-#: functions.php:1321
-#, php-format
-msgid "%1$s"
-msgstr ""
-
-#: functions.php:1303 library/extensions/breadcrumb-trail.php:184
-#: library/functions/context.php:553
-msgid "g:i a"
-msgstr ""
-
-#: functions.php:1306
-#, php-format
-msgid "minute %1$s"
-msgstr ""
-
-#: functions.php:1306 library/functions/context.php:556
-msgid "i"
-msgstr ""
-
-#: functions.php:1309 library/extensions/breadcrumb-trail.php:186
-#: library/functions/context.php:559
-msgid "g a"
-msgstr ""
-
-#: functions.php:1312 library/functions/context.php:562
-msgid "F jS, Y"
-msgstr ""
-
-#: functions.php:1315
-#, php-format
-msgid "week %1$s of %2$s"
-msgstr ""
-
-#: functions.php:1315 library/functions/context.php:565
-msgid "W"
-msgstr ""
-
-#: functions.php:1315 functions.php:1321
-#: library/extensions/breadcrumb-trail.php:190
-#: library/extensions/breadcrumb-trail.php:1031
-#: library/functions/context.php:565 library/functions/context.php:571
-#: library/functions/core-seo.php:94 library/functions/shortcodes.php:70
-msgid "Y"
-msgstr ""
-
-#: functions.php:1326 library/classes/widget-archives.php:44
-#: library/classes/widget-archives.php:142
-#: library/extensions/breadcrumb-trail.php:183
-#: library/functions/context.php:576
-msgid "Archives"
-msgstr ""
-
 #: loop-error.php:17
 msgid "Apologies, but no entries were found."
 msgstr ""
@@ -158,22 +67,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: admin/admin.php:52
-msgctxt "settings"
-msgid "Skins"
-msgstr ""
-
-#: admin/admin.php:93
-msgctxt "settings"
-msgid "Skin Page &#8594"
-msgstr ""
-
-#: admin/admin.php:127
-#, php-format
-msgctxt "settings"
-msgid "By %s"
-msgstr ""
-
 #: content/index.php:36
 msgid "By [entry-author] on [entry-published]"
 msgstr ""
@@ -181,6 +74,10 @@ msgstr ""
 #: content/index.php:67
 #, php-format
 msgid "Download &quot;%1$s&quot;"
+msgstr ""
+
+#: content/index.php:75 includes/template-functions.php:689
+msgid "Pages:"
 msgstr ""
 
 #: content/index.php:92 content/index.php:134
@@ -193,74 +90,195 @@ msgstr ""
 msgid "By [entry-author] on [entry-published] [entry-edit-link before=\" | \"]"
 msgstr ""
 
-#: includes/theme-updater.php:264
+#: includes/layouts-functions.php:218 library/extensions/theme-layouts.php:435
+#: library/extensions/theme-layouts.php:545
+#: library/extensions/theme-layouts.php:630
+msgid "Layout"
+msgstr ""
+
+#: includes/layouts-functions.php:251 library/extensions/theme-layouts.php:663
+msgid "Global Layout"
+msgstr ""
+
+#: includes/skins-functions.php:88
+msgctxt "settings"
+msgid "Skins"
+msgstr ""
+
+#: includes/skins-functions.php:129
+msgctxt "settings"
+msgid "Skin Page &#8594"
+msgstr ""
+
+#: includes/skins-functions.php:163
+#, php-format
+msgctxt "settings"
+msgid "By %s"
+msgstr ""
+
+#: includes/skins-functions.php:281
+msgid "This is default skin for Shell Theme."
+msgstr ""
+
+#: includes/skins-functions.php:350
+msgctxt "customizer"
+msgid "Skins"
+msgstr ""
+
+#: includes/skins-functions.php:365
+msgctxt "customizer"
+msgid "Select Skin"
+msgstr ""
+
+#: includes/template-functions.php:564 includes/template-functions.php:570
+#: includes/template-functions.php:573 includes/template-functions.php:579
+#: includes/template-functions.php:582
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: includes/template-functions.php:564
+#: library/extensions/breadcrumb-trail.php:184
+#: library/functions/context.php:553
+msgid "g:i a"
+msgstr ""
+
+#: includes/template-functions.php:567
+#, php-format
+msgid "minute %1$s"
+msgstr ""
+
+#: includes/template-functions.php:567 library/functions/context.php:556
+msgid "i"
+msgstr ""
+
+#: includes/template-functions.php:570
+#: library/extensions/breadcrumb-trail.php:186
+#: library/functions/context.php:559
+msgid "g a"
+msgstr ""
+
+#: includes/template-functions.php:573 library/functions/context.php:562
+msgid "F jS, Y"
+msgstr ""
+
+#: includes/template-functions.php:576
+#, php-format
+msgid "week %1$s of %2$s"
+msgstr ""
+
+#: includes/template-functions.php:576 library/functions/context.php:565
+msgid "W"
+msgstr ""
+
+#: includes/template-functions.php:576 includes/template-functions.php:582
+#: library/extensions/breadcrumb-trail.php:190
+#: library/extensions/breadcrumb-trail.php:1031
+#: library/functions/context.php:565 library/functions/context.php:571
+#: library/functions/core-seo.php:94 library/functions/shortcodes.php:70
+msgid "Y"
+msgstr ""
+
+#: includes/template-functions.php:587 library/classes/widget-archives.php:44
+#: library/classes/widget-archives.php:142
+#: library/extensions/breadcrumb-trail.php:183
+#: library/functions/context.php:576
+msgid "Archives"
+msgstr ""
+
+#: includes/template-functions.php:699
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: includes/template-functions.php:868
+msgid "You are here:"
+msgstr ""
+
+#: includes/template-functions.php:895 includes/template-functions.php:902
+msgid " - Edit"
+msgstr ""
+
+#: includes/template-functions.php:974 includes/template-functions.php:979
+#: library/functions/settings.php:83 library/functions/settings.php:87
+msgid "Copyright &#169; [the-year] [site-link]."
+msgstr ""
+
+#: includes/template-functions.php:974 library/functions/settings.php:83
+msgid "Powered by [wp-link], [theme-link], and [child-link]."
+msgstr ""
+
+#: includes/template-functions.php:979 library/functions/settings.php:87
+msgid "Powered by [wp-link] and [theme-link]."
+msgstr ""
+
+#: includes/theme-updater.php:305
 msgid "Executing upgrader_source_selection filter function..."
 msgstr ""
 
-#: includes/theme-updater.php:274
+#: includes/theme-updater.php:315
 msgid "Renamed theme folder successfully."
 msgstr ""
 
-#: includes/theme-updater.php:279
+#: includes/theme-updater.php:320
 msgid "**Unable to rename downloaded theme."
 msgstr ""
 
-#: includes/theme-updater.php:285
+#: includes/theme-updater.php:326
 msgid "**Source or Remote Source is unavailable."
 msgstr ""
 
-#: includes/theme-updater.php:306
+#: includes/theme-updater.php:347
 msgid " Theme Updates"
 msgstr ""
 
-#: includes/theme-updater.php:344
+#: includes/theme-updater.php:385
 msgid "Username: "
 msgstr ""
 
-#: includes/theme-updater.php:348
+#: includes/theme-updater.php:389
 msgid "Email: "
 msgstr ""
 
-#: includes/theme-updater.php:354
+#: includes/theme-updater.php:395
 msgid "Key: "
 msgstr ""
 
-#: includes/theme-updater.php:359
+#: includes/theme-updater.php:400
 msgid "<p>Your plugin update is <span style=\"color:green\">active</span></p>"
 msgstr ""
 
-#: includes/theme-updater.php:363
+#: includes/theme-updater.php:404
 msgid ""
 "<p>Your input is <span style=\"color:red\">not valid</span>, automatic "
 "updates is <span style=\"color:red\">not active</span>.</p>"
 msgstr ""
 
-#: includes/theme-updater.php:364
+#: includes/theme-updater.php:405
 msgid "Edit Key"
 msgstr ""
 
-#: includes/theme-updater.php:368
+#: includes/theme-updater.php:409
 msgid "<p>Unable to validate update activation.</p>"
 msgstr ""
 
-#: includes/theme-updater.php:369
+#: includes/theme-updater.php:410
 msgid "Try again"
 msgstr ""
 
-#: includes/theme-updater.php:374
+#: includes/theme-updater.php:415
 msgid "Add Key"
 msgstr ""
 
-#: includes/theme-updater.php:459
+#: includes/theme-updater.php:501
 msgid "User name"
 msgstr ""
 
-#: includes/theme-updater.php:465 library/classes/widget-authors.php:147
+#: includes/theme-updater.php:507 library/classes/widget-authors.php:147
 #: library/functions/comments.php:191
 msgid "Email"
 msgstr ""
 
-#: includes/theme-updater.php:474
+#: includes/theme-updater.php:516
 msgid "Activation Key"
 msgstr ""
 
@@ -878,18 +896,8 @@ msgstr ""
 msgid "Three Columns, Center"
 msgstr ""
 
-#: library/extensions/theme-layouts.php:435
-#: library/extensions/theme-layouts.php:545
-#: library/extensions/theme-layouts.php:630
-msgid "Layout"
-msgstr ""
-
 #: library/extensions/theme-layouts.php:461
 msgid "Layout is a theme-specific structure for the single view of the post."
-msgstr ""
-
-#: library/extensions/theme-layouts.php:663
-msgid "Global Layout"
 msgstr ""
 
 #: library/functions/comments.php:185

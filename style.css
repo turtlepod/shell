@@ -2,7 +2,7 @@
  * Theme Name: Shell
  * Theme URI: http://themehybrid.com/themes/shell
  * Description: A responsive version of Prototype Theme.
- * Version: 0.2.0beta1
+ * Version: 0.2.0
  * Support URI: http://themehybrid.com/support/
  * Documentation URI: http://themehybrid.com/docs/for/themes/shell
  * Author: David Chandra Purnama
@@ -1304,4 +1304,59 @@ body {
 	float: left;
 	clear: left;
 	width: 32.5%;
+}
+
+
+/* === 3 Column Layout Legacy === */
+
+/* Max-widths for images */
+.layout-3c-l .entry-content img, .layout-3c-r .entry-content img, .layout-3c-c .entry-content img { max-width:  100%; }
+.layout-3c-l .wp-caption, .layout-3c-r .wp-caption, .layout-3c-c .wp-caption { max-width:  100%; }
+.layout-3c-l .wp-caption img, .layout-3c-r .wp-caption img, .layout-3c-c .wp-caption img { max-width:  100%; }
+
+/* Layouts. */
+.layout-3c-l #content {
+	float: left;
+	width: 60%;
+}
+.layout-3c-l #sidebar-primary, .layout-3c-l #sidebar-secondary {
+	clear: none;
+	float: left;
+	width: 17.5%;
+	margin-left: 2.5%;
+}
+.layout-3c-l #sidebar-secondary {
+	padding: 0;
+	border: none;
+}
+.layout-3c-r #content {
+	float: right;
+	width: 60%;
+}
+.layout-3c-r #sidebar-primary, .layout-3c-r #sidebar-secondary {
+	clear: none;
+	float: left;
+	width: 17.5%;
+	margin-right: 2.5%;
+}
+.layout-3c-r #sidebar-secondary {
+	padding: 0;
+	border: none;
+}
+.layout-3c-c #content {
+	float: left;
+	margin-left: 20%;
+	width: 60%;
+}
+.layout-3c-c #sidebar-primary {
+	float: left;
+	margin-left: -80%;
+	width: 17.5%;
+}
+.layout-3c-c #sidebar-secondary {
+	clear: none;
+	float: right;
+	width: 17.5%;
+	padding: 0;
+	border: none;
 }

@@ -19,24 +19,6 @@
  * @since 0.1.0
  * @deprecated 0.2.0
  */
-function shell_tinymce_1(){
-	_deprecated_function( __FUNCTION__, '0.2.0' );
-	return;
-}
-
-/**
- * @since 0.1.0
- * @deprecated 0.2.0
- */
-function shell_tinymce_2(){
-	_deprecated_function( __FUNCTION__, '0.2.0' );
-	return;
-}
-
-/**
- * @since 0.1.0
- * @deprecated 0.2.0
- */
 function shell_tinymce_3(){
 	_deprecated_function( __FUNCTION__, '0.2.0' );
 	return;

@@ -59,9 +59,6 @@ function shell_theme_scripts_setup() {
 
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
-
-	/* Add editor style */
-	add_editor_style();
 }
 
 

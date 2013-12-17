@@ -169,6 +169,12 @@ require_once( trailingslashit( get_template_directory() ) . 'includes/context-fu
 require_once( trailingslashit( get_template_directory() ) . 'includes/skins-functions.php' );
 
 /**
+ * TinyMCE and Editor Functions
+ * @since 0.2.0
+ */
+require_once( trailingslashit( get_template_directory() ) . 'includes/editor-functions.php' );
+
+/**
  * Load Deprecated Functions
  * @since 0.2.0
  */

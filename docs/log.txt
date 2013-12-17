@@ -219,33 +219,15 @@ false alarm, not a bug:
 ========================
 - update auto-hosted theme updater to version 0.1.5
 
-
 17 DECEMBER 2013
 ========================
 - Separate functions file and theme setup hook.
 - Fix Skins
 - add action hook "shell_after_setup_theme" to un-load hooks if needed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- bring back 3c layout
+- use refresh in layout transport
+- bring back some of tinymce buttons.
+- update languages
+- all fixed
+- update to version 0.2.0
 
