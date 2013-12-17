@@ -220,14 +220,11 @@ false alarm, not a bug:
 - update auto-hosted theme updater to version 0.1.5
 
 
-
-Maybe to-do:
---------------
-- rtl stylesheet support
-- create a plugin to modify all string used in shell theme.
-  only the one used, separate to front end and backend.
-  add it in theme settings, as meta box.
-.
+17 DECEMBER 2013
+========================
+- Separate functions file and theme setup hook.
+- Fix Skins
+- add action hook "shell_after_setup_theme" to un-load hooks if needed.
 
 
 
