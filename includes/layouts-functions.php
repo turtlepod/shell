@@ -69,6 +69,9 @@ function shell_embed_defaults( $args ) {
 		if ( 'layout-1c' == $layout ){
 			$args['width'] = 930;
 		}
+		elseif ( 'layout-3c-l' == $layout || 'layout-3c-r' == $layout || 'layout-3c-c' == $layout ){
+			$args['width'] = 558;
+		}
 		else{
 			$args['width'] = 600;
 		}

@@ -231,3 +231,12 @@ false alarm, not a bug:
 - all fixed
 - update to version 0.2.0
 
+18 DECEMBER 2013
+========================
+- Final update
+- fix embed defaults for 3c layouts.
+
+
+
+
+
