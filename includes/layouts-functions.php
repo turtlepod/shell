@@ -196,14 +196,16 @@ function shell_override_theme_layouts_customize_setup(){
 
 		/* Add custom setting for layout in customizer */
 		add_action( 'customize_register', 'shell_theme_layouts_customize_register' );
-
 	}
-
 }
+
 
 /**
  * Theme Layouts Customize Register
- * 
+ * Modified from Hybrid Core Theme Layouts Ext. Customizer.
+ *
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @author Sami Keijonen <sami.keijonen@foxnet.fi>
  * @since 0.2.0
  */
 function shell_theme_layouts_customize_register( $wp_customize ){

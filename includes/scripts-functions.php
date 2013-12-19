@@ -21,7 +21,7 @@
 add_action( 'after_setup_theme', 'shell_theme_scripts_setup' );
 
 /**
- * Theme template setup function.
+ * Theme scripts setup function.
  * This function handle actions and filters related to scripts and styles.
  *
  * @since     0.2.0
@@ -55,7 +55,9 @@ function shell_theme_scripts_setup() {
 	add_action( 'wp_enqueue_scripts', 'shell_register_scripts');
 
 	/* Enqueue scripts */
-	add_action( 'wp_enqueue_scripts', 'shell_scripts');
+	add_action( 'wp_enqueue_scripts', 'shell_menu_script');
+	add_action( 'wp_enqueue_scripts', 'shell_script');
+	add_action( 'wp_enqueue_scripts', 'shell_fitvids_script');
 
 	/* Add respond.js and  html5shiv.js for unsupported browsers. */
 	add_action( 'wp_head', 'shell_respond_html5shiv' );
@@ -122,6 +124,14 @@ function shell_styles( $styles ) {
 		'deps'		=> $deps,
 	);
 
+	/* Open Sans Google Fonts */
+	$styles['shell-open-sans'] = array(
+		'src'		=> 'http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,800,800italic',
+		'version'	=> '0.2.0',
+		'media'		=> 'all',
+		'deps'		=> array(),
+	);
+
 	return $styles;
 }
 
@@ -155,19 +165,30 @@ function shell_register_scripts(){
 }
 
 /**
- * Enqueue Script.
- * 
+ * Enqueue Menu Script.
  * @since  0.2.0
- * @access public
- * @return void
  */
-function shell_scripts(){
+function shell_menu_script(){
 
 	/*  Mobile Menu Script */
 	wp_enqueue_script( 'shell-menu' );
+}
+
+/**
+ * Enqueue Theme Script.
+ * @since 0.1.0
+ */
+function shell_script( $args ){
 
 	/*  Theme Script */
 	wp_enqueue_script( 'shell-js' );
+}
+
+/**
+ * Enqueue FitVids Script.
+ * @since 0.1.0
+ */
+function shell_fitvids_script( $args ){
 
 	/* Enqueue FitVids */
 	wp_enqueue_script( 'shell-fitvids' );
@@ -193,4 +214,56 @@ function shell_respond_html5shiv() {
 	<script type="text/javascript" src="<?php echo hybrid_locate_theme_file( array( "js/html5shiv{$suffix}.js", "js/html5shiv.js" ) ); ?>"></script>
 	<![endif]-->
 <?php
+}
+
+
+
+/* Hybrid COre Style: Load all registered stylesheet
+=============================================================== */
+
+/* Override Hybrid Sore Style */
+add_action( 'after_setup_theme', 'shell_theme_core_style_setup', 14 );
+
+/**
+ * Shell Override Hybrid Core Style.
+ * 
+ * @since 0.2.0
+ */
+function shell_theme_core_style_setup(){
+
+	/* Check theme support */
+	if ( current_theme_supports( 'hybrid-core-styles' ) ) {
+
+		/* Remove Loading Hybrid Core styles. */
+		remove_action( 'wp_enqueue_scripts', 'hybrid_enqueue_styles', 5 );
+
+		/* Add custom setting for layout in customizer */
+		add_action( 'wp_enqueue_scripts', 'shell_hybrid_enqueue_styles', 5 );
+	}
+}
+
+/**
+ * Tells WordPress to load the styles needed for the framework using the wp_enqueue_style() function.
+ * Modified function from Hybrid Core Style Feature.
+ * This function might be removed in the future, already inplemented in HC.2.0
+ *
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2013, Justin Tadlock
+ * @since 1.5.0
+ * @access private
+ * @return void
+ */
+function shell_hybrid_enqueue_styles(){
+
+	/* Get the theme-supported stylesheets. */
+	$supports = get_theme_support( 'hybrid-core-styles' );
+
+	/* If the theme doesn't add support for any styles, return. */
+	if ( !is_array( $supports[0] ) )
+		return;
+
+	/* Loop through each of the core styles and enqueue them. */
+	foreach ( $supports[0] as $style ) {
+		wp_enqueue_style( $style );
+	}
 }

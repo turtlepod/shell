@@ -162,6 +162,15 @@ function shell_get_atomic_template( $dir, $loop = false ) {
 						$templates[] = "{$dir}/_sticky.php";
 					}
 				}
+
+			}
+
+			/* Front Page and Blog Page */
+			if ( is_front_page() && is_singular() ){
+				$templates[] = "{$dir}/_home.php";
+			}
+			elseif( is_home() ){
+				$templates[] = "{$dir}/_blog.php";
 			}
 		}
 	}
