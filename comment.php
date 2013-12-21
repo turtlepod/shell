@@ -13,7 +13,7 @@
 	global $post, $comment;
 ?>
 
-	<li id="comment-<?php comment_ID(); ?>" class="<?php hybrid_comment_class(); ?>">
+	<li <?php shell_comment_attributes(); ?>>
 
 		<?php do_atomic( 'before_comment' ); // shell_before_comment ?>
 
@@ -21,7 +21,7 @@
 
 			<?php do_atomic( 'open_comment' ); // shell_open_comment ?>
 
-			<?php echo hybrid_avatar(); ?>
+			<?php echo shell_avatar(); ?>
 
 			<?php echo apply_atomic_shortcode( 'comment_meta', '<div class="comment-meta">[comment-author] [comment-published] [comment-permalink before="| "] [comment-edit-link before="| "] [comment-reply-link before="| "]</div>' ); // shell_comment_meta ?>
 

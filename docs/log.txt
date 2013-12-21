@@ -111,3 +111,140 @@ false alarm, not a bug:
 - only add tinymce mod in content, and not in others.
 - using self hosted automatic updates. pull data from github.
 - change my email to david@shellcreeper.com
+
+
+======================
+   VERSION 0.2.0 DEV
+======================
+
+
+28-29 OCTOBER 2013
+===============
+- Update to Hybrid Core 1.6.1
+- Deprecated tinymce mod
+- Add filter to disable parent stylesheet `shell_parent_css`
+  usage in child theme:
+  `/* Add the child theme setup function to the 'after_setup_theme' hook. */
+   add_action( 'after_setup_theme', 'shell_child_theme_disable_parent_css', 10 );
+
+   /**
+    * Disable Parent CSS
+    * 
+    * @since 0.2.0
+    */
+   function shell_child_theme_disable_parent_css(){
+       add_filter('shell_parent_css','__return_false');
+   }`
+- Remove theme support for `dev-stylesheet`.
+- Remove all 3 column layout
+- Update Auto-Hosted theme updater to version 0.1.4
+- Add HTML Class: js-disabled, shell-is-mobile, shell-is-not-mobile, shell-is-opera-mini
+- Add theme script js/shell.js "shell-js" to change "js-disabled" to "js-enabled"
+- Update and minify FitVids.js to version 1.0.3 and add widget as selector
+- Add context "home-archive-search" for archive type pages to hybrid get context.
+- Better support for post format in shell atomic template
+  now support "singular_format-{gallery}" etc. for better file organization.
+- sub-menu toggle for mobile device with width more than 480px
+
+
+31 OCTOBER 2013
+===============
+- fix sub menu indicator to load only in primary and secondary in shell-menu.js
+- add bottom primary and secondary menu for js-disabled && < 480px screen in before_footer hook.
+- deprecate shell_mobile_menu function
+- add mobile shell_mobile_menu_primary and secondary with links to bottom navigation.
+- change div to nav in all menus, keep div in sidebar
+- change hybrid_*_class to hybrid_*_attributes 
+- loop_nav also using "nav" and not "div"
+- use "header" instead of "div" in loop-meta
+  http://html5doctor.com/the-header-element/
+- in singular wrap entry_title and byline in `<header="entry-header"></header>`
+- new action hook; open_entry_header, close_entry_header in singular content.
+- comments.php using <section>
+- add inline docs in all hooks and functions in template files, just like oenology theme by chip bennet
+  @link: http://www.chipbennett.net/themes/oenology/
+  this inline docs is not for php doc block parser, but more for readability of the code.
+  this is for easier development. and part of the goals for hybrid core 2.0 and the future
+  Making it easy for new theme authors to learn from our code.
+  http://themehybrid.com/support/topic/hybrid-core-20-and-the-future
+- add readme file in all "atomic folders"
+
+
+01-04 NOVEMBER 2013
+========================
+- fix sub-menu toggle.
+- to be consistent, use top:-999em instead of display: none;
+- use endash in sub-menu sub-menu lists, because the code is "2013/" = this year! :)
+- remove menu-bottom via javascript: js/shell-menu.js
+- fix primary secondary menu width in tablet.
+- fix style loader to be in priority 11, for easier child theme filter.
+- remove theme layout metabox in settings.
+- add "content" class in 1c editor style, to make sure it's only for content area.
+- still not sure about the editor-syle.css
+- post attributes in 404 pages.
+- remove loop-nav.php
+- change "archive type" pages context to "_list_view" (with underscore)
+- switch to shell beta tester repo for nightly build of shell.
+- add entry-wrap for easy styling in list-views and all singular.
+- hook: open_entry_wrap & close_entry_wrap
+- USE this beta version on real site, to test everything.
+- minify evrything, css and js.
+- bring back style loader the way it used to be.
+  the filter is not needed when using theme support in hc.
+- change version to 0.2.0beta1.
+- add shell_get_template function.
+- content, loop-meta, loop-nav use conditional, remove template file.
+- remove singular template
+- fix resources file loader.
+- add shell get template part
+- add wrapper function for hc template functions except for extension.
+- revert updater uri, if needed to change, should be in child theme.
+- update respond.js from 1.1.0 to version 1.3.0
+- update html5 shift to version 3.7.1
+- clean up editor-style.css
+- add more link text function with filter.
+
+05-07 NOVEMBER 2013
+========================
+- update to HC 1.6.2
+- deprecate shell_breaadcrumb_trail_args
+- removing shell_post_class()
+  > add $post check in shell_post_attributes();
+- add loop "content-after/"
+- remove conditional on loading loop-meta, add conditoinal inside post meta
+- fix entry header
+- fix breadcrumb args
+
+25 NOVEMBER 2013
+========================
+- update auto-hosted theme updater to version 0.1.5
+
+17 DECEMBER 2013
+========================
+- Separate functions file and theme setup hook.
+- Fix Skins
+- add action hook "shell_after_setup_theme" to un-load hooks if needed.
+- bring back 3c layout
+- use refresh in layout transport
+- bring back some of tinymce buttons.
+- update languages
+- all fixed
+- update to version 0.2.0
+
+18 DECEMBER 2013
+========================
+- Final update
+- fix embed defaults for 3c layouts.
+
+19 DECEMBER 2013
+========================
+- override hc style enqueue: load all registered style
+- fix embed defaults for 3c layouts.
+- add "_home" and "_blog" to shell_get_atomic_template()
+
+21 DECEMBER 2013
+========================
+- change file name of shell.js : it's somehow not allowed.
+
+
+

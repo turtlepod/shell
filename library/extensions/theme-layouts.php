@@ -19,7 +19,7 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package   ThemeLayouts
- * @version   0.5.1
+ * @version   0.5.3
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2010 - 2013, Justin Tadlock
  * @link      http://justintadlock.com
@@ -130,7 +130,7 @@ function theme_layouts_get_args() {
 
 	$args = isset( $layouts[1] ) ? $layouts[1] : array();
 
-	return wp_parse_args( $args, array( 'customize' => true, 'default' => 'default' ) );
+	return wp_parse_args( $args, array( 'customize' => true, 'post_meta' => true, 'default' => 'default' ) );
 }
 
 /**
@@ -153,8 +153,15 @@ function theme_layouts_filter_layout( $theme_layout ) {
 		$layout = get_user_layout( get_queried_object_id() );
 
 	/* If a layout was found, set it. */
-	if ( !empty( $layout ) && 'default' !== $layout )
+	if ( !empty( $layout ) && 'default' !== $layout ) {
 		$theme_layout = $layout;
+	}
+
+	/* Else, if no layout option has yet been saved, return the theme default. */
+	elseif ( empty( $theme_layout ) ) {
+		$args = theme_layouts_get_args();
+		$theme_layout = $args['default'];
+	}
 
 	return $theme_layout;
 }
@@ -371,6 +378,13 @@ function theme_layouts_get_string( $layout ) {
  * @return void
  */
 function theme_layouts_admin_setup() {
+
+	/* Get the extension arguments. */
+	$args = theme_layouts_get_args();
+
+	/* Return if the theme doesn't support the post meta box. */
+	if ( false === $args['post_meta'] )
+		return;
 
 	/* Load the post meta boxes on the new post and edit post screens. */
 	add_action( 'load-post.php', 'theme_layouts_load_meta_boxes' );

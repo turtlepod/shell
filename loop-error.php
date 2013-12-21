@@ -8,12 +8,16 @@
  * @subpackage Template
  */
 ?>
-	<div id="post-0" class="<?php hybrid_entry_class(); ?>">
+	<article <?php shell_post_attributes(); ?>>
 
-		<div class="entry-content">
+		<div class="entry-wrap">
 
-			<p><?php _e( 'Apologies, but no entries were found.', 'shell' ); ?></p>
+			<div class="entry-content">
 
-		</div><!-- .entry-content -->
+				<p><?php _e( 'Apologies, but no entries were found.', 'shell' ); ?></p>
 
-	</div><!-- .hentry .error -->
+			</div><!-- .entry-content -->
+
+		</div><!-- .entry-wrap -->
+
+	</article><!-- .hentry .error -->

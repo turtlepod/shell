@@ -5,18 +5,6 @@
 	text-align: left;
 	padding-left: 0;
 	}
-.appearance_page_theme-settings .metabox-holder .column-1 {
-	float: left;
-	width: 66%;
-	}
-.appearance_page_theme-settings .metabox-holder .column-2 {
-	float: right;
-	width: 32%;
-	}
-.appearance_page_theme-settings .metabox-holder .column-3 {
-	clear: both;
-	width: 100%;
-	}
 .appearance_page_theme-settings .metabox-holder textarea {
 	width: 100%;
 	}
@@ -35,6 +23,12 @@
 	}
 
 /* Widgets page. */
+
+/* Fixes the MP6 Plugin's small container issue that doesn't allow widget controls to expand. */
+.widgets-php div.widget-liquid-right div.widgets-holder-wrap {
+	width: 100%;
+}
+
 .widgets-php .columns-1 {
 	}
 .widgets-php .columns-2 {

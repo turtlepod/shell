@@ -2,7 +2,7 @@
  * Theme Name: Shell
  * Theme URI: http://themehybrid.com/themes/shell
  * Description: A responsive version of Prototype Theme.
- * Version: 0.1.2
+ * Version: 0.2.0
  * Support URI: http://themehybrid.com/support/
  * Documentation URI: http://themehybrid.com/docs/for/themes/shell
  * Author: David Chandra Purnama
@@ -403,15 +403,13 @@ img.alignleft, img.alignright {
 /* Max-widths for images */
 .entry-content img { max-width: 100%; }
 .layout-1c .entry-content img { max-width:  100%; }
-.layout-3c-l .entry-content img, .layout-3c-r .entry-content img, .layout-3c-c .entry-content img { max-width:  100%; }
 
 .wp-caption { max-width:  100%; }
 .layout-1c .wp-caption { max-width:  100%; }
-.layout-3c-l .wp-caption, .layout-3c-r .wp-caption, .layout-3c-c .wp-caption { max-width:  100%; }
 
 .wp-caption img { max-width:  100%; }
 .layout-1c .wp-caption img { max-width:  100%; }
-.layout-3c-l .wp-caption img, .layout-3c-r .wp-caption img, .layout-3c-c .wp-caption img { max-width:  100%; }
+
 
 /* Smiley */
 img.wp-smiley {
@@ -501,6 +499,11 @@ body {
 .mobile-menu-button{
 	display:none;
 }
+/* sub-menu-toggle */
+.sub-menu-toggle{
+	display:none;
+}
+
 
 /* Primary menu */
 #menu-primary {
@@ -1218,6 +1221,28 @@ body {
 	text-decoration: none;
 }
 
+/* Menu Bottom */
+.menu-bottom-container{
+	display:none;
+	clear:both;
+	background: #fff;
+	border-left: 1px solid #DFDFDF;
+	border-right: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+}
+.menu-bottom-title{
+	font-weight: bold;
+	border-bottom: 1px solid #DFDFDF;
+	padding:10px 25px;
+}
+.menu-bottom-title a{
+	font-weight: normal;
+	float: right;
+}
+.menu-bottom-items{
+	padding: 25px 25px 0 0;
+}
+
 /* Footer */
 #footer {
 	overflow: hidden;
@@ -1280,6 +1305,16 @@ body {
 	clear: left;
 	width: 32.5%;
 }
+
+
+/* === 3 Column Layout Legacy === */
+
+/* Max-widths for images */
+.layout-3c-l .entry-content img, .layout-3c-r .entry-content img, .layout-3c-c .entry-content img { max-width:  100%; }
+.layout-3c-l .wp-caption, .layout-3c-r .wp-caption, .layout-3c-c .wp-caption { max-width:  100%; }
+.layout-3c-l .wp-caption img, .layout-3c-r .wp-caption img, .layout-3c-c .wp-caption img { max-width:  100%; }
+
+/* Layouts. */
 .layout-3c-l #content {
 	float: left;
 	width: 60%;

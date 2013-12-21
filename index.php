@@ -1,6 +1,6 @@
 <?php
 /**
- * Home Template
+ * Index Template
  *
  * This is the home template.  Technically, it is the "posts page" template.  It is used when a visitor is on the 
  * page assigned to show a site's latest blog posts.
@@ -21,13 +21,15 @@ get_header(); // Loads the header.php template. ?>
 
 			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
 
-			<?php if (!is_singular() ){ shell_get_atomic_template( 'loop-meta' ); } // atomic context template, in "loop-meta" directory  ?>
+			<?php shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory ?>
 
 			<?php if ( have_posts() ) : ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php shell_get_atomic_template( 'content', true ); // atomic context loop template, in "content" directory ?>
+
+					<?php shell_get_atomic_template( 'content-after', true ); // atomic context loop template, in "content-after" directory ?>
 
 				<?php endwhile; ?>
 

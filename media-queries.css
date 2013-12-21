@@ -66,10 +66,7 @@
 	*******************************************/
 	.layout-default #content,
 	.layout-2c-l #content,
-	.layout-2c-r #content,
-	.layout-3c-l #content,
-	.layout-3c-r #content,
-	.layout-3c-c #content{
+	.layout-2c-r #content{
 		width:100%;
 		margin:0;
 		margin-bottom:25px;
@@ -80,13 +77,17 @@
 	*******************************************/
 	.layout-default #sidebar-primary,
 	.layout-2c-l #sidebar-primary,
-	.layout-2c-r #sidebar-primary,
-	.layout-3c-l #sidebar-primary,
-	.layout-3c-r #sidebar-primary,
-	.layout-3c-c #sidebar-primary{
+	.layout-2c-r #sidebar-primary{
 		width:48.75%;
 		float:left;
 		clear:left;
+		margin:0;
+	}
+	/* width to 100% if sideabr primary is not active */
+	.sidebar-secondary-inactive #sidebar-primary{
+		width:100%;
+		float:none;
+		clear:both;
 		margin:0;
 	}
 
@@ -94,13 +95,17 @@
 	*******************************************/
 	.layout-default #sidebar-secondary,
 	.layout-2c-l #sidebar-secondary,
-	.layout-2c-r #sidebar-secondary,
-	.layout-3c-l #sidebar-secondary,
-	.layout-3c-r #sidebar-secondary,
-	.layout-3c-c #sidebar-secondary{
+	.layout-2c-r #sidebar-secondary{
 		width:48.75%;
 		float:right;
 		clear:right;
+		margin:0;
+	}
+	/* width to 100% if sidebar secondary is not active */
+	.sidebar-primary-inactive #sidebar-secondary{
+		width:100%;
+		float:none;
+		clear:both;
 		margin:0;
 	}
 
@@ -202,7 +207,7 @@
 
 	/* Active */
 	body #menu-primary div.wrap-menu-active{
-		display: block ;
+		display: block;
 	}
 
 	#menu-primary div.wrap .menu{
@@ -228,17 +233,19 @@
 		color: #666 !important;
 		border: none !important;
 	}
-	#menu-primary div.wrap .submenu{
+	#menu-primary div.wrap .sub-menu{
 		visibility: visible !important;
+		opacity: 1 !important;
 	}
 	#menu-primary div.wrap ul {
 		position: static;
 		display: block !important;
 		visibility: visible !important;
-		margin: 0;
+		margin-left: 10px;
 		padding: 0;
 		background: none;
 		border: none;
+		list-style: square;
 	}
 	#menu-primary div.menu li,
 	#menu-primary div.menu ul li,
@@ -309,17 +316,19 @@
 		color: #666 !important;
 		border: none !important;
 	}
-	#menu-secondary div.wrap .submenu{
+	#menu-secondary div.wrap .sub-menu{
 		visibility: visible !important;
+		opacity: 1 !important;
 	}
 	#menu-secondary div.wrap ul {
 		position: static;
 		display: block !important;
 		visibility: visible !important;
-		margin: 0;
 		padding: 0;
+		margin-left:10px;
 		background: none;
 		border: none;
+		list-style:square;
 	}
 	#menu-secondary div.menu li,
 	#menu-secondary div.menu ul li,
@@ -349,12 +358,9 @@
 	*******************************************/
 	.layout-default #sidebar-primary,
 	.layout-2c-l #sidebar-primary,
-	.layout-2c-r #sidebar-primary,
-	.layout-3c-l #sidebar-primary,
-	.layout-3c-r #sidebar-primary,
-	.layout-3c-c #sidebar-primary{
+	.layout-2c-r #sidebar-primary{
 		width:100%;
-		float:left;
+		float:none;
 		clear:both;
 		margin:0;
 	}
@@ -363,12 +369,9 @@
 	*******************************************/
 	.layout-default #sidebar-secondary,
 	.layout-2c-l #sidebar-secondary,
-	.layout-2c-r #sidebar-secondary,
-	.layout-3c-l #sidebar-secondary,
-	.layout-3c-r #sidebar-secondary,
-	.layout-3c-c #sidebar-secondary{
+	.layout-2c-r #sidebar-secondary{
 		width:100%;
-		float:right;
+		float:none;
 		clear:both;
 		margin:0;
 	}
@@ -380,6 +383,12 @@
 		clear:both;
 	}
 
+	/* Bottom Menu
+	*******************************************/
+	html.js-disabled .menu-bottom-container{
+		display:block;
+	}
+	
 	/* Footer
 	*******************************************/
 	#footer .copyright{
@@ -419,5 +428,220 @@
 		width:100%;
 		padding:0;
 		margin:0 0 25px 0;
+	}
+}
+
+
+
+/**
+ * Sub-menu toggle
+ * -------------------------------------
+ * this sub menu is added for better navigation for mobile device with width more than 481px
+ * in previous version sub-menu only can be displayed by hover.
+ */
+@media screen and (min-width: 481px) {
+
+	/* display sub-menu toggle, only if it's mobile and only if js-enabled */
+	html.shell-is-mobile.js-enabled  .sub-menu-toggle{
+		display:block;
+	}
+
+	/* Hide sub-menu, activate using click */
+	html.shell-is-mobile.js-enabled #menu-primary div.menu li:hover ul,
+	html.shell-is-mobile.js-enabled #menu-secondary div.menu li:hover ul{
+		top:-999em;
+	}
+
+	/* Hide sub-menu, activate using click */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu{
+		top:-999em;
+	}
+
+	/* Display sub-menu if active */
+	html.shell-is-mobile.js-enabled #menu-primary div.menu .parent-menu-active .sub-menu,
+	html.shell-is-mobile.js-enabled #menu-secondary div.menu .parent-menu-active .sub-menu,
+	html.shell-is-mobile.js-enabled div.menu .parent-menu-active .sub-menu{
+		top:37px;
+	}
+
+	/* Sub-Menu item background color when active */
+	html.shell-is-mobile.js-enabled #menu-primary div.menu .parent-menu-active li a,
+	html.shell-is-mobile.js-enabled #menu-secondary div.menu .parent-menu-active li a{
+		background: #252525;
+	}
+
+	/* Fix Sub-menu position without hover: top:37px; */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu{
+		
+	}
+	html.shell-is-mobile.js-enabled #menu-primary li li ul,
+	html.shell-is-mobile.js-enabled #menu-secondary li li ul{
+		top:37px;
+		margin-left: 0;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li:hover ul,
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li:hover li ul,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li:hover ul,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li:hover li ul{
+		margin-left:-10em;
+	}
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu{
+		top:1px;
+	}
+
+	/* active menu z-index */
+	html.shell-is-mobile.js-enabled div.menu .parent-menu-active{
+		z-index: 10;
+	}
+
+
+	/* Sub-menu list style,
+	 * 2nd level and more sub-menu need to be displayed as one drop down for easier navigation.
+	 * it's also don't require lot's of css modification for sub-menu
+	------------------------------------- */
+
+	/* 3rd level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu li a::before{
+		content:"\2013"; /* circle */
+		padding-right:10px;
+	}
+	/* 4th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013"; /* two circle */
+	}
+	/* 5th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013";
+	}
+	/* 6th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013";
+	}
+	/* 7th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013";
+	}
+	/* 8th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013\2013";
+	}
+	/* 9th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013\2013\2013";
+	}
+	/* 10th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013\2013\2013\2013";
+	}
+	/* 11th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013\2013\2013\2013\2013";
+	}
+	/* 12th level */
+	html.shell-is-mobile.js-enabled div.menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu li a::before{
+		content:"\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013";
+	}
+
+
+	/*  Sub menu toggle
+	------------------------------------------------ */
+
+	/* Remove Padding menu item have toggle */
+	html.shell-is-mobile.js-enabled #menu-primary li.menu-item-has-children a,
+	html.shell-is-mobile.js-enabled #menu-secondary li.menu-item-has-children a{
+		padding-right: 0;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li a,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li a{
+		padding-right: 25px;
+	}
+	html.shell-is-mobile.js-enabled #menu-primary .sub-menu li.menu-item-has-children a,
+	html.shell-is-mobile.js-enabled #menu-secondary .sub-menu li.menu-item-has-children a{
+		padding-right: 0;
+	}
+
+	/* Style sub-menu toggle, make it bigger for easy click  */
+	html.shell-is-mobile.js-enabled .sub-menu-toggle{
+		width: 37px;
+		height: 37px;
+		display:block;
+		float:right;
+		margin-top:-12px;
+		margin-left: 25px;
+		line-height:1px;
+		padding: 18px; /* ( 37px[width] - 1px[line-height] ) : 2 */
+		border-left: 1px solid #DFDFDF;
+	}
+
+	/* fix border color */
+	html.shell-is-mobile.js-enabled div.menu li a:hover .sub-menu-toggle{
+		border-color:#444;
+		background:#666;
+	}
+}
+
+
+/* === 3 Column Layout Legacy === */
+
+/* for tablet */
+@media screen and (max-width: 760px) {
+
+	/* content
+	*******************************************/
+	.layout-3c-l #content,
+	.layout-3c-r #content,
+	.layout-3c-c #content{
+		width:100%;
+		margin:0;
+		margin-bottom:25px;
+		clear:both;
+	}
+
+	/* sidebar primary
+	*******************************************/
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:48.75%;
+		float:left;
+		clear:left;
+		margin:0;
+	}
+
+	/* sidebar secondary
+	*******************************************/
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:48.75%;
+		float:right;
+		clear:right;
+		margin:0;
+	}
+}
+
+/* for mobile */
+@media screen and (max-width: 480px) {
+
+	/* Primary Sidebar
+	*******************************************/
+	.layout-3c-l #sidebar-primary,
+	.layout-3c-r #sidebar-primary,
+	.layout-3c-c #sidebar-primary{
+		width:100%;
+		float:left;
+		clear:both;
+		margin:0;
+	}
+
+	/* Secondary Sidebar
+	*******************************************/
+	.layout-3c-l #sidebar-secondary,
+	.layout-3c-r #sidebar-secondary,
+	.layout-3c-c #sidebar-secondary{
+		width:100%;
+		float:right;
+		clear:both;
+		margin:0;
 	}
 }
