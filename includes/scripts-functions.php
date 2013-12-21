@@ -154,9 +154,9 @@ function shell_register_scripts(){
 	wp_register_script( 'shell-menu', $shell_menu_file, array('jquery'), $shell_menu_version, true );
 
 	/*  Theme Script */
-	$shell_js_file = hybrid_locate_theme_file( array( "js/shell{$suffix}.js', 'js/shell.js" ) );
-	$shell_js_version = shell_theme_file_version( array( "js/shell{$suffix}.js', 'js/shell.js" ) );
-	wp_register_script( 'shell-js', $shell_js_file, array('jquery'), $shell_js_version, true );
+	$shell_theme_file = hybrid_locate_theme_file( array( "js/shell-theme{$suffix}.js", "js/shell-theme.js" ) );
+	$shell_theme_version = shell_theme_file_version( array( "js/shell-theme{$suffix}.js", "js/shell-theme.js" ) );
+	wp_register_script( 'shell-js', $shell_theme_file, array('jquery'), $shell_theme_version, true );
 
 	/* Enqueue FitVids */
 	$fitvids_file = hybrid_locate_theme_file( array( "js/fitvids{$suffix}.js", "js/fitvids.js" ) );

@@ -242,6 +242,9 @@ false alarm, not a bug:
 - fix embed defaults for 3c layouts.
 - add "_home" and "_blog" to shell_get_atomic_template()
 
+21 DECEMBER 2013
+========================
+- change file name of shell.js : it's somehow not allowed.
 
 
 
