@@ -246,5 +246,12 @@ false alarm, not a bug:
 ========================
 - change file name of shell.js : it's somehow not allowed.
 
+25 MARCH 2014: update to version 0.2.1
+========================
+- add "shell_get_menu_location()" to use in menu navigation toggle.
+- add "shell_entry_meta()" that will return shortcode for all taxonomy/term attach to a post/entry.
+- update translation file, now "navigation" is not needed.
+- update fitvids from 1.0.3 to 1.1.0
+- update version to 0.2.1
 
 

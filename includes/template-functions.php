@@ -709,6 +709,50 @@ function shell_the_content_more(){
 }
 
 
+/**
+ * Entry Meta
+ * a helper function to return shortcode with all taxonomy/term attach to a post.
+ * Usage:
+ * echo apply_atomic_shortcode( 'entry_meta', shell_entry_meta() );
+ * 
+ * @since 0.2.1
+ */
+function shell_entry_meta(){
+
+	/* Default */
+	$entry_meta = '';
+
+	/* Entry Taxonomies */
+	$entry_taxonomies = array();
+
+	/* Get Taxonomies Object */
+	$entry_taxonomies_obj = get_object_taxonomies( get_post_type(), 'object' );
+	foreach ( $entry_taxonomies_obj as $entry_tax_id => $entry_tax_obj ){
+
+		/* Only for public taxonomy */
+		if ( 1 == $entry_tax_obj->public ){
+			$entry_taxonomies[$entry_tax_id] = array(
+				'taxonomy' => $entry_tax_id,
+				'text' => $entry_tax_obj->labels->name,
+			);
+		}
+	}
+
+	/* If taxonomies not empty */
+	if ( !empty( $entry_taxonomies ) ){
+
+		$entry_meta .= '<div class="entry-meta">';
+		foreach ( $entry_taxonomies as $entry_tax ){
+			$sep = "<span class='term-sep'>, </span>";
+			$entry_meta .= '[entry-terms taxonomy="' . $entry_tax['taxonomy'] . '" before="' . $entry_tax['text'] . ': " separator="' . $sep . '"] ';
+		}
+		$entry_meta .= '</div><!-- .entry-meta -->';
+
+	} //end empty check
+
+	return $entry_meta;
+}
+
 
 /**
  * Attachment Gallery
@@ -842,7 +886,7 @@ function shell_get_menu_subsidiary(){
  */
 function shell_mobile_menu_primary(){?>
 <div id="mobile-menu-button-primary" class="mobile-menu-button" title="navigation">
-	<span><a href="#menu-primary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
+	<span><a href="#menu-primary-bottom"><?php echo shell_get_menu_location( 'primary' ); ?></a></span>
 </div><?php
 }
 
@@ -855,10 +899,25 @@ function shell_mobile_menu_primary(){?>
  */
 function shell_mobile_menu_secondary(){?>
 <div id="mobile-menu-button-secondary" class="mobile-menu-button" title="navigation">
-	<span><a href="#menu-secondary-bottom"><?php _ex( 'Navigation', 'mobile-menu', 'shell' ); ?></a></span>
+	<span><a href="#menu-secondary-bottom"><?php echo shell_get_menu_location( 'secondary' ); ?></a></span>
 </div><?php
 }
 
+
+/**
+ * Get Menu Location
+ * Helper function to get menu location and use it as mobile toggle.
+ * @link http://wordpress.stackexchange.com/questions/45700
+ * @since 0.2.1
+ */
+function shell_get_menu_location( $location ){
+	if ( has_nav_menu( $location ) ){
+		$locations = get_nav_menu_locations();
+		if( ! isset( $locations[$location] ) ) return false;
+		$menu_obj = get_term( $locations[$location], 'nav_menu' );
+		return $menu_obj->name;
+	}
+}
 
 
 /* BREADCRUMBS
