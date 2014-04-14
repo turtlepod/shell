@@ -63,3 +63,37 @@ function shell_breadcrumb_trail_args( $args ){
 	_deprecated_function( __FUNCTION__, '0.2.0' );
 	return $args;
 }
+
+/**
+ * @since 0.1.0
+ * @deprecated 0.2.2
+ */
+function shell_tinymce_2( $buttons, $id ){
+
+	_deprecated_function( __FUNCTION__, '0.2.3' );
+
+	/* only add this for content editor */
+	if ( 'content' != $id )
+		return $buttons;
+
+	/* add horizontal button after indent button */
+	array_splice( $buttons, 11, 0, 'hr' );
+
+	return $buttons;
+}
+
+/**
+ * @since 0.2.1
+ * @deprecated 0.2.2
+ */
+function shell_get_menu_location( $location ){
+
+	_deprecated_function( __FUNCTION__, '0.2.3', 'shell_get_menu_name()' );
+
+	if ( has_nav_menu( $location ) ){
+		$locations = get_nav_menu_locations();
+		if( ! isset( $locations[$location] ) ) return false;
+		$menu_obj = get_term( $locations[$location], 'nav_menu' );
+		return $menu_obj->name;
+	}
+}

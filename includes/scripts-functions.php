@@ -126,8 +126,16 @@ function shell_styles( $styles ) {
 
 	/* Open Sans Google Fonts */
 	$styles['shell-open-sans'] = array(
-		'src'		=> 'http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,800,800italic',
-		'version'	=> '0.2.0',
+		'src'		=> '//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic',
+		'version'	=> '0.2.2',
+		'media'		=> 'all',
+		'deps'		=> array(),
+	);
+
+	/* Open Sans Google Fonts */
+	$styles['shell-merriweather'] = array(
+		'src'		=> '//fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic,900,900italic',
+		'version'	=> '0.2.2',
 		'media'		=> 'all',
 		'deps'		=> array(),
 	);
@@ -247,8 +255,8 @@ function shell_theme_core_style_setup(){
  * Modified function from Hybrid Core Style Feature.
  * This function might be removed in the future, already inplemented in HC.2.0
  *
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2008 - 2013, Justin Tadlock
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2008 - 2013, Justin Tadlock
  * @since 1.5.0
  * @access private
  * @return void

@@ -30,7 +30,6 @@ function shell_theme_editor_setup() {
 
 	/* Modify TinyMCE with WordPress default supported button */
 	add_filter( 'mce_buttons', 'shell_tinymce_1', 1, 2 ); // 1st row
-	add_filter( 'mce_buttons_2', 'shell_tinymce_2', 1, 2 ); // 2nd row
 }
 
 
@@ -46,31 +45,8 @@ function shell_tinymce_1( $buttons, $id ){
 	if ( 'content' != $id )
 		return $buttons;
 
-	/* add underline after italic button */
-	array_splice( $buttons, 2, 0, 'underline' );
-
 	/* add next page after more tag button */
 	array_splice( $buttons, 13, 0, 'wp_page' );
 
 	return $buttons;
 }
-
-
-/**
- * Modify tinyMCE 2nd row
- * Add horizontal line and background color
- * 
- * @since 0.1.0
- */
-function shell_tinymce_2( $buttons, $id ){
-
-	/* only add this for content editor */
-	if ( 'content' != $id )
-		return $buttons;
-
-	/* add horizontal button after indent button */
-	array_splice( $buttons, 11, 0, 'hr' );
-
-	return $buttons;
-}
-
