@@ -886,7 +886,7 @@ function shell_get_menu_subsidiary(){
  */
 function shell_mobile_menu_primary(){?>
 <div id="mobile-menu-button-primary" class="mobile-menu-button" title="navigation">
-	<span><a href="#menu-primary-bottom"><?php echo shell_get_menu_location( 'primary' ); ?></a></span>
+	<span><a href="#menu-primary-bottom"><?php echo shell_get_menu_name( 'primary' ); ?></a></span>
 </div><?php
 }
 
@@ -899,7 +899,7 @@ function shell_mobile_menu_primary(){?>
  */
 function shell_mobile_menu_secondary(){?>
 <div id="mobile-menu-button-secondary" class="mobile-menu-button" title="navigation">
-	<span><a href="#menu-secondary-bottom"><?php echo shell_get_menu_location( 'secondary' ); ?></a></span>
+	<span><a href="#menu-secondary-bottom"><?php echo shell_get_menu_name( 'secondary' ); ?></a></span>
 </div><?php
 }
 
@@ -907,10 +907,11 @@ function shell_mobile_menu_secondary(){?>
 /**
  * Get Menu Location
  * Helper function to get menu location and use it as mobile toggle.
+ *
  * @link http://wordpress.stackexchange.com/questions/45700
  * @since 0.2.1
  */
-function shell_get_menu_location( $location ){
+function shell_get_menu_name( $location ){
 	if ( has_nav_menu( $location ) ){
 		$locations = get_nav_menu_locations();
 		if( ! isset( $locations[$location] ) ) return false;

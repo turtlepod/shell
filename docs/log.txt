@@ -254,4 +254,15 @@ false alarm, not a bug:
 - update fitvids from 1.0.3 to 1.1.0
 - update version to 0.2.1
 
+14 APRIL 2014: update to version 0.2.2
+========================
+- deprecate shell_tinymce_2(), "hr" already available in wp 3.9
+- remove "underline" mce button in shell_tinymce_1(), already available in wp 3.9
+- in shell-open-sans, use all font variation, and remove "http:" for compat with "https" protocol.
+- add/register shell-merriweather google font.
+  now we have serif (Merriweather) and sans-serif (Open Sans) google fonts to use :)
+- deprecate shell_get_menu_location() and add shell_get_menu_name( $location )
+  for a better function name.
+  http://themehybrid.com/support/topic/shell-021#post-85868 (Justin Tadlock)
+- update respond.js to version 1.4.2
 
