@@ -65,9 +65,3 @@
   };
 // Works with either jQuery or Zepto
 })( window.jQuery || window.Zepto );
-
-
-// Shell FitVids
-jQuery( document ).ready( function() {
-	jQuery('#content,.widget').fitVids();
-});

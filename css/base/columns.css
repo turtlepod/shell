@@ -1,0 +1,61 @@
+/* === DISPLAY POSTS IN COLUMNS / GRID === */
+.plural.col-active .content-entry-wrap{
+	padding-right: 0;
+}
+.plural.col-active .content-entry-wrap > .entry:after{
+	content: "";
+}
+.plural.col-active .content-entry-wrap > .entry{
+	width: 100%;
+	float: none;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -0.25em;
+	margin-bottom: 0;
+	padding: 0 20px 20px 0;
+	padding: 0 2rem 2rem 0;
+	border: none;
+	background: transparent;
+}
+.plural.col-active .content-entry-wrap > .entry .entry-wrap{
+	margin-left: 0;
+	padding: 20px;
+	padding: 2rem;
+	border: 1px solid #ccc;
+}
+/* Masonry */
+.plural.col-active.col-masonry-active .content-entry-wrap > .entry{
+	margin-right: 0;
+}
+
+/* == 4 COLUMNS == */
+.plural.col-active.col-4 .content-entry-wrap > .entry{
+	width: 25%;
+}
+/* == 3 COLUMNS == */
+.plural.col-active.col-3 .content-entry-wrap > .entry{
+	width: 33.3333%;
+}
+/* == 2 COLUMNS == */
+.plural.col-active.col-2 .content-entry-wrap > .entry{
+	width: 50%;
+}
+
+/* = Force to 3 columns = */
+@media screen and (max-width: 800px){
+	.plural.col-active #content .content-entry-wrap > .entry{
+		width: 33.3333%;
+	}
+}
+/* = Force to 2 columns = */
+@media screen and (max-width: 600px){
+	.plural.col-active #content .content-entry-wrap > .entry{
+		width: 50%;
+	}
+}
+/* = Force to 1 columns = */
+@media screen and (max-width: 450px){
+	.plural.col-active #content .content-entry-wrap > .entry{
+		width: 100%;
+	}
+}

@@ -1,28 +1,51 @@
 <?php
-/**
- * Primary Sidebar Template
- *
- * Displays widgets for the Primary dynamic sidebar if any have been added to the sidebar through the 
- * widgets screen in the admin by the user.  Otherwise, nothing is displayed.
- *
- * @package Shell
- * @subpackage Template
- */
+if ( strpos( get_theme_mod( 'theme_layout' ),'sidebar1' ) === false) {
+	return false;
+}
+?>
 
-if ( is_active_sidebar( 'primary' ) ) : ?>
+<div id="sidebar-primary-wrap">
 
-	<?php do_atomic( 'before_sidebar_primary' ); // shell_before_sidebar_primary ?>
+	<aside <?php hybrid_attr( 'sidebar', 'primary' ); ?>>
 
-	<div id="sidebar-primary" class="sidebar">
+		<?php if ( is_active_sidebar( 'primary' ) ) : // If the sidebar has widgets. ?>
 
-		<?php do_atomic( 'open_sidebar_primary' ); // shell_open_sidebar_primary ?>
+			<?php dynamic_sidebar( 'primary' ); // Displays the primary sidebar. ?>
 
-		<?php dynamic_sidebar( 'primary' ); ?>
+		<?php else : // If the sidebar has no widgets. ?>
 
-		<?php do_atomic( 'close_sidebar_primary' ); // shell_close_sidebar_primary ?>
+			<?php the_widget( 'WP_Widget_Recent_Posts',
+				array(
+					'number' => 10,
+				),
+				array(
+					'before_widget' => '<section class="widget widget_recent_entries">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h3 class="widget-title">',
+					'after_title'   => '</h3>'
+				)
+			); ?>
 
-	</div><!-- #sidebar-primary .aside -->
+			<?php the_widget( 'WP_Widget_Pages', array(),
+				array(
+					'before_widget' => '<section class="widget widget_pages">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h3 class="widget-title">',
+					'after_title'   => '</h3>'
+				)
+			); ?>
 
-	<?php do_atomic( 'after_sidebar_primary' ); // shell_after_sidebar_primary ?>
+			<?php the_widget( 'WP_Widget_Tag_Cloud', array(),
+				array(
+					'before_widget' => '<section class="widget widget_tag_cloud">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h3 class="widget-title">',
+					'after_title'   => '</h3>'
+				)
+			); ?>
 
-<?php endif; ?>
+		<?php endif; // End widgets check. ?>
+
+	</aside><!-- #sidebar-primary -->
+
+</div>

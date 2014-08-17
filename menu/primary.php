@@ -1,30 +1,31 @@
-<?php
-/**
- * Primary Menu Template
- *
- * Displays the Primary Menu if it has active menu items.
- *
- * @package Shell
- * @subpackage Template
- */
-if ( has_nav_menu( 'primary' ) ) : ?>
+<nav <?php hybrid_attr( 'menu', 'primary' ); ?>>
 
-	<?php do_atomic( 'before_menu_primary' ); // shell_before_menu_primary ?>
+	<div class="menu-container menu-dropdown menu-search">
 
-	<nav id="menu-primary" class="menu-container">
+		<?php tamatebako_menu_toggle( 'primary' ); ?>
 
-		<?php do_atomic( 'open_menu_primary' ); // shell_open_menu_primary ?>
+		<?php 
+		/* Display menu only if the location is registered */
+		if ( tamatebako_is_menu_registered( 'primary' ) ){
+			wp_nav_menu(
+				array(
+					'theme_location'  => 'primary',
+					'container'       => '',
+					'menu_id'         => 'menu-primary-items',
+					'menu_class'      => 'menu-items',
+					'fallback_cb'     => 'tamatebako_menu_fallback_cb',
+					'items_wrap'      => '<div class="wrap"><ul id="%s" class="%s">%s</ul></div>'
+				)
+			);
+			
+		}
+		else{
+			tamatebako_menu_fallback_cb();
+		}
+		?>
 
-		<div class="wrap">
+		<?php tamatebako_menu_search_form(); ?>
 
-			<?php echo apply_atomic('menu_primary',wp_nav_menu( array( 'theme_location' => 'primary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-primary-items', 'fallback_cb' => '', 'echo' => 0 ) )); // shell_menu_primary ?>
+	</div><!-- .menu-container -->
 
-		</div>
-
-		<?php do_atomic( 'close_menu_primary' ); // shell_close_menu_primary ?>
-
-	</nav><!-- #menu-primary .menu-container -->
-
-	<?php do_atomic( 'after_menu_primary' ); // shell_after_menu_primary ?>
-
-<?php endif; ?>
+</nav><!-- #menu-primary -->

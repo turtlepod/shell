@@ -1,28 +1,34 @@
 <?php
-/**
- * Secondary Sidebar Template
- *
- * Displays widgets for the Secondary dynamic sidebar if any have been added to the sidebar through the 
- * widgets screen in the admin by the user.  Otherwise, nothing is displayed.
- *
- * @package Shell
- * @subpackage Template
- */
+if ( strpos( get_theme_mod( 'theme_layout' ),'sidebar2' ) === false) {
+	return false;
+}
+?>
 
-if ( is_active_sidebar( 'secondary' ) ) : ?>
+<div id="sidebar-secondary-wrap">
 
-	<?php do_atomic( 'before_sidebar_secondary' ); // shell_before_sidebar_secondary ?>
+	<aside <?php hybrid_attr( 'sidebar', 'secondary' ); ?>>
 
-	<div id="sidebar-secondary" class="sidebar">
+		<?php if ( is_active_sidebar( 'secondary' ) ) : // If the sidebar has widgets. ?>
 
-		<?php do_atomic( 'open_sidebar_secondary' ); // shell_open_sidebar_secondary ?>
+			<?php dynamic_sidebar( 'secondary' ); // Displays the secondary sidebar. ?>
 
-		<?php dynamic_sidebar( 'secondary' ); ?>
+		<?php else : // If the sidebar has no widgets. ?>
 
-		<?php do_atomic( 'close_sidebar_secondary' ); // shell_close_sidebar_secondary ?>
+			<?php the_widget( 'WP_Widget_Categories',
+				array(
+					'count' => 1,
+					'hierarchical' => 1
+				),
+				array(
+					'before_widget' => '<section class="widget widget_categories">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h3 class="widget-title">',
+					'after_title'   => '</h3>'
+				)
+			); ?>
 
-	</div><!-- #sidebar-secondary .aside -->
+		<?php endif; // End widgets check. ?>
 
-	<?php do_atomic( 'after_sidebar_secondary' ); // shell_after_sidebar_secondary ?>
+	</aside><!-- #sidebar-secondary -->
 
-<?php endif; ?>
+</div>

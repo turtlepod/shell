@@ -1,54 +1,81 @@
-<?php
-/**
- * Index Template
- *
- * This is the home template.  Technically, it is the "posts page" template.  It is used when a visitor is on the 
- * page assigned to show a site's latest blog posts.
- *
- * @package Shell
- * @subpackage Template
- */
+<?php get_header(); ?>
 
-get_header(); // Loads the header.php template. ?>
+<?php hybrid_get_menu( 'primary' ); ?>
 
-	<?php do_atomic( 'before_content' ); // shell_before_content ?>
+<div id="container">
 
-	<div id="content">
+	<?php tamatebako_skip_to_content(); ?>
 
-		<?php do_atomic( 'open_content' ); // shell_open_content ?>
+	<header <?php hybrid_attr( 'header' ); ?>>
 
-		<div class="hfeed">
+		<div id="branding">
+			<?php hybrid_site_title(); ?>
+			<?php hybrid_site_description(); ?>
+		</div><!-- #branding -->
 
-			<?php do_atomic( 'open_hfeed' ); // shell_open_hfeed ?>
+		<?php hybrid_get_menu( 'secondary' ); ?>
 
-			<?php shell_get_atomic_template( 'loop-meta' ); // atomic context template, in "loop-meta" directory ?>
+	</header><!-- #header -->
 
-			<?php if ( have_posts() ) : ?>
+	<div id="main">
 
-				<?php while ( have_posts() ) : the_post(); ?>
+		<?php //hybrid_get_sidebar( 'secondary' ); ?>
 
-					<?php shell_get_atomic_template( 'content', true ); // atomic context loop template, in "content" directory ?>
+		<div class="main-inner">
 
-					<?php shell_get_atomic_template( 'content-after', true ); // atomic context loop template, in "content-after" directory ?>
+			<div class="main-wrap">
 
-				<?php endwhile; ?>
+				<?php //hybrid_get_sidebar( 'primary' ); ?>
 
-			<?php else : ?>
+				<main <?php hybrid_attr( 'content' ); ?>>
 
-				<?php get_template_part( 'loop-error' ); // Loads the loop-error.php template. ?>
+					<?php if ( have_posts() ){ /* Posts Found */ ?>
 
-			<?php endif; ?>
+						<?php tamatebako_archive_header(); ?>
 
-			<?php do_atomic( 'close_hfeed' ); // shell_close_hfeed ?>
+						<div class="content-entry-wrap">
 
-		</div><!-- .hfeed -->
+							<?php while ( have_posts() ) {  /* Start Loop */ ?>
 
-		<?php do_atomic( 'close_content' ); // shell_close_content ?>
+								<?php the_post(); /* Load Post Data */ ?>
 
-		<?php shell_get_atomic_template( 'loop-nav' ); // atomic context loop template, in "loop-nav" directory ?>
+								<?php /* Start Content */ ?>
+								<?php tamatebako_get_template( 'content' ); // Loads the content/*.php template. ?>
+								<?php /* End Content */ ?>
 
-	</div><!-- #content -->
+							<?php } /* End Loop */ ?>
 
-	<?php do_atomic( 'after_content' ); // shell_after_content ?>
+						</div><!-- .content-entry-wrap-->
+
+						<?php tamatebako_archive_footer(); ?>
+
+					<?php } else { /* No Posts Found */ ?>
+
+						<?php tamatebako_content_error(); ?>
+
+					<?php } /* End Posts Found Check */ ?>
+
+				</main><!-- #content -->
+
+				<?php hybrid_get_sidebar( 'primary' ); ?>
+
+			</div><!-- .main-wrap -->
+
+		</div><!-- .main-inner -->
+
+		<?php hybrid_get_sidebar( 'secondary' ); ?>
+
+	</div><!-- #main -->
+
+	<footer <?php hybrid_attr( 'footer' ); ?>>
+		<div class="wrap">
+			<p class="credit">
+				<?php echo hybrid_get_site_link() . ' &#169; ' . date_i18n( 'Y' ); ?>
+				<?php hybrid_get_menu( 'footer' ); ?>
+			</p><!-- .credit -->
+		</div><!-- .wrap -->
+	</footer><!-- #footer -->
+
+</div><!-- #container -->
 
 <?php get_footer(); // Loads the footer.php template. ?>

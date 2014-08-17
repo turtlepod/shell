@@ -1,0 +1,220 @@
+
+/* === BASE LAYOUT === */
+
+/* CLEAR */
+#branding:after,
+#main:after,
+.main-wrap:after,
+.entry:after,
+.post-edit-link:after,
+.singular .entry-header:after,
+.singular .entry-content:after,
+.singular .entry-footer:after,
+.loop-nav:after,
+.comments-header:after,
+.comment-wrap:after,
+.comment-meta:after,
+#respond:after,
+#commentform .comment-form-url:after,
+.widget_recent_entries ul li:after,
+.widget_archive ul li:after,
+.widget_meta ul li:after,
+.widget_recent_comments ul li:after,
+.widget_rss ul li:after,
+#respond .comment-form-comment:before,
+#respond .comment-form-comment:after,
+.loop-pagination:before,
+.loop-pagination:after,
+#footer:before,
+#footer:after{
+	content:".";display:block;height:0;clear:both;visibility:hidden;
+}
+
+/* Base Layout */
+#container{
+	background: #fff;
+	width: 1200px;
+	margin: 20px auto;
+	margin: 2rem auto;
+	padding: 0;
+}
+#main{
+	padding: 20px;
+	padding: 2rem;
+}
+#content{
+	width: 100%;
+}
+/* Layout Default: "sidebar2-content-sidebar1" */
+#main{
+	padding-right: 0;
+}
+.main-inner{
+	float: right;
+	padding-left: 200px;
+	padding-left: 20rem;
+	width: 100%;
+}
+.main-wrap{
+	float: none;
+	margin-right: 340px;
+	margin-right: 34rem;
+}
+.content-entry-wrap{
+	padding-right: 20px;
+	padding-right: 2rem;
+}
+#content{
+	float: left;
+}
+#sidebar-primary-wrap{
+	float: right;
+	margin-right: -320px;
+	margin-right: -32rem;
+	width: 320px;
+	width: 32rem;
+	max-width: 100%;
+}
+#sidebar-secondary-wrap{
+	width: 180px;
+	width: 18rem;
+	margin-right: -180px;
+	margin-right: -18rem;
+	float: left;
+	position: relative;
+}
+
+/* Layout "content" */
+.layout-content .main-wrap{
+	float: none;
+	margin-right: 0;
+}
+.layout-content .main-inner{
+	float: none;
+	padding-left: 0;
+}
+/* Layout: "content-sidebar1" */
+.layout-content-sidebar1 .main-inner{
+	padding-left: 0;
+	width: 100%;
+}
+/* Layout: "sidebar1-content" */
+.layout-sidebar1-content .main-inner{
+	padding-left: 0;
+	float: none;
+	width: 100%;
+}
+.layout-sidebar1-content .main-wrap{
+	margin-right: 0;
+	margin-left: 340px;
+	margin-left: 34rem;
+}
+.layout-sidebar1-content #content{
+	float: right;
+}
+.layout-sidebar1-content #sidebar-primary-wrap{
+	float: left;
+	margin-right: 0;
+	margin-left: -340px;
+	margin-left: -34rem;
+}
+/* Layout: "sidebar2-content" */
+.layout-sidebar2-content .main-wrap{
+	margin-right: 0;
+}
+/* Layout: "content-sidebar2" */
+.layout-content-sidebar2 .main-inner{
+	float: left;
+	padding-left: 0;
+	padding-right: 200px;
+	padding-right: 20rem;
+}
+.layout-content-sidebar2 .main-wrap{
+	margin-right: 0;
+}
+.layout-content-sidebar2 #sidebar-secondary-wrap{
+	margin-right: 20px;
+	margin-right: 2rem;
+	margin-left: -200px;
+	margin-left: -20rem;
+	float: right;
+}
+/* Layout: "sidebar2-sidebar1-content" */
+.layout-sidebar2-sidebar1-content .main-wrap{
+	margin-right: 0;
+	margin-left: 340px;
+	margin-left: 34rem;
+}
+.layout-sidebar2-sidebar1-content #content{
+	float: right;
+}
+.layout-sidebar2-sidebar1-content #sidebar-primary-wrap{
+	float: left;
+	margin-right: 0;
+	margin-left: -340px;
+	margin-left: -34rem;
+}
+/* Layout: "content-sidebar1-sidebar2" */
+.layout-content-sidebar1-sidebar2 .main-inner{
+	float: left;
+	padding-left: 0;
+	padding-right: 200px;
+	padding-right: 20rem;
+}
+.layout-content-sidebar1-sidebar2 #sidebar-secondary-wrap{
+	margin-right: 20px;
+	margin-right: 2rem;
+	margin-left: -200px;
+	margin-left: -20rem;
+	float: right;
+}
+/* Layout: "sidebar1-content-sidebar2" */
+.layout-sidebar1-content-sidebar2 .main-inner{
+	float: left;
+	padding-left: 0;
+	padding-right: 200px;
+	padding-right: 20rem;
+}
+.layout-sidebar1-content-sidebar2 #sidebar-secondary-wrap{
+	margin-right: 20px;
+	margin-right: 2rem;
+	margin-left: -200px;
+	margin-left: -20rem;
+	float: right;
+}
+.layout-sidebar1-content-sidebar2 .main-wrap{
+	margin-right: 0;
+	margin-left: 340px;
+	margin-left: 34rem;
+}
+.layout-sidebar1-content-sidebar2 #content{
+	float: right;
+}
+.layout-sidebar1-content-sidebar2 #sidebar-primary-wrap{
+	float: left;
+	margin-right: 0;
+	margin-left: -340px;
+	margin-left: -34rem;
+}
+
+/* Start! */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

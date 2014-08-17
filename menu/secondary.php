@@ -1,31 +1,28 @@
-<?php
-/**
- * Secondary Menu Template
- *
- * Displays the Secondary Menu if it has active menu items.
- *
- * @package Shell
- * @subpackage Template
- */
+<nav <?php hybrid_attr( 'menu', 'secondary' ); ?>>
 
-if ( has_nav_menu( 'secondary' ) ) : ?>
+	<div class="menu-container menu-dropdown">
 
-	<?php do_atomic( 'before_menu_secondary' ); // shell_before_menu_secondary ?>
+		<?php tamatebako_menu_toggle( 'secondary' ); ?>
 
-	<nav id="menu-secondary" class="menu-container">
+		<?php 
+		/* Display menu only if the location is registered */
+		if ( tamatebako_is_menu_registered( 'primary' ) ){
+			wp_nav_menu(
+				array(
+					'theme_location'  => 'secondary',
+					'container'       => '',
+					'menu_id'         => 'menu-secondary-items',
+					'menu_class'      => 'menu-items',
+					'fallback_cb'     => '',
+					'items_wrap'      => '<div class="wrap"><ul id="%s" class="%s">%s</ul></div>'
+				)
+			);
+		}
+		else{
+			//tamatebako_menu_fallback_cb();
+		}
+		?>
 
-		<?php do_atomic( 'open_menu_secondary' ); // shell_open_menu_secondary ?>
+	</div><!-- .menu-container -->
 
-		<div class="wrap">
-
-			<?php echo apply_atomic( 'menu_secondary', wp_nav_menu( array( 'theme_location' => 'secondary', 'container_class' => 'menu', 'menu_class' => '', 'menu_id' => 'menu-secondary-items', 'fallback_cb' => '', 'echo' => 0 ) )); // shell_menu_secondary ?>
-
-		</div>
-
-		<?php do_atomic( 'close_menu_secondary' ); // shell_close_menu_secondary ?>
-
-	</nav><!-- #menu-secondary .menu-container -->
-
-	<?php do_atomic( 'after_menu_secondary' ); // shell_after_menu_secondary ?>
-
-<?php endif; ?>
+</nav><!-- #menu-primary -->

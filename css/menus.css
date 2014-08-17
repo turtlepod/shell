@@ -1,0 +1,283 @@
+/* Default */
+.menu-container{
+	min-height: 47px;
+	min-height: 4.7rem;
+	position: relative;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.menu-container ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+	line-height:1em;
+}
+.menu-container li{
+	float: left;
+	position: relative;
+}
+.menu-container li a{
+	padding: 15px;
+	padding: 1.5rem;
+	text-decoration: none;
+	background: #fff;
+	display: block;
+}
+.menu-container li li a{
+	background: #fff;
+}
+.menu-container li a:hover,
+.menu-container li a:focus{
+	color: #000;
+}
+.menu-container:after{
+	content:".";display:block;height:0;clear:both;visibility:hidden;
+}
+/* Drop down menu */
+.menu-dropdown{
+	font-size: 17px;
+	font-size: 1.7rem;
+}
+.menu-dropdown .sub-menu{
+	position: absolute;
+	opacity: 0;
+	width: 230px;
+	width: 23rem;
+	left: -9999px;
+	z-index: 99;
+	border-top: 1px solid #ccc;
+	margin-left: -1px;
+}
+.menu-dropdown .sub-menu .sub-menu{
+	margin-left: 0;
+}
+.menu-dropdown li:hover > .sub-menu{
+	left: auto;
+	opacity: 1;
+	-webkit-transition: opacity .4s ease-in-out;
+	-moz-transition:    opacity .4s ease-in-out;
+	-ms-transition:     opacity .4s ease-in-out;
+	-o-transition:      opacity .4s ease-in-out;
+	transition:         opacity .4s ease-in-out;
+}
+.menu-dropdown li.focus > .sub-menu{
+	left: auto;
+	opacity: 1;
+}
+.menu-dropdown .sub-menu li:hover > .sub-menu,
+.menu-dropdown .sub-menu li.focus > .sub-menu{
+	top: -1px;
+	left: 229px;
+	left: 22.9rem;
+}
+.menu-dropdown .sub-menu li{
+	width: 100%;
+}
+.menu-dropdown .sub-menu li a{
+	border: 1px solid #ccc;
+	border-top: 0;
+}
+.menu-dropdown ul li.menu-item-open-children > a,
+.menu-dropdown ul li.menu-item-has-children > a{
+	padding-right: 25px;
+	padding-right: 2.5rem;
+}
+.menu-dropdown ul li.menu-item-open-children > a:before,
+.menu-dropdown ul li.menu-item-has-children > a:before{
+	content: "\f140";
+	font-family: "dashicons";
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-right: 0.5rem;
+	padding-left: 5px;
+	padding-left: 0.5rem;
+	float: right;
+	position: absolute;
+	right: 0;
+	-webkit-font-smoothing: antialiased;
+}
+.menu-dropdown .sub-menu .menu-item-open-children > a:before,
+.menu-dropdown .sub-menu .menu-item-has-children > a:before{
+	content: "\f139";
+}
+/* Drop Down Mobile */
+.mobile-menu-active .menu-dropdown li:hover > .sub-menu,
+.mobile-menu-active .menu-dropdown li.focus > .sub-menu{
+	left: -9999px;
+}
+.mobile-menu-active .menu-dropdown li.menu-item-open-children > .sub-menu{
+	left: auto;
+	opacity: 1;
+}
+.mobile-menu-active .menu-dropdown .sub-menu li.menu-item-open-children > .sub-menu{
+	top: -1px;
+	left: 229px;
+	left: 22.9rem;
+}
+.mobile-menu-active .menu-item-parent-link a:before{
+	content: "\f344";
+	font-family: "dashicons";
+	vertical-align: top;
+	margin-right: 5px;
+	margin-right: 0.5rem;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Menu Search */
+.menu-search > .wrap{
+	float: left;
+	margin-right: 38px;
+	margin-right: 3.8rem;
+}
+	.no-js .menu-search > .wrap{
+		margin-right: 180px;
+		margin-right: 18rem;
+	}
+.menu-search .search-form{
+	float: right;
+	position: absolute;
+	line-height: 1.8em;
+	top:0;
+	right: 0;
+}
+.menu-search .search-toggle{
+	background: transparent;
+	display: block;
+	width: 47px;
+	width: 4.7rem;
+	height: 47px;
+	height: 4.7rem;
+	float: right;
+	padding: 0;
+	border: none;
+}
+.menu-search .search-toggle:hover,
+.menu-search .search-toggle:focus{
+	opacity: 0.8;
+	border: none;
+}
+.menu-search .search-toggle:after{
+	content: "\f179";
+	font-family: "dashicons";
+	font-size: 30px;
+	font-size: 3rem;
+	padding: 8px;
+	padding: 0.8rem;
+	float: right;
+	-webkit-font-smoothing: antialiased;
+}
+.menu-search input{
+	padding: 5px;
+	padding: 0.5rem;
+	display: none;
+	width: auto;
+}
+.menu-search .search-submit{
+	display: none;
+}
+.menu-search .search-field{
+	background: #fff;
+}
+.menu-search .search-submit{
+	padding: 0;
+}
+/* Search Toggle Active */
+.search-toggle-active.menu-search .search-form{
+	width: 250px;
+	width: 25rem
+}
+.search-toggle-active.menu-search .search-field{
+	width: 160px;
+	width: 16rem;
+	margin: 0;
+	margin-top: 7px;
+	margin-top: 0.7rem;
+	padding: 0 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	border-radius: 0.3rem;
+	-webkit-border-radius: 3px;
+	-webkit-border-radius: 0.3rem;
+	-moz-border-radius: 3px;
+	-moz-border-radius: 0.3rem;
+}
+.search-toggle-active.menu-search .search-submit{
+}
+.search-toggle-active.menu-search input{
+	display: inline;
+}
+.search-toggle-active.menu-search .search-submit{
+	display: inline;
+	width: 33px;
+	width: 3.3rem;
+	height: 33px;
+	height: 3.3rem;
+	margin: 7px 0 0;
+	margin: 0.7rem 0 0;
+	float: right;
+	border: none;
+	background: transparent;
+}
+.search-toggle-active.menu-search .search-submit:hover,
+.search-toggle-active.menu-search .search-submit:focus{
+	opacity: 0.8;
+}
+.search-toggle-active.menu-search .search-submit:before{
+	content: "\f179";
+	font-family: "dashicons";
+	font-size: 30px;
+	font-size: 3rem;
+	padding: 0;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+}
+.search-toggle-active.menu-search .search-toggle:after{
+	content: "\f335";
+}
+	/* Menu Search "no-js" */
+	.no-js .search-toggle{
+		display: none;
+	}
+	.no-js .menu-search .search-form{
+		width: 180px;
+		width: 18rem;
+	}
+	.no-js .menu-search .search-field{
+		color: #ccc;
+		border-color: transparent;
+		width: 90px;
+		width: 9rem;
+		margin: 0;
+		margin-top: 7px;
+		margin-top: 0.7rem;
+		padding: 0 0.5rem;
+		float: right;
+		-webkit-transition: all 0.5s ease-out;
+		-moz-transition:    all 0.5s ease-out;
+		-o-transition:       all 0.5s ease-out;
+		transition:  all 0.5s ease-out;
+	}
+	.no-js .menu-search .search-field:focus,
+	.no-js .menu-search .search-field:not([value=""]){
+		color: #ededed;
+		border-color: transparent;
+		-webkit-transition: all 0.25s ease-in;
+		-moz-transition:    all 0.25s ease-in;
+		-o-transition:       all 0.25s ease-in;
+		transition:  all 0.25s ease-in;
+		width: 100%;
+	}
+	.no-js .menu-search .search-submit{
+		display: none;
+	}
+	.no-js .menu-search input{
+		display: inline;
+		background: transparent;
+	}
+	.no-js .menu-search .search-toggle:after{
+		content: "\f335";
+	}
+/* Menu Toggle */
+.menu-toggle{
+	display: none;
+}

@@ -1,0 +1,169 @@
+#comments-template{
+	
+}
+	#comments{
+		
+	}
+	.comments-header{
+		
+	}
+		.comments-nav{
+			
+		}
+			.comments-nav a{
+				
+			}
+				.comments-nav .prev-comments{
+					
+				}
+				.comments-nav .next-comments{
+					
+				}
+				.comments-nav .prev-comments .screen-reader-text,
+				.comments-nav .next-comments .screen-reader-text{
+					
+				}
+			.comments-nav .page-numbers{
+				
+			}
+		#comments-number{
+
+		}
+	.comment-list{
+		
+	}
+		.comment-list .children{
+			
+		}
+		/* Comment */
+		.comment{
+			
+		}
+		.comment.bypostauthor{
+			
+		}
+			.comment-wrap{
+				
+			}
+				.comment-meta{
+					
+				}
+					.comment-meta .avatar{
+						
+					}
+					.comment-author{
+						
+					}
+					.comment-published{
+						
+					}
+					.comment-permalink{
+						
+					}
+					.comment-edit-link{
+						
+					}
+				 .comment-content{
+					
+				}
+					.comment-content p{
+						
+					}
+				.comment-reply-link{
+					
+				}
+		/* Pingback */
+		.pingback{
+		
+		}
+			.pingback .comment-meta{
+			
+			}
+				.pingback .comment-author{
+					
+				}
+				.pingback .comment-published{
+					
+				}
+				.pingback .comment-permalink{
+					
+				}
+				.pingback .comment-edit-link{
+					
+				}
+		
+	#respond{
+		
+	}
+	.comment-list #respond{
+		
+	}
+		#reply-title{
+			
+		}
+			#reply-title small,
+			#cancel-comment-reply-link{
+				
+			}
+		#commentform{
+			
+		}
+			#commentform p{
+				
+			}
+			#commentform .required{
+				
+			}
+			#commentform label{
+				
+			}
+			#commentform .logged-in-as{
+				
+			}
+			#commentform .comment-notes{
+				
+			}
+			/* Form input */
+			#commentform .comment-form-author{
+				
+			}
+				#commentform #author{
+					
+				}
+			#commentform .comment-form-email{
+				
+			}
+				#commentform #email{
+					
+				}
+			#commentform .comment-form-url{
+				
+			}
+				#commentform #url{
+					
+				}
+			#commentform .comment-form-comment{
+				
+			}
+				#commentform #comment{
+					
+				}
+			#commentform .form-allowed-tags{
+				
+			}
+				#commentform .form-allowed-tags code{
+					
+				}
+			#commentform .form-submit{
+				
+			}
+				#commentform #submit{
+					
+				}
+/* Closed Comments */
+.comments-closed{
+	
+}
+.comments-closed.pings-open{
+	
+}

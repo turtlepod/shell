@@ -1,0 +1,119 @@
+/**
+ * Debug Media Queries CSS
+******************************************/
+#container::before{
+	content:"> 1350px";
+	margin-right: 30px;
+	margin-right: 3rem;
+	float: right;
+}
+@media screen and (max-width: 1300px){
+	#container::before{
+		content:"1300px -  1350px";
+	}
+}
+@media screen and (max-width: 1250px){
+	#container::before{
+		content:"1250px -  1300px";
+	}
+}
+@media screen and (max-width: 1200px){
+	#container::before{
+		content:"1200px -  1250px";
+	}
+}
+@media screen and (max-width: 1150px){
+	#container::before{
+		content:"1150px -  1200px";
+	}
+}
+@media screen and (max-width: 1100px){
+	#container::before{
+		content:"1100px - 1150px";
+	}
+}
+@media screen and (max-width: 1050px){
+	#container::before{
+		content:"1050px - 1100px";
+	}
+}
+@media screen and (max-width: 1000px){
+	#container::before{
+		content:"1000px - 1050px";
+	}
+}
+@media screen and (max-width: 950px){
+	#container::before{
+		content:"950px - 1000px";
+	}
+}
+@media screen and (max-width: 900px){
+	#container::before{
+		content:"900px - 950px";
+	}
+}
+@media screen and (max-width: 850px){
+	#container::before{
+		content:"850px - 900px";
+	}
+}
+@media screen and (max-width: 800px){
+	#container::before{
+		content:"800px - 850px";
+	}
+}
+@media screen and (max-width: 750px){
+	#container::before{
+		content:"750px - 800px";
+	}
+}
+@media screen and (max-width: 700px){
+	#container::before{
+		content:"700px - 750px";
+	}
+}
+@media screen and (max-width: 650px){
+	#container::before{
+		content:"650px - 700px";
+	}
+}
+@media screen and (max-width: 600px){
+	#container::before{
+		content:"600px - 550px";
+	}
+}
+@media screen and (max-width: 550px){
+	#container::before{
+		content:"550px - 600px";
+	}
+}
+@media screen and (max-width: 500px){
+	#container::before{
+		content:"500px - 550px";
+	}
+}
+@media screen and (max-width: 450px){
+	#container::before{
+		content:"450px - 500px";
+	}
+}
+@media screen and (max-width: 400px){
+	#container::before{
+		content:"400px - 450px";
+	}
+}
+@media screen and (max-width: 350px){
+	#container::before{
+		content:"350px - 400px";
+	}
+}
+@media screen and (max-width: 300px){
+	#container::before{
+		content:"300px - 350px";
+	}
+}
+@media screen and (max-width: 250px){
+	#container::before{
+		content:"250px - 300px";
+	}
+}
