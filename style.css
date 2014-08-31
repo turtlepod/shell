@@ -84,8 +84,8 @@ a:focus {
 }
 /* Header */
 #header{
-	padding: 40px 75px;
-	padding: 4rem 7.5rem;
+	padding: 40px 80px;
+	padding: 4rem 8rem;
 	border-bottom: 1px solid #ccc;
 }
 	#branding{
@@ -109,22 +109,22 @@ a:focus {
 		}
 /* Main */
 #main{
-	padding: 40px 75px;
-	padding: 4rem 7.5rem;
+	padding: 40px 80px;
+	padding: 4rem 8rem;
 	padding-right: 0;
 }
 	.main-inner{
 		width: 100%;
 	}
 		.main-wrap{
-			margin-right: 375px;
-			margin-right: 37.5rem;
+			margin-right: 380px;
+			margin-right: 38rem;
 		}
 		/* "layout-sidebar1-content" */
 		.layout-sidebar1-content .main-wrap{
 			margin-right: 0;
-			margin-left: 375px;
-			margin-left: 37.5rem;
+			margin-left: 380px;
+			margin-left: 38rem;
 		}
 		/* "layout-content" */
 		.layout-content .main-wrap{
@@ -140,13 +140,13 @@ a:focus {
 	float: right;
 }
 	.content-entry-wrap{
-		padding-right: 75px;
-		padding-right: 7.5rem;
+		padding-right: 80px;
+		padding-right: 8rem;
 	}
 /* Loop Meta */
 .loop-meta{
-	margin-right: 75px;
-	margin-right: 7.5rem;
+	margin-right: 80px;
+	margin-right: 8rem;
 	margin-bottom: 40px;
 	margin-bottom: 4rem;
 	padding-bottom: 20px;
@@ -215,8 +215,8 @@ a:focus {
 .layout-sidebar1-content #sidebar-primary-wrap{
 	float: left;
 	margin-right: 0;
-	margin-left: -375px;
-	margin-left: -37.5rem;
+	margin-left: -380px;
+	margin-left: -38rem;
 }
 /* Widgets */
 .widget{
@@ -232,8 +232,8 @@ a:focus {
 
 /* Footer */
 #footer{
-	padding: 20px 75px;
-	padding: 2rem 7.5rem;
+	padding: 20px 80px;
+	padding: 2rem 8rem;
 	border-top: 1px solid #ccc;
 }
 	#footer p{
