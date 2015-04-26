@@ -206,6 +206,11 @@ function hybrid_comment_form_args( $args ) {
 		'title_reply_to'       => __( 'Leave a Reply to %s', 'hybrid-core' ),
 		'cancel_reply_link'    => __( 'Click here to cancel reply.', 'hybrid-core' ),
 		'label_submit'         => __( 'Post Comment', 'hybrid-core' ),
+		/* WP 4.2 Fix */
+		'class_submit'         => 'submit',
+		'name_submit'          => 'submit',
+		'submit_button'        => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
+		'submit_field'         => '<p class="form-submit">%1$s %2$s</p>',
 	);
 
 	/* Return the arguments for displaying the comment form. */
