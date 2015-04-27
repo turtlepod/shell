@@ -23,8 +23,14 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write 
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
+ * NOTE:
+ * This is modified version of Hybrid Core v.1.6.x
+ * Modification:
+ * - WP 4.2 Compatibility.
+ * - Fix Media Attachment.
+ *
  * @package   HybridCore
- * @version   1.6.2
+ * @version   1.6.2 (modified)
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2008 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/hybrid-core
